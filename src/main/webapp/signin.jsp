@@ -19,6 +19,7 @@
         <div class="panel-body">
             <form class="form-horizontal m-t-20" action="/signin" method="post">
 
+
                 <div class="form-group ">
                     <div class="col-xs-12">
                         <input class="form-control" type="text" required="required" placeholder="Username" name="username">
@@ -70,6 +71,11 @@
 
             </form>
 
+            <div class="form-group text-center m-t-40">
+                <div class="col-xs-12">
+                    <button class="btn btn-red btn-block text-uppercase waves-effect waves-light" type="submit">Back to Review</button>
+                </div>
+            </div>
         </div>
     </div>
 

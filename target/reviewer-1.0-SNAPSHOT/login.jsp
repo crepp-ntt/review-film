@@ -13,12 +13,15 @@
 <div class="wrapper-page">
     <div class=" card-box">
         <div class="panel-heading">
-            <h3 class="text-center"> Sign In to <strong class="text-custom">UBold</strong> </h3>
+
+            <h3 class="text-center"> Sign In to <strong class="text-custom">Review</strong> </h3>
         </div>
 
 
         <div class="panel-body">
             <form class="form-horizontal m-t-20" action="/login">
+
+
 
                 <div class="form-group ">
                     <div class="col-xs-12">
@@ -32,17 +35,7 @@
                     </div>
                 </div>
 
-                <div class="form-group ">
-                    <div class="col-xs-12">
-                        <div class="checkbox checkbox-primary">
-                            <input id="checkbox-signup" type="checkbox">
-                            <label for="checkbox-signup">
-                                Remember me
-                            </label>
-                        </div>
 
-                    </div>
-                </div>
 
                 <div class="form-group text-center m-t-40">
                     <div class="col-xs-12">
@@ -55,8 +48,15 @@
                         <a href="page-recoverpw.html" class="text-dark"><i class="fa fa-lock m-r-5"></i> Forgot your password?</a>
                     </div>
                 </div>
+
+
             </form>
 
+            <div class="form-group text-center m-t-40">
+                <div class="col-xs-12">
+                    <button class="btn btn-red btn-block text-uppercase waves-effect waves-light" type="submit">Back to Review</button>
+                </div>
+            </div>
         </div>
     </div>
     <div class="row">

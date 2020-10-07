@@ -17,25 +17,40 @@
         </div>
 
         <div class="panel-body">
-            <form class="form-horizontal m-t-20" action="index.html">
+            <form class="form-horizontal m-t-20" action="/signin" method="post">
+
 
                 <div class="form-group ">
                     <div class="col-xs-12">
-                        <input class="form-control" type="email" required="" placeholder="Email">
-                    </div>
-                </div>
-
-                <div class="form-group ">
-                    <div class="col-xs-12">
-                        <input class="form-control" type="text" required="" placeholder="Username">
+                        <input class="form-control" type="text" required="required" placeholder="Username" name="username">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-xs-12">
-                        <input class="form-control" type="password" required="" placeholder="Password">
+                        <input class="form-control" type="password" required="required" placeholder="Password" name="password">
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <input class="form-control" type="password" required="required" placeholder="Confirm Password" name="password">
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    <div class="col-xs-12">
+                        <input class="form-control" type="email" required="required" placeholder="Email" name="email">
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    <div class="col-xs-12">
+                        <input class="form-control" type="text" required="required" placeholder="Name" name="name">
+                    </div>
+                </div>
+
+
 
                 <div class="form-group">
                     <div class="col-xs-12">
@@ -56,6 +71,11 @@
 
             </form>
 
+            <div class="form-group text-center m-t-40">
+                <div class="col-xs-12">
+                    <button class="btn btn-red btn-block text-uppercase waves-effect waves-light" type="submit">Back to Review</button>
+                </div>
+            </div>
         </div>
     </div>
 

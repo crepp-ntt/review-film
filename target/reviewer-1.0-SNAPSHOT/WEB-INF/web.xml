@@ -5,20 +5,29 @@
          version="4.0">
 
     <servlet>
-        <servlet-name>loginMaping</servlet-name>
+        <servlet-name>login</servlet-name>
         <jsp-file>/login.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
-        <servlet-name>loginMaping</servlet-name>
+        <servlet-name>login</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>signinMaping</servlet-name>
+        <servlet-name>signin</servlet-name>
         <jsp-file>/signin.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
-        <servlet-name>signinMaping</servlet-name>
+        <servlet-name>signin</servlet-name>
         <url-pattern>/signin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>change_pass</servlet-name>
+        <jsp-file>/change_pass.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>change_pass</servlet-name>
+        <url-pattern>/change_pass</url-pattern>
     </servlet-mapping>
 </web-app>
