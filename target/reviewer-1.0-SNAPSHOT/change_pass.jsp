@@ -5,8 +5,7 @@
   Time: 14:25
   To change this template use File | Settings | File Templates.
 --%>
-<!DOCTYPE html>
-<html>
+
 <%@include file="includes/header.jsp"%>
 <body>
 
@@ -84,6 +83,7 @@
 <script>
     var resizefunc = [];
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script>
 

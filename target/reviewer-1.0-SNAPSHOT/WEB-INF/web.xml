@@ -30,4 +30,13 @@
         <servlet-name>change_pass</servlet-name>
         <url-pattern>/change_pass</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>create_post</servlet-name>
+        <jsp-file>/create_post.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>create_post</servlet-name>
+        <url-pattern>/create_post</url-pattern>
+    </servlet-mapping>
 </web-app>

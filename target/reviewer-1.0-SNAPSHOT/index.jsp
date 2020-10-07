@@ -6,7 +6,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@include file="includes/header.jsp"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <%@include file="includes/header.jsp"%>
+</head>
 
 <body class="fixed-left">
 
