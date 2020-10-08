@@ -14,6 +14,5 @@ public class change_pass extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendRedirect("/change_pass.jsp");
     }
 }

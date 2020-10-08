@@ -18,7 +18,6 @@
     }
 </style>
 <body class="fixed-left">
-<script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
 
 <!-- Begin page -->
 <div id="wrapper">
@@ -137,14 +136,24 @@
 <script>
     var resizefunc = [];
 </script>
-<script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
 
+<script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
+<%--    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--%>
 <script>
+    // ClassicEditor
+    //     .create( document.querySelector( '#editor' ) )
+    //     .catch( error => {
+    //         console.error( error );
+    //     } );
     ClassicEditor
-        .create( document.querySelector( '#editor' ) )
-        .catch( error => {
-            console.error( error );
+        .create( document.querySelector( '#editor' ), {
+
+            ckfinder: {
+                uploadUrl: 'https://example.com/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images&responseType=json'
+            }
         } );
+
+
 </script>
 <!-- jQuery  -->
 <script src="assets/js/jquery.min.js"></script>
@@ -167,17 +176,16 @@
 
 
 
-<script src="assets/plugins/morris/morris.min.js"></script>
+<%--<script src="assets/plugins/morris/morris.min.js"></script>--%>
 <script src="assets/plugins/raphael/raphael-min.js"></script>
 
 <script src="assets/plugins/jquery-knob/jquery.knob.js"></script>
 
-<script src="assets/pages/jquery.dashboard.js"></script>
+<%--<script src="assets/pages/jquery.dashboard.js"></script>--%>
 
 <script src="assets/js/jquery.core.js"></script>
 <script src="assets/js/jquery.app.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script>
 
@@ -187,17 +195,17 @@
     });
 
 </script>
-<script type="text/javascript">
-    jQuery(document).ready(function($) {
-        $('.counter').counterUp({
-            delay: 100,
-            time: 1200
-        });
+<%--<script type="text/javascript">--%>
+<%--    jQuery(document).ready(function($) {--%>
+<%--        $('.counter').counterUp({--%>
+<%--            delay: 100,--%>
+<%--            time: 1200--%>
+<%--        });--%>
 
-        $(".knob").knob();
+<%--        $(".knob").knob();--%>
 
-    });
-</script>
+<%--    });--%>
+<%--</script>--%>
 
 
 
