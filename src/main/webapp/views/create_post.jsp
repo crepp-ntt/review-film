@@ -22,7 +22,7 @@
 <!-- Begin page -->
 <div id="wrapper">
 
-    <%@include file="/includes/top_bar.jsp"%>
+    <%@include file="includes/top_bar.jsp"%>
 
 
     <!-- ============================================================== -->
@@ -140,20 +140,19 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
 <%--    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--%>
 <script>
-    // ClassicEditor
-    //     .create( document.querySelector( '#editor' ) )
-    //     .catch( error => {
-    //         console.error( error );
-    //     } );
     ClassicEditor
-        .create( document.querySelector( '#editor' ), {
-
-            ckfinder: {
-                uploadUrl: 'https://example.com/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images&responseType=json'
+        .create( document.querySelector( '#editor' ),{
+            cloudServices: {
+                tokenUrl: 'https://example.com/cs-token-endpoint',
+                uploadUrl: 'https://your-organization-id.cke-cs.com/easyimage/upload/'
             }
+        } )
+        .then( editor => {
+            console.log( editor );
+        } )
+        .catch( error => {
+            console.error( error );
         } );
-
-
 </script>
 <!-- jQuery  -->
 <script src="assets/js/jquery.min.js"></script>

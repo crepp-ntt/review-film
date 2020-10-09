@@ -35,6 +35,11 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.opendaylight.controller.thirdparty</groupId>
+            <artifactId>org.apache.catalina.filters.CorsFilter</artifactId>
+            <version>7.0.42</version>
+        </dependency>
     </dependencies>
 
     <build>

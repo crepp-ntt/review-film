@@ -4,6 +4,12 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
+
+    <welcome-file-list>
+        <welcome-file>/views/index.jsp</welcome-file>
+    </welcome-file-list>
+
+
     <servlet>
         <servlet-name>login</servlet-name>
         <jsp-file>/login.jsp</jsp-file>
@@ -31,29 +37,28 @@
         <url-pattern>/change_pass</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>create_post</servlet-name>
-        <jsp-file>/create_post.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>create_post</servlet-name>
-        <url-pattern>/create_post</url-pattern>
-    </servlet-mapping>
+<!--    <servlet>-->
+<!--        <servlet-name>create_post</servlet-name>-->
+<!--        <jsp-file>/views/create_post.jsp</jsp-file>-->
+<!--    </servlet>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>create_post</servlet-name>-->
+<!--        <url-pattern>/create_post</url-pattern>-->
+<!--    </servlet-mapping>-->
 
-    <servlet>
-        <servlet-name>change_profile</servlet-name>
-        <jsp-file>/change_profile.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>change_profile</servlet-name>
-        <url-pattern>/change_profile</url-pattern>
-    </servlet-mapping>
+<!--    <servlet>-->
+<!--        <servlet-name>change_profile</servlet-name>-->
+<!--        <jsp-file>/change_profile.jsp</jsp-file>-->
+<!--    </servlet>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>change_profile</servlet-name>-->
+<!--        <url-pattern>/change_profile</url-pattern>-->
+<!--    </servlet-mapping>-->
 
     <filter>
         <filter-name>CorsFilter</filter-name>
-        <filter-class>filter.CORSFilter</filter-class>
+        <filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
     </filter>
-
     <filter-mapping>
         <filter-name>CorsFilter</filter-name>
         <url-pattern>/*</url-pattern>

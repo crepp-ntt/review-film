@@ -17,7 +17,7 @@
 <!-- Begin page -->
 <div id="wrapper">
 
-    <%@include file="/includes/top_bar.jsp"%>
+    <%@include file="includes/top_bar.jsp"%>
 
 
     <!-- ============================================================== -->

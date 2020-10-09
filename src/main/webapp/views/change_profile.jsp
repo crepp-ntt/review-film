@@ -60,13 +60,13 @@
 
                                 <div class="col-md-12">
 
-                                    <form class="form-horizontal" role="form">
+                                    <form  class="form-horizontal change_profile" role="form"  enctype="multipart/form-data">
                                         <div class="col-md-3 m-t-10">
                                             <div class="col-md-4"></div>
 
                                             <div class="col-md-6">
-                                                <img id="blah" src="/assets/images/users/avatar.jpg" alt="your image" style="width: 200px; height: 200px"/>
-                                                <input type='file' id="imgInp" />
+                                                <img id="blah" src="assets/images/users/avatar.jpg" alt="your image" style="width: 200px; height: 200px"/>
+                                                <input type='file' id="imgInp" name="img"/>
                                             </div>
 
                                         </div>
@@ -82,13 +82,13 @@
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label">Name</label>
                                                 <div class="col-md-10">
-                                                    <input type="text" class="form-control" required="required" placeholder="Name">
+                                                    <input type="text" class="form-control" required placeholder="Name" name="name">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label" >Email</label>
                                                 <div class="col-md-10">
-                                                    <input type="text"  class="form-control" required="required" placeholder="Email">
+                                                    <input type="text"  class="form-control" required placeholder="Email" name="email">
                                                 </div>
                                             </div>
 
@@ -96,14 +96,14 @@
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label">DoB</label>
                                                 <div class="col-md-10">
-                                                    <input placeholder="mm/dd/yyyy"  class="form-control" id="datepicker" required="required">
+                                                    <input placeholder="mm/dd/yyyy"  class="form-control" id="datepicker" required name="dob">
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="col-md-2 control-label" >Email</label>
+                                                <label class="col-md-2 control-label" >Phone</label>
                                                 <div class="col-md-10">
-                                                    <input type="text"  class="form-control" required="required" placeholder="Phone">
+                                                    <input type="text"  class="form-control" required placeholder="Phone" name="phone">
                                                 </div>
                                             </div>
 
@@ -116,7 +116,7 @@
                                                     <a href="" class="btn btn-primary btn-block text-uppercase waves-effect waves-light reset" >Reset</a>
                                                 </div>
                                                 <div class="col-xs-5">
-                                                    <button class="btn btn-pink btn-block text-uppercase waves-effect waves-light" type="submit" id="test">Save</button>
+                                                    <button class="btn btn-pink btn-block text-uppercase waves-effect waves-light" type="submit" id="submit">Save</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -213,12 +213,7 @@
     function readURL(input) {
         if (input.files && input.files[0]) {
             let reader = new FileReader();
-            reader.readAsDataURL(input.files[0]);
             reader.onload = function (e) {
-
-                let filename = $('#imgInp').val();
-                alert(filename);
-
                 $('#blah').attr('src', e.target.result).width(200)
                     .height(200);
             }
@@ -232,13 +227,52 @@
     $("#imgInp").change(function(){
         readURL(this);
     });
+    // $("#change_profile").submit(function (e){
+    //     e.preventDefault();
+    //     let data = new FormData($(this)[0]);
+    //     $.ajax({
+    //         url: "/change_profile",
+    //         type: "POST",
+    //         data: data,
+    //         async: false,
+    //         cache: false,
+    //         contentType: false,
+    //         processData: false,
+    //         success: function (returndata) {
+    //             //
+    //         },
+    //         error: function () {
+    //             alert("error in ajax form submission");
+    //         }
+    //     });
+    //     return false;
+    // })
 </script>
-
 <script>
-    $('#test').click(function(){
-        var images = $('#blah').attr('src');
-        alert(images);
-    });
+    $(".change_profile").on('submit',(function(e){
+        e.preventDefault();
+        let temp =  $('form').serialize();
+        alert(temp);
+        let data = new FormData($(this)[0]);
+        $.ajax({
+
+            type: "POST",
+            url: "/change_profile",
+            data:  data,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(data){
+                //alert(data);
+            },
+            error: function(){
+                alert("error");
+            },
+
+        })
+        return false;
+    }));
 </script>
 <script>
 
