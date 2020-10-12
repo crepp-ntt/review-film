@@ -14,6 +14,6 @@ public class create_post extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.addHeader("Access-Control-Allow-Origin", "*");
-        response.sendRedirect("views/create_post.jsp");
+        response.sendRedirect("create_post.jsp");
     }
 }

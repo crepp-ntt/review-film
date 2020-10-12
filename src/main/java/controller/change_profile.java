@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = "/change_profile")
+@WebServlet(name = "change_profile")
 @MultipartConfig
 public class change_profile extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
