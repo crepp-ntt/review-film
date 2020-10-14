@@ -5,7 +5,11 @@
   Time: 10:03
   To change this template use File | Settings | File Templates.
 --%>
-<%@include file="includes/header.jsp"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <%@include file="includes/header.jsp"%>
+</head>
 <body>
 
 <div class="account-pages"></div>
@@ -19,25 +23,26 @@
 
 
         <div class="panel-body">
-            <form class="form-horizontal m-t-20" action="/login">
+            <form class="form-horizontal m-t-20" id="login">
 
 
 
                 <div class="form-group ">
                     <div class="col-xs-12">
-                        <input class="form-control" type="text" required="true" placeholder="Username" name="username">
+                        <input class="form-control" type="text" required placeholder="Username" name="username">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-xs-12">
-                        <input class="form-control" type="password" required="true" placeholder="Password" name="password">
+                        <input class="form-control" type="password" required placeholder="Password" name="password">
                     </div>
                 </div>
 
 
 
                 <div class="form-group text-center m-t-40">
+                    <span id="result1"></span>
                     <div class="col-xs-12">
                         <button class="btn btn-pink btn-block text-uppercase waves-effect waves-light" type="submit">Log In</button>
                     </div>
@@ -50,7 +55,7 @@
 
             <div class="form-group text-center m-t-40">
                 <div class="col-xs-12">
-                    <button class="btn btn-red btn-block text-uppercase waves-effect waves-light" type="submit">Back to Review</button>
+                    <button href="/" class="btn btn-red btn-block text-uppercase waves-effect waves-light" id="back_review">Back to Review</button>
                 </div>
             </div>
         </div>
@@ -86,6 +91,37 @@
 
 <script src="assets/js/jquery.core.js"></script>
 <script src="assets/js/jquery.app.js"></script>
+<script>
+    $('#login').submit(function (e){
+        e.preventDefault();
+        let data = new FormData($(this)[0]);
+        $.ajax({
+            url: '/login',
+            type: 'POST',
+            data: data,
+            async: false,
+            cache: false,
+            success: function (result) {
 
+                if(result.false){
+                    $('#result1').html(result.false);
+                }
+                else if(result.redirect)
+                    window.location.href = result.redirect;
+            },
+            error: function () {
+                alert("error in ajax form submission");
+            }
+        })
+        return false;
+    });
+
+    $('#back_review').on('click', function (e){
+        $.ajax(
+        window.location.href = "/"
+        )
+    })
+
+</script>
 </body>
 </html>

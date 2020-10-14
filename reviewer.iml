@@ -61,5 +61,6 @@
     <orderEntry type="library" name="Maven: orbit:org.apache.tomcat.util:7.0.32.v201211201952" level="project" />
     <orderEntry type="library" name="Maven: orbit:org.apache.catalina:7.0.32.v201211201336" level="project" />
     <orderEntry type="library" name="Maven: org.postgresql:postgresql:42.2.5" level="project" />
+    <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.8.5" level="project" />
   </component>
 </module>

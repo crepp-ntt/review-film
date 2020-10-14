@@ -11,6 +11,7 @@ public class Post {
   private String content;
   private String currentStatus;
   private java.sql.Date date;
+  private String filmName;
 
 
   public long getId() {
@@ -82,6 +83,15 @@ public class Post {
 
   public void setDate(java.sql.Date date) {
     this.date = date;
+  }
+
+
+  public String getFilmName() {
+    return filmName;
+  }
+
+  public void setFilmName(String filmName) {
+    this.filmName = filmName;
   }
 
 }

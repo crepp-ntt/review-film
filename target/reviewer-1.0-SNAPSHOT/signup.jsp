@@ -5,7 +5,11 @@
   Time: 11:54
   To change this template use File | Settings | File Templates.
 --%>
-<%@include file="includes/header.jsp"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <%@include file="includes/header.jsp"%>
+</head>
 <body>
 
 <div class="account-pages"></div>
@@ -17,7 +21,7 @@
         </div>
 
         <div class="panel-body">
-            <form class="form-horizontal m-t-20 sign_up" enctype="multipart/form-data">
+            <form class="form-horizontal m-t-20" id="sign_up" enctype="multipart/form-data">
 
 
                 <div class="form-group ">
@@ -56,6 +60,7 @@
 
 
                 <div class="form-group text-center m-t-40">
+                    <span id="result1"></span>
                     <div class="col-xs-12">
                         <button class="btn btn-pink btn-block text-uppercase waves-effect waves-light" type="submit">
                             Register
@@ -67,9 +72,9 @@
 
             <div class="form-group text-center m-t-40">
                 <div class="col-xs-12">
-                    <button class="btn btn-red btn-block text-uppercase waves-effect waves-light">Back to Review</button>
+                    <button class="btn btn-red btn-block text-uppercase waves-effect waves-light" id="back_review">Back to Review</button>
                 </div>
-                <span id="result1"></span>
+
             </div>
         </div>
     </div>
@@ -101,7 +106,7 @@
 <script src="assets/js/jquery.scrollTo.min.js"></script>
 
 <script>
-    $('.sign_up').submit(function (e){
+    $('#sign_up').submit(function (e){
         e.preventDefault();
         let data = new FormData($(this)[0]);
         $.ajax({
@@ -113,13 +118,23 @@
             contentType: false,
             processData: false,
             success: function (result) {
-                window.location.href=result;
+
+                if(result.false){
+                    $('#result1').html(result.false);
+                }
+                else
+                    $('#result1').html(result.success);
             },
             error: function () {
                 alert("error in ajax form submission");
             }
         });
         return false;
+    });
+    $('#back_review').on('click', function (e){
+        $.ajax(
+            window.location.href = "/"
+        )
     })
 </script>
 

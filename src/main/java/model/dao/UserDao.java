@@ -1,5 +1,6 @@
 package model.dao;
 
+import constant.CONSTANT;
 import model.entity.User;
 
 import javax.swing.*;
@@ -7,20 +8,24 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDao implements DAO<User>{
-    //PostgreSQL
-    private static final String DRIVE_NAME = "org.postgresql.Driver";
-    private static final String DB_URL = "jdbc:postgresql://localhost:5432/reviewer";
-    private static final String ID = "crepp";
-    private static final String PASS = "password";
+public class UserDao implements iUserDao{
+    private static final
+    String FIND_ALL = "SELECT * FROM users";
 
-    private static final String FIND_ALL = "SELECT * FROM users";
-    private static final String INSERT = "INSERT INTO users(username, password, name, email) VALUES (?,?,?,?)";
-    private static final String UPDATE = "UPDATE users SET password=?,name=?,email=?,dob=?,phone=?,avt=? WHERE username=?";
-    private static final String CHECK_EXISTS = "SELECT * FROM users WHERE username=?";
+    private static final
+    String INSERT = "INSERT INTO users(username, password, name, email) VALUES (?,?,?,?)";
+
+    private static final
+    String UPDATE = "UPDATE users SET password=?,name=?,email=?,dob=?,phone=?,avt=? WHERE username=?";
+
+    private static final
+    String FIND_ONE = "SELECT * FROM users WHERE username=?";
 
 
-
+    /**
+     * Method to get all user in database
+     * @return List<User>: all users in database
+     */
     @Override
     public List<User> findAll() {
         Connection conn = null;
@@ -32,17 +37,7 @@ public class UserDao implements DAO<User>{
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()){
-                User user = new User();
-                user.setUsername(rs.getString("username"));
-                user.setPassword(rs.getString("password"));
-                user.setName(rs.getString("name"));
-                user.setEmail(rs.getString("email"));
-                user.setDob(rs.getDate("dob"));
-                user.setAvt(rs.getString("avt"));
-                user.setPhone(rs.getString("phone"));
-                user.setRole(1);
-
-                users.add(user);
+                users.add(create(rs));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -51,6 +46,29 @@ public class UserDao implements DAO<User>{
             close(conn);
         }
         return users;
+    }
+
+    /**
+     * This method find user by username
+     * @param username: username of user
+     * @return user: user entity
+     */
+    @Override
+    public User findOne(String username) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        try{
+            conn = getConnection();
+            stmt = conn.prepareStatement(FIND_ONE);
+            stmt.setString(1, username);
+
+            ResultSet rs =  stmt.executeQuery();
+            if(rs.next())
+                return create(rs);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 
     @Override
@@ -138,27 +156,38 @@ public class UserDao implements DAO<User>{
 
     private Connection getConnection(){
         try {
-            Class.forName(DRIVE_NAME);
-            return DriverManager.getConnection(DB_URL, ID, PASS);
+            Class.forName(CONSTANT.DRIVE_NAME);
+            return DriverManager.getConnection(CONSTANT.DB_URL, CONSTANT.ID, CONSTANT.PASS);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public int isExists(String username){
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        try{
-            conn = getConnection();
-            stmt = conn.prepareStatement(CHECK_EXISTS);
-            stmt.setString(1, username);
+    /**
+     *Create user entity from result set
+     * @param rs: result set from query database
+     * @return user: user entity
+     */
+    @Override
+    public User create(ResultSet rs) {
+        try {
+            User user = new User();
 
-             ResultSet rs =  stmt.executeQuery();
-             if(rs.next())
-                 return 1;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            user.setUsername(rs.getString("username"));
+            user.setPassword(rs.getString("password"));
+            user.setName(rs.getString("name"));
+            user.setEmail(rs.getString("email"));
+            user.setDob(rs.getDate("dob"));
+            user.setAvt(rs.getString("avt"));
+            user.setPhone(rs.getString("phone"));
+            user.setRole(1);
+
+            return user;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
-        return 0;
+
+        return null;
+
     }
 }
