@@ -36,9 +36,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.opendaylight.controller.thirdparty</groupId>
-            <artifactId>org.apache.catalina.filters.CorsFilter</artifactId>
-            <version>7.0.42</version>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>

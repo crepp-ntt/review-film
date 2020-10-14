@@ -5,14 +5,15 @@ import model.entity.User;
 import java.sql.ResultSet;
 import java.util.List;
 
-public interface iUserDao extends DAO<User>{
+public interface iUserDao extends iDAO<User> {
 
 
     @Override
     List<User> findAll();
 
 
-    User findOne(String username);
+    @Override
+    User findOne(Object username);
 
     @Override
     int delete(User T);

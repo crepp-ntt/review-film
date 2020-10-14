@@ -1,6 +1,7 @@
-package model.dao;
+package model.dao.impl;
 
 import constant.CONSTANT;
+import model.dao.iUserDao;
 import model.entity.User;
 
 import javax.swing.*;
@@ -8,7 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDao implements iUserDao{
+public class UserDao implements iUserDao {
     private static final
     String FIND_ALL = "SELECT * FROM users";
 
@@ -54,13 +55,13 @@ public class UserDao implements iUserDao{
      * @return user: user entity
      */
     @Override
-    public User findOne(String username) {
+    public User findOne(Object username) {
         Connection conn = null;
         PreparedStatement stmt = null;
         try{
             conn = getConnection();
             stmt = conn.prepareStatement(FIND_ONE);
-            stmt.setString(1, username);
+            stmt.setString(1, (String)username);
 
             ResultSet rs =  stmt.executeQuery();
             if(rs.next())
@@ -71,10 +72,7 @@ public class UserDao implements iUserDao{
         return null;
     }
 
-    @Override
-    public User findOne(int id) {
-        return null;
-    }
+
 
     @Override
     public int delete(User T) {

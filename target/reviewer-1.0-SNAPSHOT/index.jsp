@@ -7,9 +7,11 @@
 --%>
 
 <!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
-    <%@include file="includes/header.jsp"%>
+    <%@include file="includes/header.jsp" %>
 </head>
 
 <body class="fixed-left">
@@ -17,13 +19,13 @@
 <!-- Begin page -->
 <div id="wrapper">
 
-    <%@include file="includes/top_bar.jsp"%>
+    <%@include file="includes/top_bar.jsp" %>
 
 
     <!-- ============================================================== -->
     <!-- Start right Content here -->
     <!-- ============================================================== -->
-    <div >
+    <div>
         <!-- Start content -->
         <div class="content">
             <div class="container">
@@ -32,7 +34,9 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="btn-group pull-right m-t-15">
-                            <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false">Settings <span class="m-l-5"><i class="fa fa-cog"></i></span></button>
+                            <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light"
+                                    data-toggle="dropdown" aria-expanded="false">Settings <span class="m-l-5"><i
+                                    class="fa fa-cog"></i></span></button>
                             <ul class="dropdown-menu drop-menu-right" role="menu">
                                 <li><a href="#">Action</a></li>
                                 <li><a href="#">Another action</a></li>
@@ -47,413 +51,249 @@
                     </div>
                 </div>
 
-                <div class="row card-box">
-                    <div >
-                        <div class="col-sm-5">
-                            <form role="form" >
-                                <div class="form-group contact-search m-b-30">
-                                    <input
-                                            type="text"
-                                            id="search"
-                                            class="form-control"
-                                            placeholder="Search"
-                                            name="TENSP"
-                                    />
-                                    <button type="submit" class="btn btn-white">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </div>
-                                <!-- form-group -->
-                            </form>
-                        </div>
-                        <div class="col-sm-2">
-                            <form role="form" >
-                                <div class="form-group contact-search m-b-30">
-                                    <input
-                                            type="text"
-                                            id="sort"
-                                            class="form-control"
-                                            placeholder="sort"
-                                            name="TENSP"
-                                    />
-<%--                                    <button type="submit" class="btn btn-white">--%>
-<%--                                        <i class="fa fa-search"></i>--%>
-<%--                                    </button>--%>
-                                </div>
-                                <!-- form-group -->
-                            </form>
-                        </div>
-                    </div>
-                    <div class="col-lg-8">
+                <div class="row">
 
-                        <div class="card-box m-b-10">
-                            <div class="table-box opport-box">
-                                <div class="table-detail">
-                                    <img src="assets/images/brand/envato.jpg" alt="img" class="img-circle thumb-lg m-r-15" />
-                                </div>
+                    <div class="col-lg-7 card-box">
+                        <div class="row">
+                            <h4 class="m-t-10 header-title m-l-10"><b>Your Review</b></h4>
 
-                                <div class="table-detail">
-                                    <div class="member-info">
-                                        <h4 class="m-t-0"><b>Envato Market Pty Ltd. </b></h4>
-                                        <p class="text-dark m-b-5"><b>Category: </b> <span class="text-muted">Branch manager</span></p>
+
+                            <div class="col-sm-9">
+                                <form role="form">
+                                    <div class=" contact-search m-b-10 m-t-10">
+                                        <input
+                                                type="text"
+                                                id="search"
+                                                class="form-control"
+                                                placeholder="Search"
+                                                name="TENSP"
+                                        />
+                                        <button type="submit" class="btn btn-white m-b-10 m-t-10">
+                                            <i class="fa fa-search"></i>
+                                        </button>
                                     </div>
-                                </div>
+                                    <!-- form-group -->
+                                </form>
+                            </div>
+                            <div class="col-sm-3">
+                                <form role="form">
+                                    <div class="contact-search m-b-10 m-t-10">
 
-                                <div class="table-detail lable-detail">
-                                    <span class="label label-info">Hot</span>
-                                </div>
-
-                                <div class="table-detail">
-                                    <a href="#" class="btn btn-sm btn-primary waves-effect waves-light">Assign</a>
-                                    <a href="#" class="btn btn-sm btn-primary waves-effect waves-light">Call</a>
-                                    <a href="#" class="btn btn-sm btn-primary waves-effect waves-light">Email</a>
-                                </div>
-
-                                <div class="table-detail table-actions-bar">
-                                    <a href="#" class="table-action-btn"><i class="md md-edit"></i></a>
-                                    <a href="#" class="table-action-btn"><i class="md md-close"></i></a>
-                                </div>
+                                        <input
+                                                type="text"
+                                                id="sort"
+                                                class="form-control"
+                                                placeholder="sort"
+                                                name="TENSP"
+                                        />
+                                        <%--                                    <button type="submit" class="btn btn-white">--%>
+                                        <%--                                        <i class="fa fa-search"></i>--%>
+                                        <%--                                    </button>--%>
+                                    </div>
+                                    <!-- form-group -->
+                                </form>
                             </div>
                         </div>
 
+                        <c:forEach items="${posts}" var="item">
 
-                        <div class="card-box m-b-10">
-                            <div class="table-box opport-box">
-                                <div class="table-detail">
-                                    <img src="assets/images/brand/coco-cola.jpg" alt="img" class="img-circle thumb-lg m-r-15" />
-                                </div>
 
-                                <div class="table-detail">
-                                    <div class="member-info">
-                                        <h4 class="m-t-0"><b>The Coca-Cola Company </b></h4>
-                                        <p class="text-dark m-b-5"><b>Category: </b> <span class="text-muted">Branch manager</span></p>
+                            <div class="card-box m-b-8">
+                                <div class="table-box opport-box">
+                                    <div class="table-detail">
+                                        <img src="assets/images/users/avatar.jpg" alt="img"
+                                             class="img-circle thumb-lg m-r-15"/>
+                                        <p class="text-dark m-t-10  "><b style="margin-left: 28px;">User </b></p>
                                     </div>
-                                </div>
 
-                                <div class="table-detail lable-detail">
-                                    <span class="label label-purple">Cold</span>
-                                </div>
+                                    <div class="table-detail">
+                                        <div class="member-info">
+                                            <h4 class="m-t-0" style="width: 250px"><b>${item.getTitle()}</b></h4>
+                                            <p class="text-dark m-b-5"><b>#ID: </b> <span class="text-muted">${item.getId()}</span>
+                                            </p>
+                                            <p class="text-dark m-b-5"><b>#Date: </b> <span
+                                                    class="text-muted">20/20/2020</span></p>
+                                        </div>
+                                    </div>
 
-                                <div class="table-detail">
-                                    <a href="#" class="btn btn-sm btn-primary waves-effect waves-light">Assign</a>
-                                    <a href="#" class="btn btn-sm btn-primary waves-effect waves-light">Call</a>
-                                    <a href="#" class="btn btn-sm btn-primary waves-effect waves-light">Email</a>
-                                </div>
 
-                                <div class="table-detail table-actions-bar">
-                                    <a href="#" class="table-action-btn"><i class="md md-edit"></i></a>
-                                    <a href="#" class="table-action-btn"><i class="md md-close"></i></a>
+                                    <div class="table-detail">
+                                        <div class="member-info">
+                                            <h5 class="m-t-0"><b>Upvote </b></h5>
+                                            <p class="text-dark m-b-5" style="width: 100px"><span
+                                                    class="text-muted">10</span></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="table-detail">
+                                        <div class="member-info">
+                                            <h5 class="m-t-0"><b>Downvote </b></h5>
+                                            <p class="text-dark m-b-5" style="width: 100px"><span
+                                                    class="text-muted">10</span></p>
+                                        </div>
+                                    </div>
+
+
                                 </div>
                             </div>
-                        </div>
-
-
-                        <div class="card-box m-b-10">
-                            <div class="table-box opport-box">
-                                <div class="table-detail">
-                                    <img src="assets/images/brand/dribbble-1.jpg" alt="img" class="img-circle thumb-lg m-r-15" />
-                                </div>
-
-                                <div class="table-detail">
-                                    <div class="member-info">
-                                        <h4 class="m-t-0"><b>Dribbble LLC </b></h4>
-                                        <p class="text-dark m-b-5"><b>Category: </b> <span class="text-muted">Branch manager</span></p>
-                                    </div>
-                                </div>
-
-                                <div class="table-detail lable-detail">
-                                    <span class="label label-warning">In-progress</span>
-                                </div>
-
-                                <div class="table-detail">
-                                    <a href="#" class="btn btn-sm btn-primary waves-effect waves-light">Assign</a>
-                                    <a href="#" class="btn btn-sm btn-primary waves-effect waves-light">Call</a>
-                                    <a href="#" class="btn btn-sm btn-primary waves-effect waves-light">Email</a>
-                                </div>
-
-                                <div class="table-detail table-actions-bar">
-                                    <a href="#" class="table-action-btn"><i class="md md-edit"></i></a>
-                                    <a href="#" class="table-action-btn"><i class="md md-close"></i></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card-box m-b-10">
-                            <div class="table-box opport-box">
-                                <div class="table-detail">
-                                    <img src="assets/images/brand/coder.jpg" alt="img" class="img-circle thumb-lg m-r-15" />
-                                </div>
-
-                                <div class="table-detail">
-                                    <div class="member-info">
-                                        <h4 class="m-t-0"><b>Coderthemes design </b></h4>
-                                        <p class="text-dark m-b-5"><b>Category: </b> <span class="text-muted">Branch manager</span></p>
-                                    </div>
-                                </div>
-
-                                <div class="table-detail lable-detail">
-                                    <span class="label label-danger">Lost</span>
-                                </div>
-
-                                <div class="table-detail">
-                                    <a href="#" class="btn btn-sm btn-primary waves-effect waves-light">Assign</a>
-                                    <a href="#" class="btn btn-sm btn-primary waves-effect waves-light">Call</a>
-                                    <a href="#" class="btn btn-sm btn-primary waves-effect waves-light">Email</a>
-                                </div>
-
-                                <div class="table-detail table-actions-bar">
-                                    <a href="#" class="table-action-btn"><i class="md md-edit"></i></a>
-                                    <a href="#" class="table-action-btn"><i class="md md-close"></i></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card-box m-b-10">
-                            <div class="table-box opport-box">
-                                <div class="table-detail">
-                                    <img src="assets/images/brand/wrap.jpg" alt="img" class="img-circle thumb-lg m-r-15" />
-                                </div>
-
-                                <div class="table-detail">
-                                    <div class="member-info">
-                                        <h4 class="m-t-0"><b>WrapMarket LLC </b></h4>
-                                        <p class="text-dark m-b-5"><b>Category: </b> <span class="text-muted">Branch manager</span></p>
-                                    </div>
-                                </div>
-
-                                <div class="table-detail lable-detail">
-                                    <span class="label label-success">Won</span>
-                                </div>
-
-                                <div class="table-detail">
-                                    <a href="#" class="btn btn-sm btn-primary waves-effect waves-light">Assign</a>
-                                    <a href="#" class="btn btn-sm btn-primary waves-effect waves-light">Call</a>
-                                    <a href="#" class="btn btn-sm btn-primary waves-effect waves-light">Email</a>
-                                </div>
-
-                                <div class="table-detail table-actions-bar">
-                                    <a href="#" class="table-action-btn"><i class="md md-edit"></i></a>
-                                    <a href="#" class="table-action-btn"><i class="md md-close"></i></a>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="card-box m-b-10">
-                            <div class="table-box opport-box">
-                                <div class="table-detail">
-                                    <img src="assets/images/brand/envato.jpg" alt="img" class="img-circle thumb-lg m-r-15" />
-                                </div>
-
-                                <div class="table-detail">
-                                    <div class="member-info">
-                                        <h4 class="m-t-0"><b>Envato Market Pty Ltd. </b></h4>
-                                        <p class="text-dark m-b-5"><b>Category: </b> <span class="text-muted">Branch manager</span></p>
-                                    </div>
-                                </div>
-
-                                <div class="table-detail lable-detail">
-                                    <span class="label label-info">Hot</span>
-                                </div>
-
-                                <div class="table-detail">
-                                    <a href="#" class="btn btn-sm btn-primary waves-effect waves-light">Assign</a>
-                                    <a href="#" class="btn btn-sm btn-primary waves-effect waves-light">Call</a>
-                                    <a href="#" class="btn btn-sm btn-primary waves-effect waves-light">Email</a>
-                                </div>
-
-                                <div class="table-detail table-actions-bar">
-                                    <a href="#" class="table-action-btn"><i class="md md-edit"></i></a>
-                                    <a href="#" class="table-action-btn"><i class="md md-close"></i></a>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="card-box m-b-10">
-                            <div class="table-box opport-box">
-                                <div class="table-detail">
-                                    <img src="assets/images/brand/coco-cola.jpg" alt="img" class="img-circle thumb-lg m-r-15" />
-                                </div>
-
-                                <div class="table-detail">
-                                    <div class="member-info">
-                                        <h4 class="m-t-0"><b>The Coca-Cola Company </b></h4>
-                                        <p class="text-dark m-b-5"><b>Category: </b> <span class="text-muted">Branch manager</span></p>
-                                    </div>
-                                </div>
-
-                                <div class="table-detail lable-detail">
-                                    <span class="label label-purple">Cold</span>
-                                </div>
-
-                                <div class="table-detail">
-                                    <a href="#" class="btn btn-sm btn-primary waves-effect waves-light">Assign</a>
-                                    <a href="#" class="btn btn-sm btn-primary waves-effect waves-light">Call</a>
-                                    <a href="#" class="btn btn-sm btn-primary waves-effect waves-light">Email</a>
-                                </div>
-
-                                <div class="table-detail table-actions-bar">
-                                    <a href="#" class="table-action-btn"><i class="md md-edit"></i></a>
-                                    <a href="#" class="table-action-btn"><i class="md md-close"></i></a>
-                                </div>
-
-                            </div>
-                        </div>
-
-
+                        </c:forEach>
 
 
                     </div> <!-- end col -->
 
-                <div class="row">
+                    <div class="row">
 
-                    <div class="col-lg-4">
-                        <div class="card-box">
-                            <h4 class="text-dark header-title m-t-0 m-b-30">TOP REVIEWERS</h4>
+                        <div class="col-lg-5">
+                            <div class="card-box">
+                                <h4 class="text-dark header-title m-t-0 m-b-30">TOP REVIEWERS</h4>
 
-                            <div class="card-box m-b-5">
-                                <div class="table-box opport-box">
-                                    <div class="table-detail">
-                                        <img src="assets/images/brand/envato.jpg" alt="img" class="img-circle thumb-lg m-r-10" />
-                                    </div>
-
-                                    <div class="table-detail">
-                                        <div class="member-info">
-                                            <h4 class="m-t-0"><b>Envato Market Pty Ltd. </b></h4>
-                                            <p class="text-dark m-b-5"><b>Category: </b> <span class="text-muted">Branch manager</span></p>
+                                <div class="card-box m-b-5">
+                                    <div class="table-box opport-box">
+                                        <div class="table-detail">
+                                            <img src="assets/images/brand/envato.jpg" alt="img"
+                                                 class="img-circle thumb-lg m-r-10"/>
                                         </div>
+
+                                        <div class="table-detail">
+                                            <div class="member-info">
+                                                <h4 class="m-t-0"><b>Envato Market Pty Ltd. </b></h4>
+                                                <p class="text-dark m-b-5"><b>Category: </b> <span class="text-muted">Branch manager</span>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="table-detail lable-detail">
+                                            <span class="label label-info">Hot</span>
+                                        </div>
+
+
                                     </div>
+                                </div>
+                                <div class="card-box m-b-5">
+                                    <div class="table-box opport-box">
+                                        <div class="table-detail">
+                                            <img src="assets/images/brand/envato.jpg" alt="img"
+                                                 class="img-circle thumb-lg m-r-10"/>
+                                        </div>
 
-                                    <div class="table-detail lable-detail">
-                                        <span class="label label-info">Hot</span>
+                                        <div class="table-detail">
+                                            <div class="member-info">
+                                                <h4 class="m-t-0"><b>Envato Market Pty Ltd. </b></h4>
+                                                <p class="text-dark m-b-5"><b>Category: </b> <span class="text-muted">Branch manager</span>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="table-detail lable-detail">
+                                            <span class="label label-info">Hot</span>
+                                        </div>
+
+
                                     </div>
+                                </div>
+                                <div class="card-box m-b-5">
+                                    <div class="table-box opport-box">
+                                        <div class="table-detail">
+                                            <img src="assets/images/brand/envato.jpg" alt="img"
+                                                 class="img-circle thumb-lg m-r-10"/>
+                                        </div>
+
+                                        <div class="table-detail">
+                                            <div class="member-info">
+                                                <h4 class="m-t-0"><b>Envato Market Pty Ltd. </b></h4>
+                                                <p class="text-dark m-b-5"><b>Category: </b> <span class="text-muted">Branch manager</span>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="table-detail lable-detail">
+                                            <span class="label label-info">Hot</span>
+                                        </div>
 
 
+                                    </div>
                                 </div>
                             </div>
-                            <div class="card-box m-b-5">
-                                <div class="table-box opport-box">
-                                    <div class="table-detail">
-                                        <img src="assets/images/brand/envato.jpg" alt="img" class="img-circle thumb-lg m-r-10" />
-                                    </div>
 
-                                    <div class="table-detail">
-                                        <div class="member-info">
-                                            <h4 class="m-t-0"><b>Envato Market Pty Ltd. </b></h4>
-                                            <p class="text-dark m-b-5"><b>Category: </b> <span class="text-muted">Branch manager</span></p>
+                            <div class="card-box">
+                                <h4 class="text-dark header-title m-t-0 m-b-30">TOP POSTS</h4>
+
+                                <div class="card-box m-b-5">
+                                    <div class="table-box opport-box">
+                                        <div class="table-detail">
+                                            <img src="assets/images/brand/envato.jpg" alt="img"
+                                                 class="img-circle thumb-lg m-r-10"/>
                                         </div>
+
+                                        <div class="table-detail">
+                                            <div class="member-info">
+                                                <h4 class="m-t-0"><b>Envato Market Pty Ltd. </b></h4>
+                                                <p class="text-dark m-b-5"><b>Category: </b> <span class="text-muted">Branch manager</span>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="table-detail lable-detail">
+                                            <span class="label label-info">Hot</span>
+                                        </div>
+
+
                                     </div>
+                                </div>
+                                <div class="card-box m-b-5">
+                                    <div class="table-box opport-box">
+                                        <div class="table-detail">
+                                            <img src="assets/images/brand/envato.jpg" alt="img"
+                                                 class="img-circle thumb-lg m-r-10"/>
+                                        </div>
 
-                                    <div class="table-detail lable-detail">
-                                        <span class="label label-info">Hot</span>
+                                        <div class="table-detail">
+                                            <div class="member-info">
+                                                <h4 class="m-t-0"><b>Envato Market Pty Ltd. </b></h4>
+                                                <p class="text-dark m-b-5"><b>Category: </b> <span class="text-muted">Branch manager</span>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="table-detail lable-detail">
+                                            <span class="label label-info">Hot</span>
+                                        </div>
+
+
                                     </div>
+                                </div>
+                                <div class="card-box m-b-5">
+                                    <div class="table-box opport-box">
+                                        <div class="table-detail">
+                                            <img src="assets/images/brand/envato.jpg" alt="img"
+                                                 class="img-circle thumb-lg m-r-10"/>
+                                        </div>
+
+                                        <div class="table-detail">
+                                            <div class="member-info">
+                                                <h4 class="m-t-0"><b>Envato Market Pty Ltd. </b></h4>
+                                                <p class="text-dark m-b-5"><b>Category: </b> <span class="text-muted">Branch manager</span>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="table-detail lable-detail">
+                                            <span class="label label-info">Hot</span>
+                                        </div>
 
 
+                                    </div>
                                 </div>
                             </div>
-                            <div class="card-box m-b-5">
-                                <div class="table-box opport-box">
-                                    <div class="table-detail">
-                                        <img src="assets/images/brand/envato.jpg" alt="img" class="img-circle thumb-lg m-r-10" />
-                                    </div>
 
-                                    <div class="table-detail">
-                                        <div class="member-info">
-                                            <h4 class="m-t-0"><b>Envato Market Pty Ltd. </b></h4>
-                                            <p class="text-dark m-b-5"><b>Category: </b> <span class="text-muted">Branch manager</span></p>
-                                        </div>
-                                    </div>
-
-                                    <div class="table-detail lable-detail">
-                                        <span class="label label-info">Hot</span>
-                                    </div>
-
-
-                                </div>
-                            </div>
                         </div>
 
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="card-box">
-                            <h4 class="text-dark header-title m-t-0 m-b-30">TOP POSTS</h4>
-
-                            <div class="card-box m-b-5">
-                                <div class="table-box opport-box">
-                                    <div class="table-detail">
-                                        <img src="assets/images/brand/envato.jpg" alt="img" class="img-circle thumb-lg m-r-10" />
-                                    </div>
-
-                                    <div class="table-detail">
-                                        <div class="member-info">
-                                            <h4 class="m-t-0"><b>Envato Market Pty Ltd. </b></h4>
-                                            <p class="text-dark m-b-5"><b>Category: </b> <span class="text-muted">Branch manager</span></p>
-                                        </div>
-                                    </div>
-
-                                    <div class="table-detail lable-detail">
-                                        <span class="label label-info">Hot</span>
-                                    </div>
-
-
-                                </div>
-                            </div>
-                            <div class="card-box m-b-5">
-                                <div class="table-box opport-box">
-                                    <div class="table-detail">
-                                        <img src="assets/images/brand/envato.jpg" alt="img" class="img-circle thumb-lg m-r-10" />
-                                    </div>
-
-                                    <div class="table-detail">
-                                        <div class="member-info">
-                                            <h4 class="m-t-0"><b>Envato Market Pty Ltd. </b></h4>
-                                            <p class="text-dark m-b-5"><b>Category: </b> <span class="text-muted">Branch manager</span></p>
-                                        </div>
-                                    </div>
-
-                                    <div class="table-detail lable-detail">
-                                        <span class="label label-info">Hot</span>
-                                    </div>
-
-
-                                </div>
-                            </div>
-                            <div class="card-box m-b-5">
-                                <div class="table-box opport-box">
-                                    <div class="table-detail">
-                                        <img src="assets/images/brand/envato.jpg" alt="img" class="img-circle thumb-lg m-r-10" />
-                                    </div>
-
-                                    <div class="table-detail">
-                                        <div class="member-info">
-                                            <h4 class="m-t-0"><b>Envato Market Pty Ltd. </b></h4>
-                                            <p class="text-dark m-b-5"><b>Category: </b> <span class="text-muted">Branch manager</span></p>
-                                        </div>
-                                    </div>
-
-                                    <div class="table-detail lable-detail">
-                                        <span class="label label-info">Hot</span>
-                                    </div>
-
-
-                                </div>
-                            </div>
-                        </div>
 
                     </div>
-
-
-
-
-
-                </div>
-                <!-- end row -->
-
+                    <!-- end row -->
 
 
                     <!-- end col -->
-
 
 
                 </div>
@@ -465,7 +305,6 @@
         </div> <!-- content -->
 
 
-
     </div>
 
 
@@ -474,11 +313,8 @@
     <!-- ============================================================== -->
 
 
-
-
 </div>
 <!-- END wrapper -->
-
 
 
 <script>
@@ -505,7 +341,6 @@
 <script src="assets/plugins/counterup/jquery.counterup.min.js"></script>
 
 
-
 <script src="assets/plugins/morris/morris.min.js"></script>
 <script src="assets/plugins/raphael/raphael-min.js"></script>
 
@@ -517,7 +352,7 @@
 <script src="assets/js/jquery.app.js"></script>
 
 <script type="text/javascript">
-    jQuery(document).ready(function($) {
+    jQuery(document).ready(function ($) {
         $('.counter').counterUp({
             delay: 100,
             time: 1200
@@ -527,8 +362,6 @@
 
     });
 </script>
-
-
 
 
 </body>

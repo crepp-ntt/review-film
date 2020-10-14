@@ -60,11 +60,11 @@
 
                                 <div class="col-md-12">
 
-                                    <div  class="form-horizontal change_profile" >
+                                    <div  class="form-horizontal" >
                                         <div class="col-md-2 m-t-10">
                                             <div class="col-md-1"></div>
 
-                                            <div class="col-md-6 row-md-4">
+                                            <div class="col-md-6">
                                                 <img id="blah" src="assets/images/users/avatar.jpg" alt="your image" style="width: 150px; height: 150px"/>
                                                 <label class="form-control">User</label>
                                             </div>
@@ -272,59 +272,18 @@
 <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">--%>
 <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
 <script>
 
-    $('#datepicker').datepicker({
-        uiLibrary: 'bootstrap4'
-    });
-</script>
-<script>
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            let reader = new FileReader();
-            reader.onload = function (e) {
-                $('#blah').attr('src', e.target.result).width(200)
-                    .height(200);
-            }
-
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-
-
-
-    $("#imgInp").change(function(){
-        readURL(this);
-    });
-    $(".change_profile").submit(function (e){
-        e.preventDefault();
-        let data = new FormData($(this)[0]);
-        $.ajax({
-            url: "/change_profile",
-            type: "POST",
-            data: data,
-            async: false,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function (returndata) {
-                //
-            },
-            error: function () {
-                alert("error in ajax form submission");
-            }
-        });
-        return false;
-    })
 </script>
 
 <script>
 
 
-    $(".reset").click(function() {
-        $(this).closest('form').find("input[type=text], textarea").val("");
-        $(this).closest('form').find("input[type=password], textarea").val("");
-    });
+    // $(".reset").click(function() {
+    //     $(this).closest('form').find("input[type=text], textarea").val("");
+    //     $(this).closest('form').find("input[type=password], textarea").val("");
+    // });
 
 </script>
 <%--<script type="text/javascript">--%>

@@ -1,9 +1,7 @@
 package controller;
 
 import com.google.gson.Gson;
-import model.dao.DAO;
-import model.dao.UserDao;
-import model.dao.iUserDao;
+import model.dao.impl.UserDao;
 import model.entity.User;
 
 import javax.servlet.ServletException;
@@ -38,23 +36,19 @@ public class signup extends HttpServlet {
         String email = request.getParameter("email");
 
 
-
         UserDao userDao = new UserDao();
         User user = new User();
         user.setUsername(username);
         user.setPassword(pass1);
         user.setName(name);
         user.setEmail(email);
-        if(userDao.findOne(username) != null){
+        if (userDao.findOne(username) != null) {
             data.put("false", "Username already exists!");
-        }
-        else if(!pass1.equals(pass2)){
+        } else if (!pass1.equals(pass2)) {
             data.put("false", "Confirm password does not match!");
-        }
-        else if(checkUserInfo(user) == 0){
+        } else if (checkUserInfo(user) == 0) {
             data.put("false", "Your info has wrong format!");
-        }
-        else{
+        } else {
             userDao.insert(user);
             data.put("success", "Create account successful!");
         }
@@ -64,16 +58,16 @@ public class signup extends HttpServlet {
     }
 
 
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.sendRedirect("signup.jsp");
     }
+
     private int checkUserInfo(User user) {
-        if(!Pattern.matches(USERNAME_PATTERN, user.getUsername()))
+        if (!Pattern.matches(USERNAME_PATTERN, user.getUsername()))
             return 0;
-        if(!Pattern.matches(PASSWORD_PATTERN, user.getPassword()))
+        if (!Pattern.matches(PASSWORD_PATTERN, user.getPassword()))
             return 0;
-        if(!Pattern.matches(EMAIL_PATTERN, user.getEmail()))
+        if (!Pattern.matches(EMAIL_PATTERN, user.getEmail()))
             return 0;
         return 1;
     }

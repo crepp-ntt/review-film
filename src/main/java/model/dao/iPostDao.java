@@ -5,17 +5,19 @@ import model.entity.Post;
 import java.sql.ResultSet;
 import java.util.List;
 
-public interface iPostDao extends DAO<Post>{
+public interface iPostDao extends iDAO<Post> {
 
     /**
      * Find all post in database
+     *
      * @return List<Post>: all posts in database
      */
     @Override
     List<Post> findAll();
 
+
     @Override
-    Post findOne(int id);
+    Post findOne(Object id);
 
     @Override
     int delete(Post T);

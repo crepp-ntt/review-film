@@ -55,11 +55,7 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-commons:1.6.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-engine:5.6.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-engine:1.6.2" level="project" />
-    <orderEntry type="library" name="Maven: org.opendaylight.controller.thirdparty:org.apache.catalina.filters.CorsFilter:7.0.42" level="project" />
-    <orderEntry type="library" name="Maven: equinoxSDK381:javax.servlet:3.0.0.v201112011016" level="project" />
-    <orderEntry type="library" name="Maven: orbit:org.apache.juli.extras:7.0.32.v201211081135" level="project" />
-    <orderEntry type="library" name="Maven: orbit:org.apache.tomcat.util:7.0.32.v201211201952" level="project" />
-    <orderEntry type="library" name="Maven: orbit:org.apache.catalina:7.0.32.v201211201336" level="project" />
+    <orderEntry type="library" name="Maven: javax.servlet:jstl:1.2" level="project" />
     <orderEntry type="library" name="Maven: org.postgresql:postgresql:42.2.5" level="project" />
     <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.8.5" level="project" />
   </component>

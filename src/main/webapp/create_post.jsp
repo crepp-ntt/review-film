@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@include file="includes/header.jsp"%>
+    <%@include file="includes/header.jsp" %>
 </head>
 
 <style>
@@ -22,13 +22,13 @@
 <!-- Begin page -->
 <div id="wrapper">
 
-    <%@include file="includes/top_bar.jsp"%>
+    <%@include file="includes/top_bar.jsp" %>
 
 
     <!-- ============================================================== -->
     <!-- Start right Content here -->
     <!-- ============================================================== -->
-    <div >
+    <div>
         <!-- Start content -->
         <div class="content">
             <div class="container">
@@ -37,7 +37,9 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="btn-group pull-right m-t-15">
-                            <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false">Settings <span class="m-l-5"><i class="fa fa-cog"></i></span></button>
+                            <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light"
+                                    data-toggle="dropdown" aria-expanded="false">Settings <span class="m-l-5"><i
+                                    class="fa fa-cog"></i></span></button>
                             <ul class="dropdown-menu drop-menu-right" role="menu">
                                 <li><a href="#">Action</a></li>
                                 <li><a href="#">Another action</a></li>
@@ -58,17 +60,17 @@
 
                             <div class="row">
                                 <div class="col-md-10">
-                                    <form class="form-horizontal" role="form">
+                                    <form class="form-horizontal" id="create_post" enctype="multipart/form-data" role="form">
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Title</label>
                                             <div class="col-md-10">
-                                                <input type="text" class="form-control" placeholder="Title">
+                                                <input type="text" class="form-control" required placeholder="Title" name="title">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-md-2 control-label" >Film</label>
+                                            <label class="col-md-2 control-label">Film</label>
                                             <div class="col-md-10">
-                                                <input type="text"  class="form-control" placeholder="Film">
+                                                <input type="text" class="form-control" required placeholder="Film" name="filmName">
                                             </div>
                                         </div>
 
@@ -76,32 +78,35 @@
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Rate</label>
                                             <div class="col-md-10">
-                                                <input type="text" class="form-control" placeholder="Rate">
+                                                <input type="number" class="form-control" required placeholder="Rate" name="rate">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Review</label>
                                             <div class="col-md-10">
-                                                    <textarea class="ck-editor__editable" rows="10"   id="editor"></textarea>
+                                                <textarea class="ck-editor__editable" rows="10" id="editor" name="content"></textarea>
                                             </div>
                                         </div>
 
 
                                         <div class="form-group text-center m-t-40">
+
                                             <div class="col-xs-2">
+                                                <span id="result1"></span>
                                             </div>
                                             <div class="col-xs-5">
-                                                <a href="" class="btn btn-primary btn-block text-uppercase waves-effect waves-light reset" >Reset</a>
+                                                <a href=""
+                                                   class="btn btn-primary btn-block text-uppercase waves-effect waves-light reset">Reset</a>
                                             </div>
                                             <div class="col-xs-5">
-                                                <button class="btn btn-pink btn-block text-uppercase waves-effect waves-light" type="submit">Post</button>
+                                                <button class="btn btn-pink btn-block text-uppercase waves-effect waves-light"
+                                                        type="submit">Post
+                                                </button>
                                             </div>
                                         </div>
 
                                     </form>
                                 </div>
-
-
 
 
                             </div>
@@ -110,12 +115,9 @@
                 </div>
 
 
-
-
             </div> <!-- container -->
 
         </div> <!-- content -->
-
 
 
     </div>
@@ -126,11 +128,8 @@
     <!-- ============================================================== -->
 
 
-
-
 </div>
 <!-- END wrapper -->
-
 
 
 <script>
@@ -140,19 +139,21 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
 <%--    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--%>
 <script>
-    ClassicEditor
-        .create( document.querySelector( '#editor' ),{
-            cloudServices: {
-                tokenUrl: 'https://example.com/cs-token-endpoint',
-                uploadUrl: 'https://your-organization-id.cke-cs.com/easyimage/upload/'
-            }
-        } )
-        .then( editor => {
-            console.log( editor );
-        } )
-        .catch( error => {
-            console.error( error );
-        } );
+    // ClassicEditor
+    //     .create(document.querySelector('#editor'), {
+    //         cloudServices: {
+    //             tokenUrl: 'https://example.com/cs-token-endpoint',
+    //             uploadUrl: 'https://your-organization-id.cke-cs.com/easyimage/upload/'
+    //         }
+    //     })
+    //     .then(editor => {
+    //         console.log(editor);
+    //     })
+    //     .catch(error => {
+    //         console.error(error);
+    //     });
+
+
 </script>
 <!-- jQuery  -->
 <script src="assets/js/jquery.min.js"></script>
@@ -174,7 +175,6 @@
 <script src="assets/plugins/counterup/jquery.counterup.min.js"></script>
 
 
-
 <%--<script src="assets/plugins/morris/morris.min.js"></script>--%>
 <script src="assets/plugins/raphael/raphael-min.js"></script>
 
@@ -188,10 +188,37 @@
 
 <script>
 
-    $(".reset").click(function() {
+    $(".reset").click(function () {
         $(this).closest('form').find("input[type=text], textarea").val("");
         $(this).closest('form').find("input[type=password], textarea").val("");
     });
+
+    $('#create_post').submit(function (e) {
+        e.preventDefault();
+        let data = new FormData($(this)[0]);
+        alert(data);
+        $.ajax({
+            url: "/create_post",
+            type: "POST",
+            data: data,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (datareturn) {
+                if(datareturn.success){
+                    $('#result1').html(datareturn.success)
+                }
+                else
+                    $('#result1').html(datareturn.false)
+            },
+            error: function () {
+                alert("error in ajax form submission");
+            }
+
+        })
+        return false;
+    })
 
 </script>
 <%--<script type="text/javascript">--%>
@@ -205,8 +232,6 @@
 
 <%--    });--%>
 <%--</script>--%>
-
-
 
 
 </body>
