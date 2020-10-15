@@ -52,10 +52,10 @@ public class PostDao implements iPostDao {
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(FIND_ONE);
-            stmt.setInt(1, (int) id);
+            stmt.setLong(1, (long) id);
             ResultSet rs = stmt.executeQuery();
-
-            return create(rs);
+            if(rs.next())
+                return create(rs);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -80,7 +80,7 @@ public class PostDao implements iPostDao {
             stmt.setString(3, post.getTitle());
             stmt.setLong(4, post.getRate());
             stmt.setString(5, post.getContent());
-            stmt.setString(6, "PENDING");
+            stmt.setString(6, post.getCurrentStatus());
 
             java.util.Date utilDate = new java.util.Date();
             java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());

@@ -189,14 +189,12 @@
 <script>
 
     $(".reset").click(function () {
-        $(this).closest('form').find("input[type=text], textarea").val("");
-        $(this).closest('form').find("input[type=password], textarea").val("");
+        $('#create_post')[0].reset();
     });
 
     $('#create_post').submit(function (e) {
         e.preventDefault();
         let data = new FormData($(this)[0]);
-        alert(data);
         $.ajax({
             url: "/create_post",
             type: "POST",
@@ -207,7 +205,8 @@
             processData: false,
             success: function (datareturn) {
                 if(datareturn.success){
-                    $('#result1').html(datareturn.success)
+                    $('#result1').html(datareturn.success);
+                    $('#create_post')[0].reset();
                 }
                 else
                     $('#result1').html(datareturn.false)

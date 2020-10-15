@@ -19,7 +19,7 @@ public class PostService {
         return postDTOs;
     }
 
-    public PostDTO getPost(int id){
+    public PostDTO getPost(long id){
         Post post = dao.findOne(id);
         return convertToDTO(post);
     }
@@ -40,7 +40,7 @@ public class PostService {
         post.setId(dto.getId());
         post.setTitle(dto.getTitle());
         post.setRate(dto.getRate());
-        post.setFilmName(dto.getFilm());
+        post.setFilmName(dto.getFilmName());
         post.setContent(dto.getContent());
         return post;
     }

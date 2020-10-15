@@ -52,10 +52,15 @@
                 </div>
 
                 <div class="row">
+                    <div>
+                        <a href="create_post" class="btn btn-primary text-uppercase waves-effect waves-light"
+                                id="create_post">Create review
+                        </a>
+                    </div>
 
                     <div class="col-lg-7 card-box">
                         <div class="row">
-                            <h4 class="m-t-10 header-title m-l-10"><b>Your Review</b></h4>
+                            <h4 class="m-t-10 header-title m-l-10"><b>List Review</b></h4>
 
 
                             <div class="col-sm-9">
@@ -93,12 +98,17 @@
                                     <!-- form-group -->
                                 </form>
                             </div>
+
                         </div>
 
                         <c:forEach items="${posts}" var="item">
 
+                            <c:url var="post_detail" value="post_detail">
+                                <c:param name="id" value="${item.getId()}"/>
+                            </c:url>
 
-                            <div class="card-box m-b-8">
+                            <div class="card-box m-b-8 post_detail" onclick="location.href='${post_detail}'">
+
                                 <div class="table-box opport-box">
                                     <div class="table-detail">
                                         <img src="assets/images/users/avatar.jpg" alt="img"
@@ -109,7 +119,8 @@
                                     <div class="table-detail">
                                         <div class="member-info">
                                             <h4 class="m-t-0" style="width: 250px"><b>${item.getTitle()}</b></h4>
-                                            <p class="text-dark m-b-5"><b>#ID: </b> <span class="text-muted">${item.getId()}</span>
+                                            <p class="text-dark m-b-5"><b>#ID: </b> <span
+                                                    class="text-muted">${item.getId()}</span>
                                             </p>
                                             <p class="text-dark m-b-5"><b>#Date: </b> <span
                                                     class="text-muted">20/20/2020</span></p>
@@ -137,7 +148,25 @@
                                 </div>
                             </div>
                         </c:forEach>
-
+                        <nav style="text-align: center">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
 
                     </div> <!-- end col -->
 
@@ -361,6 +390,11 @@
         $(".knob").knob();
 
     });
+
+    // $('.post_detail').on('click',function (){
+    //     let id = $(this).attr("id");
+    //     alert(id);
+    // })
 </script>
 
 

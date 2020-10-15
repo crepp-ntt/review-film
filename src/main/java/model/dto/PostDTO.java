@@ -3,7 +3,7 @@ package model.dto;
 public class PostDTO {
     private long id;
     private String title;
-    private String film;
+    private String filmName;
     private String content;
     private long rate;
 
@@ -24,7 +24,7 @@ public class PostDTO {
     }
 
     public void setFilm(String film) {
-        this.film = film;
+        this.filmName = film;
     }
 
     public void setContent(String content) {
@@ -35,8 +35,8 @@ public class PostDTO {
         this.rate = rate;
     }
 
-    public String getFilm() {
-        return film;
+    public String getFilmName() {
+        return filmName;
     }
 
     public String getContent() {

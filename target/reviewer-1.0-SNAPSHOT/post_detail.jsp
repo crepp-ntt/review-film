@@ -54,7 +54,6 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card-box">
-<%--                            <h4 class="m-t-0 header-title"><b>Profile</b></h4>--%>
 
                             <div class="row">
 
@@ -65,8 +64,11 @@
                                             <div class="col-md-1"></div>
 
                                             <div class="col-md-6">
-                                                <img id="blah" src="assets/images/users/avatar.jpg" alt="your image" style="width: 150px; height: 150px"/>
-                                                <label class="form-control">User</label>
+                                                <img id="blah" src="assets/images/users/avatar.jpg" alt="your image" style="width: 150px; height: 150px; border-radius: 30px"/>
+                                                <div style="width: 150px; text-align: center; font-size: 18px">
+                                                    <span >User</span>
+                                                </div>
+
                                             </div>
                                         </div>
 
@@ -74,20 +76,20 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <div class="col-md-6"></div>
-                                                <h4 class="m-t-0 header-title col-md-6" ><b>Title</b></h4>
+                                                <h4 class="m-t-0 header-title col-md-6" ><b>${post.getTitle()}</b></h4>
                                             </div>
 
 
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label">Film</label>
                                                 <div class="col-md-10">
-                                                    <span type="text" class="form-control" >The boys</span>
+                                                    <span type="text" class="form-control" >${post.getFilmName()}</span>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label" >Rate</label>
                                                 <div class="col-md-10">
-                                                    <span class="form-control"  >8/10</span>
+                                                    <span class="form-control"  >${post.getRate()}</span>
                                                 </div>
                                             </div>
 
@@ -95,8 +97,7 @@
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label">Review</label>
                                                 <div class="col-md-10">
-                                                    <span class="form-control" style="height: 250px">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam asperiores cum, eaque hic iure magnam molestias officia placeat quidem repellendus. Aspernatur consectetur delectus
-                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam asperiores cum, eaque hic iure magnam molestias officia placeat quidem repellendus. Aspernatur consectetur delectus dolorem enim explicabodolorem enim explicabo necessitatibus optio quaerat voluptatibus.</span>
+                                                    <span class="form-control" style="height: 250px">${post.getContent()}</span>
                                                 </div>
                                             </div>
 

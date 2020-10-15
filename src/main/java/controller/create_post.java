@@ -51,6 +51,8 @@ public class create_post extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendRedirect("create_post.jsp");
+        String title = "Create review";
+        request.setAttribute("title", title);
+        request.getRequestDispatcher("create_post.jsp").forward(request,response);
     }
 }
