@@ -5,6 +5,7 @@
   Time: 16:03
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -58,7 +59,7 @@
                     <div class="col-sm-8">
                         <div class="card-box">
 
-                            <h4 class="m-t-0 header-title" style="text-align: center"><b>User Management</b></h4>
+                            <h4 class="m-t-0 header-title" style="text-align: center"><b>Post Management</b></h4>
 
 
                             <div  style="padding: 20px 20px 20px">
@@ -66,34 +67,23 @@
 
                                     <thead>
                                     <tr>
-                                        <th>Username</th>
-                                        <th style="width: 300px">Name</th>
+                                        <th>ID</th>
+                                        <th style="width: 300px">Title</th>
                                         <th style="width: 100px">Status</th>
                                         <th style="width: 100px">Edit</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td><a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td><a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td><a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-                                        </td>
-                                    </tr>
+                                    <c:forEach items = "${posts}" var="post">
+                                        <tr>
+                                            <th scope="row">${post.getId()}</th>
+                                            <td>${post.getTitle()}</td>
+                                            <td>${post.getStatus()}</td>
+                                            <td><a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+
                                     </tbody>
                                 </table>
                             </div>

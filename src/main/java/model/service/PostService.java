@@ -4,7 +4,10 @@ import model.dao.iPostDao;
 import model.dao.impl.PostDao;
 import model.dto.PostDTO;
 import model.entity.Post;
+import model.entity.User;
+import util.AppUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +28,12 @@ public class PostService {
     }
 
 
-    public int savePost(PostDTO dto){
+    public int savePost(HttpServletRequest request, PostDTO dto){
         Post post = convertToEntity(dto);
+        User user = AppUtils.getLoginedUser(request.getSession());
+        post.setUsername(user.getUsername());
+        post.setUserAvt(user.getAvt());
+
         return dao.insert(post);
     }
 
@@ -42,12 +49,16 @@ public class PostService {
         post.setRate(dto.getRate());
         post.setFilmName(dto.getFilmName());
         post.setContent(dto.getContent());
+        post.setCurrentStatus(dto.getStatus());
         return post;
     }
 
     private PostDTO convertToDTO(Post post) {
         PostDTO dto = new PostDTO();
         dto.setId(post.getId());
+        dto.setUsername(post.getUsername());
+        dto.setAvt(post.getUserAvt());
+        dto.setStatus(post.getCurrentStatus());
         dto.setContent(post.getContent());
         dto.setFilm(post.getFilmName());
         dto.setRate(post.getRate());

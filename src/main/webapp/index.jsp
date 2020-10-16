@@ -1,4 +1,4 @@
-<%--
+<%@ page import="util.AppUtils" %><%--
   Created by IntelliJ IDEA.
   User: crepp
   Date: 07/10/2020
@@ -52,15 +52,18 @@
                 </div>
 
                 <div class="row">
+                    <% if(AppUtils.getLoginedUser(request.getSession()) != null){%>
                     <div>
                         <a href="create_post" class="btn btn-primary text-uppercase waves-effect waves-light"
-                                id="create_post">Create review
+                           id="create_post">Create review
                         </a>
                     </div>
+                    <% } %>
+
 
                     <div class="col-lg-7 card-box">
                         <div class="row">
-                            <h4 class="m-t-10 header-title m-l-10"><b>List Review</b></h4>
+                            <h4 class="m-t-0 header-title m-l-10"><b>List Review</b></h4>
 
 
                             <div class="col-sm-9">
@@ -110,10 +113,10 @@
                             <div class="card-box m-b-8 post_detail" onclick="location.href='${post_detail}'">
 
                                 <div class="table-box opport-box">
-                                    <div class="table-detail">
+                                    <div class="table-detail" style="text-align: center">
                                         <img src="assets/images/users/avatar.jpg" alt="img"
                                              class="img-circle thumb-lg m-r-15"/>
-                                        <p class="text-dark m-t-10  "><b style="margin-left: 28px;">User </b></p>
+                                        <p class="text-dark m-t-10"><b>${item.getUsername()} </b></p>
                                     </div>
 
                                     <div class="table-detail">
@@ -174,7 +177,7 @@
 
                         <div class="col-lg-5">
                             <div class="card-box">
-                                <h4 class="text-dark header-title m-t-0 m-b-30">TOP REVIEWERS</h4>
+                                <h4 class="text-dark header-title m-t-0 m-b-20">TOP REVIEWERS</h4>
 
                                 <div class="card-box m-b-5">
                                     <div class="table-box opport-box">

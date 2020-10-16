@@ -14,19 +14,16 @@ public class UserDao implements iUserDao {
     String FIND_ALL = "SELECT * FROM users";
 
     private static final
-    String INSERT = "INSERT INTO users(username, password, name, email) VALUES (?,?,?,?)";
+    String INSERT = "INSERT INTO users(username, password, name, email, status) VALUES (?,?,?,?,?)";
 
     private static final
-    String UPDATE = "UPDATE users SET password=?,name=?,email=?,dob=?,phone=?,avt=? WHERE username=?";
+    String UPDATE = "UPDATE users SET password=?,name=?,email=?,dob=?,phone=?,avt=?,status=? WHERE username=?";
 
     private static final
     String FIND_ONE = "SELECT * FROM users WHERE username=?";
 
 
-    /**
-     * Method to get all user in database
-     * @return List<User>: all users in database
-     */
+
     @Override
     public List<User> findAll() {
         Connection conn = null;
@@ -49,11 +46,7 @@ public class UserDao implements iUserDao {
         return users;
     }
 
-    /**
-     * This method find user by username
-     * @param username: username of user
-     * @return user: user entity
-     */
+
     @Override
     public User findOne(Object username) {
         Connection conn = null;
@@ -80,17 +73,18 @@ public class UserDao implements iUserDao {
     }
 
     @Override
-    public int insert(User users) {
+    public int insert(User user) {
         Connection conn = null;
         PreparedStatement stmt = null;
 
         try{
             conn = getConnection();
             stmt = conn.prepareStatement(INSERT);
-            stmt.setString(1, users.getUsername());
-            stmt.setString(2, users.getPassword());
-            stmt.setString(3, users.getName());
-            stmt.setString(4, users.getEmail());
+            stmt.setString(1, user.getUsername());
+            stmt.setString(2, user.getPassword());
+            stmt.setString(3, user.getName());
+            stmt.setString(4, user.getEmail());
+            stmt.setString(5, "Active");
 
 
 
@@ -117,7 +111,8 @@ public class UserDao implements iUserDao {
             stmt.setDate(4, user.getDob());
             stmt.setString(5, user.getPhone());
             stmt.setString(6, user.getAvt());
-            stmt.setString(7,user.getUsername());
+            stmt.setString(7,user.getStatus());
+            stmt.setString(8,user.getUsername());
 
 
             return stmt.executeUpdate();
@@ -161,11 +156,7 @@ public class UserDao implements iUserDao {
         }
     }
 
-    /**
-     *Create user entity from result set
-     * @param rs: result set from query database
-     * @return user: user entity
-     */
+
     @Override
     public User create(ResultSet rs) {
         try {
@@ -178,7 +169,7 @@ public class UserDao implements iUserDao {
             user.setDob(rs.getDate("dob"));
             user.setAvt(rs.getString("avt"));
             user.setPhone(rs.getString("phone"));
-            user.setRole(1);
+            user.setRole(rs.getLong("role"));
 
             return user;
         } catch (SQLException throwables) {

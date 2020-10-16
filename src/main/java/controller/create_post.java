@@ -1,11 +1,9 @@
 package controller;
 
 import com.google.gson.Gson;
-import model.dao.iPostDao;
-import model.dao.impl.PostDao;
 import model.dto.PostDTO;
-import model.entity.Post;
 import model.service.PostService;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -25,21 +23,24 @@ public class create_post extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
+        //get parameters from form
         String title = request.getParameter("title");
         String rate = request.getParameter("rate");
         String content = request.getParameter("content");
         String filmName = request.getParameter("filmName");
 
+        //create service, dto object
         PostService postService = new PostService();
-
         PostDTO postDTO = new PostDTO();
+
 
         postDTO.setTitle(title);
         postDTO.setRate(Long.parseLong(rate));
         postDTO.setContent(content);
         postDTO.setFilm(filmName);
 
-        if(postService.savePost(postDTO) == 1){
+
+        if(postService.savePost(request, postDTO) == 1){
             data.put("success","Create post successful!");
         }
         else{

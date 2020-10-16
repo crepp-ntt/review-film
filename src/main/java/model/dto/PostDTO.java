@@ -2,10 +2,14 @@ package model.dto;
 
 public class PostDTO {
     private long id;
+    private String username;
+    private String avt;
     private String title;
     private String filmName;
     private String content;
+    private String status;
     private long rate;
+
 
     public long getId() {
         return id;
@@ -45,5 +49,33 @@ public class PostDTO {
 
     public long getRate() {
         return rate;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getAvt() {
+        return avt;
+    }
+
+    public void setAvt(String avt) {
+        this.avt = avt;
+    }
+
+    public void setFilmName(String filmName) {
+        this.filmName = filmName;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

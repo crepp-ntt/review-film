@@ -9,6 +9,7 @@ public class UserDTO {
     private String email;
     private java.sql.Date dob;
     private String avt;
+    private String status;
     private String phone;
 
     public String getUsername() {
@@ -63,7 +64,16 @@ public class UserDTO {
         return password;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

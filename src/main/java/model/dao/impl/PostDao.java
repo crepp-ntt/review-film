@@ -80,7 +80,7 @@ public class PostDao implements iPostDao {
             stmt.setString(3, post.getTitle());
             stmt.setLong(4, post.getRate());
             stmt.setString(5, post.getContent());
-            stmt.setString(6, post.getCurrentStatus());
+            stmt.setString(6, "PENDING");
 
             java.util.Date utilDate = new java.util.Date();
             java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());

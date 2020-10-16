@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: crepp
@@ -73,27 +74,17 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <c:forEach items = "${users}" var="user">
                                     <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
+                                        <th scope="row">${user.getUsername()}</th>
+                                        <td>${user.getName()}</td>
+                                        <td>${user.getStatus()}</td>
                                         <td><a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td><a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td><a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-                                        </td>
-                                    </tr>
+                                    </c:forEach>
+
+
                                     </tbody>
                                 </table>
                             </div>

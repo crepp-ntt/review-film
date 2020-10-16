@@ -29,6 +29,7 @@ public class signup extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
+        //get parameters from form
         String username = request.getParameter("username");
         String pass1 = request.getParameter("password");
         String pass2 = request.getParameter("password");

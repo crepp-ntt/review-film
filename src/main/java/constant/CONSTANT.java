@@ -8,5 +8,8 @@ public interface CONSTANT {
     String ID = "crepp";
     String PASS = "password";
 
+    String[] USER_URL= {"/create_post", "/change_pass", "/change_profile"};
+    String[] ADMIN_URL = {"/manage_user", "/manage_post"};
+
 
 }
