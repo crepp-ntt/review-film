@@ -26,16 +26,16 @@ public class PostService {
 
 
     public int savePost(PostDTO dto){
-        Post post = convertToModel(dto);
+        Post post = convertToEntity(dto);
         return dao.insert(post);
     }
 
     public int updatePost(PostDTO dto){
-        Post post = convertToModel(dto);
+        Post post = convertToEntity(dto);
         return dao.update(post);
     }
 
-    private Post convertToModel(PostDTO dto) {
+    private Post convertToEntity(PostDTO dto) {
         Post post = new Post();
         post.setId(dto.getId());
         post.setTitle(dto.getTitle());

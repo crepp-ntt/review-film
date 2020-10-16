@@ -122,8 +122,10 @@
                 if(result.false){
                     $('#result1').html(result.false);
                 }
-                else
+                else{
                     $('#result1').html(result.success);
+                    $('#sign_up')[0].reset();
+                }
             },
             error: function () {
                 alert("error in ajax form submission");

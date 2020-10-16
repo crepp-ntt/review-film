@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 @WebServlet("/signup")
 @MultipartConfig
 public class signup extends HttpServlet {
-    private static final String EMAIL_PATTERN = "^[a-zA-Z][\\w-]+@([\\w]+\\.[\\w])$";
+    private static final String EMAIL_PATTERN = "^(.+)@(.+)$";
     private static final String USERNAME_PATTERN = "[a-z0-9_]{6,12}";
     private static final String PASSWORD_PATTERN = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!]).{6,20})";
 
@@ -59,7 +59,8 @@ public class signup extends HttpServlet {
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendRedirect("signup.jsp");
+        request.setAttribute("title", "SignUp");
+        request.getRequestDispatcher("signup.jsp").forward(request,response);
     }
 
     private int checkUserInfo(User user) {

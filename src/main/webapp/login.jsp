@@ -23,7 +23,7 @@
 
 
         <div class="panel-body">
-            <form class="form-horizontal m-t-20" id="login">
+            <form class="form-horizontal m-t-20" id="login" enctype="multipart/form-data">
 
 
 
@@ -101,13 +101,15 @@
             data: data,
             async: false,
             cache: false,
+            contentType: false,
+            processData: false,
             success: function (result) {
 
                 if(result.false){
                     $('#result1').html(result.false);
                 }
-                else if(result.redirect)
-                    window.location.href = result.redirect;
+                else
+                    window.location.href = result.success;
             },
             error: function () {
                 alert("error in ajax form submission");
