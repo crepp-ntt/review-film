@@ -2,6 +2,7 @@ package controller;
 
 import model.dto.UserDTO;
 import model.service.UserService;
+import util.AppUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,6 +22,7 @@ public class manage_user extends HttpServlet {
         List<UserDTO> users = userService.getAllUser();
         request.setAttribute("title", "User Management");
         request.setAttribute("users", users);
+        request.setAttribute("user", AppUtils.getLoginedUser(request.getSession()));
         request.getRequestDispatcher("manage_user.jsp").forward(request,response);
     }
 }

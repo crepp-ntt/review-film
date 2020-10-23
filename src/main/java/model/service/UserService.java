@@ -1,12 +1,18 @@
 package model.service;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.MappingIterator;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
 import model.dao.iUserDao;
 import model.dao.impl.UserDao;
 import model.dto.UserDTO;
 import model.entity.User;
+import org.mindrot.jbcrypt.BCrypt;
 import util.AppUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,12 +36,31 @@ public class UserService {
         User user = dao.findOne(username);
         if (user == null)
             return false;
-        else if (password.equals(user.getPassword())) {
+        else if (BCrypt.checkpw(password, user.getPassword())) {
             AppUtils.storeLoginedUser(req.getSession(), user);
             return true;
         }
         return false;
     }
+
+    public boolean checkPass(String pass, String password){
+        return BCrypt.checkpw(password, pass);
+    }
+
+    public int changePass(String username, String password){
+
+        return dao.changePassword(username, BCrypt.hashpw(password,BCrypt.gensalt(12)));
+    }
+
+    public boolean changeProfile(HttpServletRequest req, String json){
+        UserDTO dto = jsonToDTO(json);
+        if(updateUser(dto) == 1){
+            AppUtils.storeLoginedUser(req.getSession(), convertToEntity(dto));
+            return true;
+        }
+        return false;
+    }
+
 
     public int saveUser(UserDTO dto) {
         User user = convertToEntity(dto);
@@ -51,12 +76,12 @@ public class UserService {
     private User convertToEntity(UserDTO dto) {
         User user = new User();
         user.setUsername(dto.getUsername());
-        user.setPassword(dto.getPassword());
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());
         user.setAvt(dto.getAvt());
         user.setPhone(dto.getPhone());
-        user.setDob(dto.getDob());
+        java.sql.Date sqlDate = new java.sql.Date(dto.getDob().getTime());
+        user.setDob(sqlDate);
         return user;
     }
 
@@ -64,12 +89,25 @@ public class UserService {
         UserDTO dto = new UserDTO();
         dto.setUsername(user.getUsername());
         dto.setStatus(user.getStatus());
-        dto.setPassword(user.getPassword());
         dto.setName(user.getName());
         dto.setEmail(user.getEmail());
         dto.setAvt(user.getAvt());
         dto.setPhone(user.getPhone());
         dto.setDob(user.getDob());
         return dto;
+    }
+
+    private UserDTO jsonToDTO(String json){
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            ObjectReader reader = mapper.reader(UserDTO.class);
+            MappingIterator elements = reader.readValues(json);
+            UserDTO user = (UserDTO) elements.next();
+            return user;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

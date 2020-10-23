@@ -49,4 +49,12 @@ public interface iUserDao extends iDAO<User> {
      */
     @Override
     User create(ResultSet rs);
+
+    /**
+     * Change password of user in database
+     * @param username: username of user
+     * @param password: new password
+     * @return 1: success, 0: false
+     */
+    int changePassword(String username, String password);
 }

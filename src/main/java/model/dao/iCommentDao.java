@@ -9,8 +9,11 @@ public interface iCommentDao extends iDAO<Comment>{
     @Override
     List<Comment> findAll();
 
+    List<Comment> findByPostid(long postId);
+
     @Override
     Comment findOne(Object id);
+
 
     @Override
     int delete(Comment T);

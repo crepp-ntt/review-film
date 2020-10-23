@@ -14,13 +14,16 @@ public class UserDao implements iUserDao {
     String FIND_ALL = "SELECT * FROM users";
 
     private static final
-    String INSERT = "INSERT INTO users(username, password, name, email, status) VALUES (?,?,?,?,?)";
+    String INSERT = "INSERT INTO users(username, password, name, email, status, avt) VALUES (?,?,?,?,?,?)";
 
     private static final
-    String UPDATE = "UPDATE users SET password=?,name=?,email=?,dob=?,phone=?,avt=?,status=? WHERE username=?";
+    String UPDATE = "UPDATE users SET name=?,email=?,dob=?,phone=?,avt=?,status=? WHERE username=?";
 
     private static final
     String FIND_ONE = "SELECT * FROM users WHERE username=?";
+
+    private static final
+    String CHANGE_PASS = "UPDATE users SET password=? WHERE username=?";
 
 
 
@@ -46,6 +49,21 @@ public class UserDao implements iUserDao {
         return users;
     }
 
+
+    @Override
+    public int changePassword(String username, String password) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        try{
+            conn = getConnection();
+            stmt = conn.prepareStatement(CHANGE_PASS);
+            stmt.setString(1, password);
+            stmt.setString(2, username);
+            return stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     public User findOne(Object username) {
@@ -85,6 +103,8 @@ public class UserDao implements iUserDao {
             stmt.setString(3, user.getName());
             stmt.setString(4, user.getEmail());
             stmt.setString(5, "Active");
+            stmt.setString(6, CONSTANT.DEFAULT_AVT);
+
 
 
 
@@ -105,14 +125,13 @@ public class UserDao implements iUserDao {
         try{
             conn = getConnection();
             stmt = conn.prepareStatement(UPDATE);
-            stmt.setString(1, user.getPassword());
-            stmt.setString(2, user.getName());
-            stmt.setString(3, user.getEmail());
-            stmt.setDate(4, user.getDob());
-            stmt.setString(5, user.getPhone());
-            stmt.setString(6, user.getAvt());
-            stmt.setString(7,user.getStatus());
-            stmt.setString(8,user.getUsername());
+            stmt.setString(1, user.getName());
+            stmt.setString(2, user.getEmail());
+            stmt.setDate(3, user.getDob());
+            stmt.setString(4, user.getPhone());
+            stmt.setString(5, user.getAvt());
+            stmt.setString(6,user.getStatus());
+            stmt.setString(7,user.getUsername());
 
 
             return stmt.executeUpdate();

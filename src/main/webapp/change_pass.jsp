@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@include file="includes/header.jsp"%>
+<%@include file="includes/header.jsp" %>
 <body>
 
 <div class="account-pages"></div>
@@ -15,60 +15,57 @@
     <div class=" card-box">
         <div class="panel-heading">
 
-            <h3 class="text-center"> Sign In to <strong class="text-custom">Review</strong> </h3>
+            <h3 class="text-center"> Change password</h3>
         </div>
 
 
         <div class="panel-body">
-            <form class="form-horizontal m-t-20" action="/change_pass" >
+            <div class="form-horizontal m-t-20">
 
 
-
-                <div class="form-group ">
+                <div class="form-group">
                     <div class="col-xs-12">
-                        <input class="form-control" type="text" required="required" placeholder="Username" name="username">
+                        <input class="form-control" type="password" required="required" placeholder="Old Password"
+                               id="pass"
+                               name="password">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-xs-12">
-                        <input class="form-control" type="password" required="required" placeholder="Old Password" name="password">
+                        <input class="form-control" type="password" required placeholder="New Password" name="password"
+                               id="pass1">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-xs-12">
-                        <input class="form-control" type="password" required="required" placeholder="New Password" name="password">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-xs-12">
-                        <input class="form-control" type="password" required="required" placeholder="Confirm Password" name="password">
+                        <input class="form-control" type="password" required placeholder="Confirm Password" id="pass2"
+                               name="password">
                     </div>
                 </div>
 
 
-
-                <div class="form-group text-center m-t-40 " >
+                <div class="form-group text-center m-t-40 ">
                     <div class="col-xs-6">
-                        <a href="#" class="btn btn-primary btn-block text-uppercase waves-effect waves-light reset">Reset</a>
+                        <a href=""
+                           class="btn btn-primary btn-block text-uppercase waves-effect waves-light " id="reset">Reset</a>
                     </div>
                     <div class="col-xs-6">
-                        <button class="btn btn-pink btn-block text-uppercase waves-effect waves-light" type="submit">Log In</button>
+                        <button class="btn btn-pink btn-block text-uppercase waves-effect waves-light" id="change">
+                            Change
+                        </button>
                     </div>
                 </div>
 
-
-
-
-
-
-            </form>
+            </div>
 
             <div class="form-group text-center m-t-40">
                 <div class="col-xs-12">
-                    <button class="btn btn-red btn-block text-uppercase waves-effect waves-light" >Back to Review</button>
+                    <span id="result1"></span>
+
+                    <button class="btn btn-red btn-block text-uppercase waves-effect waves-light" id="back">Back to Review
+                    </button>
                 </div>
             </div>
         </div>
@@ -78,22 +75,10 @@
 </div>
 
 
-
-
 <script>
     var resizefunc = [];
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<script>
-
-        $(".reset").click(function() {
-            $(this).closest('form').find("input[type=text], textarea").val("");
-            $(this).closest('form').find("input[type=password], textarea").val("");
-        });
-
-</script>
-
 
 
 <!-- jQuery  -->
@@ -112,7 +97,47 @@
 <script src="assets/js/jquery.core.js"></script>
 <script src="assets/js/jquery.app.js"></script>
 
+<script>
 
+    $("#reset").click(function () {
+        $("#pass").val("");
+        $("#pass1").val("");
+        $("#pass2").val("");
+
+    });
+
+    $('#change').on('click', function (e){
+        e.preventDefault();
+        $.ajax({
+            url: "/change_pass",
+            type: "POST",
+            data:{
+                oldPass: $('#pass').val(),
+                newPass: $('#pass1').val(),
+                confirm: $('#pass2').val()
+            },
+            success: function (returndata){
+                if(returndata.success){
+                    $('#result1').html(returndata.success);
+                }
+                else{
+                    document.getElementById("reset").click();
+                    $('#result1').html(returndata.false);
+                }
+
+            },
+            err: function (){
+                alert("False");
+            }
+        })
+    });
+
+    $('#back').on('click', function (e){
+        e.preventDefault();
+        window.location.href="/";
+    })
+
+</script>
 </body>
 </html>
 

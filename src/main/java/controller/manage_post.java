@@ -2,6 +2,7 @@ package controller;
 
 import model.dto.PostDTO;
 import model.service.PostService;
+import util.AppUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,6 +24,7 @@ public class manage_post extends HttpServlet {
 
         request.setAttribute("title", "Post Management");
         request.setAttribute("posts", posts);
+        request.setAttribute("user", AppUtils.getLoginedUser(request.getSession()));
         request.getRequestDispatcher("manage_post.jsp").forward(request, response);
     }
 }

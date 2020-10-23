@@ -3,6 +3,7 @@ package controller;
 import com.google.gson.Gson;
 import model.dto.PostDTO;
 import model.service.PostService;
+import util.AppUtils;
 
 
 import javax.servlet.ServletException;
@@ -34,6 +35,7 @@ public class create_post extends HttpServlet {
         PostDTO postDTO = new PostDTO();
 
 
+
         postDTO.setTitle(title);
         postDTO.setRate(Long.parseLong(rate));
         postDTO.setContent(content);
@@ -54,6 +56,7 @@ public class create_post extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String title = "Create review";
         request.setAttribute("title", title);
+        request.setAttribute("user", AppUtils.getLoginedUser(request.getSession()));
         request.getRequestDispatcher("create_post.jsp").forward(request,response);
     }
 }

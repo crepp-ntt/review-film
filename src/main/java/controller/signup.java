@@ -1,8 +1,11 @@
 package controller;
 
 import com.google.gson.Gson;
+import constant.CONSTANT;
+import model.dao.iUserDao;
 import model.dao.impl.UserDao;
 import model.entity.User;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -18,9 +21,7 @@ import java.util.regex.Pattern;
 @WebServlet("/signup")
 @MultipartConfig
 public class signup extends HttpServlet {
-    private static final String EMAIL_PATTERN = "^(.+)@(.+)$";
-    private static final String USERNAME_PATTERN = "[a-z0-9_]{6,12}";
-    private static final String PASSWORD_PATTERN = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!]).{6,20})";
+
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -37,7 +38,7 @@ public class signup extends HttpServlet {
         String email = request.getParameter("email");
 
 
-        UserDao userDao = new UserDao();
+        iUserDao userDao = new UserDao();
         User user = new User();
         user.setUsername(username);
         user.setPassword(pass1);
@@ -50,6 +51,7 @@ public class signup extends HttpServlet {
         } else if (checkUserInfo(user) == 0) {
             data.put("false", "Your info has wrong format!");
         } else {
+            user.setPassword(BCrypt.hashpw(pass1, BCrypt.gensalt(12)));
             userDao.insert(user);
             data.put("success", "Create account successful!");
         }
@@ -65,11 +67,11 @@ public class signup extends HttpServlet {
     }
 
     private int checkUserInfo(User user) {
-        if (!Pattern.matches(USERNAME_PATTERN, user.getUsername()))
+        if (!Pattern.matches(CONSTANT.USERNAME_PATTERN, user.getUsername()))
             return 0;
-        if (!Pattern.matches(PASSWORD_PATTERN, user.getPassword()))
+        if (!Pattern.matches(CONSTANT.PASSWORD_PATTERN, user.getPassword()))
             return 0;
-        if (!Pattern.matches(EMAIL_PATTERN, user.getEmail()))
+        if (!Pattern.matches(CONSTANT.EMAIL_PATTERN, user.getEmail()))
             return 0;
         return 1;
     }

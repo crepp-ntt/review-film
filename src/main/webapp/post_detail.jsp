@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@include file="includes/header.jsp"%>
+    <%@include file="includes/header.jsp" %>
 </head>
 
 <style>
@@ -22,13 +22,13 @@
 <!-- Begin page -->
 <div id="wrapper">
 
-    <%@include file="/includes/top_bar.jsp"%>
+    <%@include file="/includes/top_bar.jsp" %>
 
 
     <!-- ============================================================== -->
     <!-- Start right Content here -->
     <!-- ============================================================== -->
-    <div >
+    <div>
         <!-- Start content -->
         <div class="content">
             <div class="container">
@@ -37,7 +37,9 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="btn-group pull-right m-t-15">
-                            <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false">Settings <span class="m-l-5"><i class="fa fa-cog"></i></span></button>
+                            <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light"
+                                    data-toggle="dropdown" aria-expanded="false">Settings <span class="m-l-5"><i
+                                    class="fa fa-cog"></i></span></button>
                             <ul class="dropdown-menu drop-menu-right" role="menu">
                                 <li><a href="#">Action</a></li>
                                 <li><a href="#">Another action</a></li>
@@ -59,14 +61,15 @@
 
                                 <div class="col-md-12">
 
-                                    <div  class="form-horizontal" >
+                                    <div class="form-horizontal">
                                         <div class="col-md-2 m-t-10">
                                             <div class="col-md-1"></div>
 
                                             <div class="col-md-6">
-                                                <img id="blah" src="assets/images/users/avatar.jpg" alt="your image" style="width: 150px; height: 150px; border-radius: 30px"/>
+                                                <img id="blah" src="${post.getAvt()}" alt="your image"
+                                                     style="width: 150px; height: 150px; border-radius: 30px"/>
                                                 <div style="width: 150px; text-align: center; font-size: 18px">
-                                                    <span >User</span>
+                                                    <span>${post.getUsername()}</span>
                                                 </div>
 
                                             </div>
@@ -76,20 +79,20 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <div class="col-md-6"></div>
-                                                <h4 class="m-t-0 header-title col-md-6" ><b>${post.getTitle()}</b></h4>
+                                                <h4 class="m-t-0 header-title col-md-6"><b>${post.getTitle()}</b></h4>
                                             </div>
 
 
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label">Film</label>
                                                 <div class="col-md-10">
-                                                    <span type="text" class="form-control" >${post.getFilmName()}</span>
+                                                    <span type="text" class="form-control">${post.getFilmName()}</span>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-md-2 control-label" >Rate</label>
+                                                <label class="col-md-2 control-label">Rate</label>
                                                 <div class="col-md-10">
-                                                    <span class="form-control"  >${post.getRate()}</span>
+                                                    <span class="form-control">${post.getRate()}</span>
                                                 </div>
                                             </div>
 
@@ -97,96 +100,124 @@
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label">Review</label>
                                                 <div class="col-md-10">
-                                                    <span class="form-control" style="height: 250px">${post.getContent()}</span>
+                                                    <span class="form-control"
+                                                          style="height: 250px">${post.getContent()}</span>
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="col-md-2 control-label" >Upvote</label>
+                                                <label class="col-md-2 control-label">Upvote</label>
                                                 <div class="col-md-2">
-                                                    <span class="form-control" >10</span>
+                                                    <span class="form-control">10</span>
                                                 </div>
-                                                <label class="col-md-2 control-label" >Downvote</label>
+                                                <label class="col-md-2 control-label">Downvote</label>
                                                 <div class="col-md-2">
-                                                    <span class="form-control" >0</span>
+                                                    <span class="form-control">0</span>
                                                 </div>
                                             </div>
-
 
 
                                             <div class="form-group text-center m-t-40">
                                                 <div class="col-xs-2">
                                                 </div>
                                                 <div class="col-xs-5">
-                                                    <a href="" class="btn btn-primary btn-block text-uppercase waves-effect waves-light reset" >Up</a>
+                                                    <a href=""
+                                                       class="btn btn-primary btn-block text-uppercase waves-effect waves-light reset">Up</a>
                                                 </div>
                                                 <div class="col-xs-5">
-                                                    <button class="btn btn-pink btn-block text-uppercase waves-effect waves-light" >Down</button>
+                                                    <button class="btn btn-pink btn-block text-uppercase waves-effect waves-light">
+                                                        Down
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-4 ">
                                             <div class="col-md-1"></div>
-                                            <div class="col-md-10">
+                                            <div class="col-md-10 ">
                                                 <div class="form-group">
                                                     <div class="col-md-4"></div>
-                                                    <h4 class="m-t-0 header-title col-md-6" ><b>Comment</b></h4>
+                                                    <h4 class="m-t-0 header-title col-md-6"><b>Comment</b></h4>
                                                 </div>
 
-                                                <form>
-                                                    <div class="form-group">
-                                                        <div class="col-md-10">
-                                                            <input class="form-control"  placeholder="Insert your comment"/>
-                                                        </div>
-                                                        <button class="col-md-2 btn btn-primary text-uppercase waves-effect waves-light" type="submit">Send</button>
+                                                <% if(AppUtils.getLoginedUser(request.getSession()) != null){ %>
+                                                <div class="form-group">
+                                                    <div class="col-md-10">
+                                                        <input class="form-control" id="content" placeholder="Insert your comment"/>
                                                     </div>
-                                                </form>
+                                                    <button class="col-md-2 btn btn-primary text-uppercase waves-effect waves-light" id="send">
+                                                        Send
+                                                    </button>
+                                                </div>
 
+                                                <div id="comments"></div>
+                                                <nav aria-label="Page navigation example" style="text-align: center">
+                                                    <ul class="pagination">
+
+                                                    </ul>
+                                                </nav>
+
+
+<%--                                                <div class="form-group card-box">--%>
+<%--                                                    <div class="col-md-3">--%>
+<%--                                                        <img src="assets/images/users/avatar.jpg" alt="your image"--%>
+<%--                                                             style="width: 75px; height: 75px"/>--%>
+
+<%--                                                    </div>--%>
+<%--                                                    <div class="col-md-9">--%>
+<%--                                                        <div class="col-md-2"></div>--%>
+<%--                                                        <div class="col-md-12">--%>
+<%--                                                            <label class="">User:</label>--%>
+<%--                                                            <span>This movie iz gud phim hay thiet</span>--%>
+<%--                                                        </div>--%>
+<%--                                                    </div>--%>
+<%--                                                </div>--%>
+
+<%--                                                <div class="form-group card-box">--%>
+<%--                                                    <div class="col-md-3">--%>
+<%--                                                        <img src="assets/images/users/avatar.jpg" alt="your image"--%>
+<%--                                                             style="width: 75px; height: 75px"/>--%>
+
+<%--                                                    </div>--%>
+<%--                                                    <div class="col-md-9">--%>
+<%--                                                        <div class="col-md-2"></div>--%>
+<%--                                                        <div class="col-md-12">--%>
+<%--                                                            <label class="">User:</label>--%>
+<%--                                                            <span>Cong nhan</span>--%>
+<%--                                                        </div>--%>
+<%--                                                    </div>--%>
+<%--                                                </div>--%>
+
+<%--                                                <div class="form-group card-box">--%>
+<%--                                                    <div class="col-md-3">--%>
+<%--                                                        <img src="assets/images/users/avatar.jpg" alt="your image"--%>
+<%--                                                             style="width: 75px; height: 75px"/>--%>
+
+<%--                                                    </div>--%>
+<%--                                                    <div class="col-md-9">--%>
+<%--                                                        <div class="col-md-2"></div>--%>
+<%--                                                        <div class="col-md-12">--%>
+<%--                                                            <label class="">User:</label>--%>
+<%--                                                            <span>Cong nhan</span>--%>
+<%--                                                        </div>--%>
+<%--                                                    </div>--%>
+<%--                                                </div>--%>
+                                                <% } else {%>
                                                 <div class="form-group card-box">
-                                                    <div class="col-md-3">
-                                                        <img  src="assets/images/users/avatar.jpg" alt="your image" style="width: 75px; height: 75px"/>
+                                                    <div class="col-md-4">
+                                                        <button onclick="window.location.href='login'" class="btn btn-red btn-block text-uppercase waves-effect waves-light" >Login
+                                                        </button>
 
                                                     </div>
-                                                    <div class="col-md-9">
+                                                    <div class="col-md-8" >
                                                         <div class="col-md-2"></div>
-                                                        <div class="col-md-12">
-                                                            <label class="" >User:</label>
-                                                            <span>This movie iz gud phim hay thiet</span>
+                                                        <div class="col-md-12" style="margin-top: 5px">
+<%--                                                            <label class="">to Comment</label>--%>
+                                                            <span>to comment</span>
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                                <div class="form-group card-box">
-                                                    <div class="col-md-3">
-                                                        <img  src="assets/images/users/avatar.jpg" alt="your image" style="width: 75px; height: 75px"/>
-
-                                                    </div>
-                                                    <div class="col-md-9">
-                                                        <div class="col-md-2"></div>
-                                                        <div class="col-md-12">
-                                                            <label class="" >User:</label>
-                                                            <span>Cong nhan</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group card-box">
-                                                    <div class="col-md-3">
-                                                        <img  src="assets/images/users/avatar.jpg" alt="your image" style="width: 75px; height: 75px"/>
-
-                                                    </div>
-                                                    <div class="col-md-9">
-                                                        <div class="col-md-2"></div>
-                                                        <div class="col-md-12">
-                                                            <label class="" >User:</label>
-                                                            <span>Cong nhan</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <%}%>
                                             </div>
-
-
-
 
 
                                         </div>
@@ -196,20 +227,15 @@
                                 </div>
 
 
-
-
                             </div>
                         </div>
                     </div>
                 </div>
 
 
-
-
             </div> <!-- container -->
 
         </div> <!-- content -->
-
 
 
     </div>
@@ -220,11 +246,8 @@
     <!-- ============================================================== -->
 
 
-
-
 </div>
 <!-- END wrapper -->
-
 
 
 <script>
@@ -257,7 +280,6 @@
 <script src="assets/plugins/counterup/jquery.counterup.min.js"></script>
 
 
-
 <%--<script src="assets/plugins/morris/morris.min.js"></script>--%>
 <script src="assets/plugins/raphael/raphael-min.js"></script>
 
@@ -272,9 +294,51 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">--%>
 <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
-<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
 
 <script>
+    $(document).ready(function () {
+        $.get("comment",{postId: ${post.getId()}}, function (data, status){
+            $('#comments').html(data.result);
+
+            $('.pagination').html(data.pagination);
+        })
+    })
+
+    function reload () {
+        $.get("comment?postId=${post.getId()}", function (data, status){
+            $('#comments').html(data.result);
+
+            $('.pagination').html(data.pagination);
+        })
+    }
+
+    $("#send").on('click', function (e){
+        e.preventDefault();
+        let data = {
+            username: "${user.getUsername()}",
+            userAvt: "${user.getAvt()}",
+            postId: "${post.getId()}",
+            content: $('#content').val(),
+        }
+
+        $.ajax({
+            url: "/comment",
+            type: "POST",
+            dataType: 'JSON',
+            data: {
+                json: JSON.stringify(data),
+            },
+            success: function (response){
+                reload();
+                $('#content').val("");
+            }
+            ,
+            error: function () {
+                alert("error in ajax submission");
+            }
+        })
+    })
 
 </script>
 
@@ -298,8 +362,6 @@
 
 <%--    });--%>
 <%--</script>--%>
-
-
 
 
 </body>

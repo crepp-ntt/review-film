@@ -4,7 +4,6 @@ import java.sql.Date;
 
 public class UserDTO {
     private String username;
-    private String password;
     private String name;
     private String email;
     private java.sql.Date dob;
@@ -43,6 +42,16 @@ public class UserDTO {
     public void setDob(Date dob) {
         this.dob = dob;
     }
+//    public void setDob(String dob) {
+//        java.text.DateFormat format = new java.text.SimpleDateFormat("MM/dd/yyyy");
+//        try {
+//            java.util.Date da = format.parse(dob);
+//            java.sql.Date sqlDate = new java.sql.Date(da.getTime());
+//            this.dob = sqlDate;
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public String getAvt() {
         return avt;
@@ -60,9 +69,6 @@ public class UserDTO {
         this.phone = phone;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
     public String getStatus() {
         return status;
@@ -72,8 +78,6 @@ public class UserDTO {
         this.status = status;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+
 
 }

@@ -2,6 +2,7 @@ package controller;
 
 import model.dto.PostDTO;
 import model.service.PostService;
+import util.AppUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,6 +26,7 @@ public class post_detail extends HttpServlet {
         PostDTO postDTO = postService.getPost(id);
         request.setAttribute("post", postDTO);
         request.setAttribute("title", "Post: " + postDTO.getTitle());
+        request.setAttribute("user", AppUtils.getLoginedUser(request.getSession()));
         request.getRequestDispatcher("post_detail.jsp").forward(request,response);
     }
 }

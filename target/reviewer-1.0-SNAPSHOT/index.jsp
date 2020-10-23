@@ -1,4 +1,4 @@
-<%@ page import="util.AppUtils" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: crepp
   Date: 07/10/2020
@@ -7,7 +7,6 @@
 --%>
 
 <!DOCTYPE html>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
 <head>
@@ -52,7 +51,7 @@
                 </div>
 
                 <div class="row">
-                    <% if(AppUtils.getLoginedUser(request.getSession()) != null){%>
+                    <% if (AppUtils.getLoginedUser(request.getSession()) != null) {%>
                     <div>
                         <a href="create_post" class="btn btn-primary text-uppercase waves-effect waves-light"
                            id="create_post">Create review
@@ -103,71 +102,59 @@
                             </div>
 
                         </div>
+                        <div id="posts"></div>
+<%--                        <c:forEach items="${posts}" var="item">--%>
 
-                        <c:forEach items="${posts}" var="item">
-
-                            <c:url var="post_detail" value="post_detail">
-                                <c:param name="id" value="${item.getId()}"/>
-                            </c:url>
-
-                            <div class="card-box m-b-8 post_detail" onclick="location.href='${post_detail}'">
-
-                                <div class="table-box opport-box">
-                                    <div class="table-detail" style="text-align: center">
-                                        <img src="assets/images/users/avatar.jpg" alt="img"
-                                             class="img-circle thumb-lg m-r-15"/>
-                                        <p class="text-dark m-t-10"><b>${item.getUsername()} </b></p>
-                                    </div>
-
-                                    <div class="table-detail">
-                                        <div class="member-info">
-                                            <h4 class="m-t-0" style="width: 250px"><b>${item.getTitle()}</b></h4>
-                                            <p class="text-dark m-b-5"><b>#ID: </b> <span
-                                                    class="text-muted">${item.getId()}</span>
-                                            </p>
-                                            <p class="text-dark m-b-5"><b>#Date: </b> <span
-                                                    class="text-muted">20/20/2020</span></p>
-                                        </div>
-                                    </div>
+<%--                            <c:url var="post_detail" value="post_detail">--%>
+<%--                                <c:param name="id" value="${item.getId()}"/>--%>
+<%--                            </c:url>--%>
 
 
-                                    <div class="table-detail">
-                                        <div class="member-info">
-                                            <h5 class="m-t-0"><b>Upvote </b></h5>
-                                            <p class="text-dark m-b-5" style="width: 100px"><span
-                                                    class="text-muted">10</span></p>
-                                        </div>
-                                    </div>
 
-                                    <div class="table-detail">
-                                        <div class="member-info">
-                                            <h5 class="m-t-0"><b>Downvote </b></h5>
-                                            <p class="text-dark m-b-5" style="width: 100px"><span
-                                                    class="text-muted">10</span></p>
-                                        </div>
-                                    </div>
+<%--                            <div class="card-box m-b-8 post_detail" onclick="location.href='${post_detail}'">--%>
+
+<%--                                <div class="table-box opport-box">--%>
+<%--                                    <div class="table-detail" style="text-align: center">--%>
+<%--                                        <img src="${item.getAvt()}" alt="img"--%>
+<%--                                             class="img-circle thumb-lg m-r-15"/>--%>
+<%--                                        <p class="text-dark m-t-10"><b>${item.getUsername()} </b></p>--%>
+<%--                                    </div>--%>
+
+<%--                                    <div class="table-detail">--%>
+<%--                                        <div class="member-info">--%>
+<%--                                            <h4 class="m-t-0" style="width: 250px"><b>${item.getTitle()}</b></h4>--%>
+<%--                                            <p class="text-dark m-b-5"><b>#ID: </b> <span--%>
+<%--                                                    class="text-muted">${item.getId()}</span>--%>
+<%--                                            </p>--%>
+<%--                                            <p class="text-dark m-b-5"><b>#Date: </b> <span--%>
+<%--                                                    class="text-muted">20/20/2020</span></p>--%>
+<%--                                        </div>--%>
+<%--                                    </div>--%>
 
 
-                                </div>
-                            </div>
-                        </c:forEach>
-                        <nav style="text-align: center">
+<%--                                    <div class="table-detail">--%>
+<%--                                        <div class="member-info">--%>
+<%--                                            <h5 class="m-t-0"><b>Upvote </b></h5>--%>
+<%--                                            <p class="text-dark m-b-5" style="width: 100px"><span--%>
+<%--                                                    class="text-muted">10</span></p>--%>
+<%--                                        </div>--%>
+<%--                                    </div>--%>
+
+<%--                                    <div class="table-detail">--%>
+<%--                                        <div class="member-info">--%>
+<%--                                            <h5 class="m-t-0"><b>Downvote </b></h5>--%>
+<%--                                            <p class="text-dark m-b-5" style="width: 100px"><span--%>
+<%--                                                    class="text-muted">10</span></p>--%>
+<%--                                        </div>--%>
+<%--                                    </div>--%>
+
+
+<%--                                </div>--%>
+<%--                            </div>--%>
+<%--                        </c:forEach>--%>
+                        <nav aria-label="Page navigation example" style="text-align: center">
                             <ul class="pagination">
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
-                                </li>
+
                             </ul>
                         </nav>
 
@@ -294,7 +281,7 @@
 
                                     </div>
                                 </div>
-                                <div class="card-box m-b-5">
+                                <div class="card-box m-b-5" >
                                     <div class="table-box opport-box">
                                         <div class="table-detail">
                                             <img src="assets/images/brand/envato.jpg" alt="img"
@@ -394,10 +381,50 @@
 
     });
 
-    // $('.post_detail').on('click',function (){
-    //     let id = $(this).attr("id");
-    //     alert(id);
-    // })
+
+    $(function () {
+        $.get("get-posts", function (data, status){
+            $('#posts').html(data.result);
+
+            $('.pagination').html(data.pagination);
+        })
+    })
+
+    $('.page-item').click( (e)=>{
+        alert(e);
+        // e.preventDefault();
+        // let page = $(this).data('offset');
+        // alert(page);
+        // $.ajax({
+        //     url: "/get-posts",
+        //     type: "GET",
+        //     data:{
+        //         "currentPage" : page
+        //     }.done(function(returndata){               //success is deprecated, use done
+        //         $('#posts').html(returndata.result);
+        //         $('.pagination').html(returndata.pagination);
+        //     })
+        //         .fail(function(jqXHR){          //dump the info to the console (hit f12 to see that in a browser)
+        //             console.log(jqXHR);
+        //             alert("aw damn, something bad happened");
+        //         })
+        //
+        //
+        // })
+    })
+
+    // $('a').click(function(event) {
+    //     event.preventDefault();
+    //     $.ajax({
+    //         url: $(this).attr('href'),
+    //         success: function(response) {
+    //             alert(response);
+    //         }
+    //     });
+    //     return false; // for good measure
+    // });
+
+
 </script>
 
 

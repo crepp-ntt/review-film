@@ -9,6 +9,15 @@ public class Comment {
   private long postId;
   private String content;
 
+  public Comment(String username, String userAvt, long postId, String content) {
+    this.username = username;
+    this.userAvt = userAvt;
+    this.postId = postId;
+    this.content = content;
+  }
+
+  public Comment() {
+  }
 
   public long getId() {
     return id;

@@ -11,12 +11,20 @@
 <head>
     <%@include file="includes/header.jsp" %>
 </head>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<style>
-    .ck-editor__editable {
-        height: 200px !important;
-    }
-</style>
+<script>
+
+    $(function () {
+        $("#datepicker").datepicker({
+            uiLibrary: 'bootstrap4',
+            format: 'yyyy-mm-dd'
+        });
+    });
+
+</script>
 <body class="fixed-left">
 
 <!-- Begin page -->
@@ -66,10 +74,14 @@
                                             <div class="col-md-4"></div>
 
                                             <div class="col-md-6">
-                                                <img id="blah" src="assets/images/users/avatar.jpg" alt="your image"
-                                                     style="width: 200px; height: 200px; border-radius: 20px" />
+                                                <img id="blah" alt="your image" src="${user.getAvt()}"
+                                                     style="width: 200px; height: 200px; border-radius: 20px"/>
                                                 <input type='file' id="imgInp" name="img"/>
+                                                <div class="col-xs-2">
+                                                    <span id="result1"></span>
+                                                </div>
                                             </div>
+
 
                                         </div>
 
@@ -101,7 +113,7 @@
                                                 <label class="col-md-2 control-label">DoB</label>
                                                 <div class="col-md-10">
                                                     <input placeholder="mm/dd/yyyy" class="form-control" id="datepicker"
-                                                           required name="dob" value="${user.getDob()}">
+                                                           required name="dob" value="${user.getDob()}"/>
                                                 </div>
                                             </div>
 
@@ -123,10 +135,12 @@
                                                 </div>
                                                 <div class="col-xs-5">
                                                     <button class="btn btn-pink btn-block text-uppercase waves-effect waves-light"
-                                                             id="submit">Save
+                                                            id="submit">Save
                                                     </button>
                                                 </div>
+
                                             </div>
+
                                         </div>
 
 
@@ -202,12 +216,7 @@
 <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">--%>
 <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
-<script>
 
-    $('#datepicker').datepicker({
-        uiLibrary: 'bootstrap4'
-    });
-</script>
 <script>
     function readURL(input) {
         if (input.files && input.files[0]) {
@@ -222,6 +231,8 @@
         }
     }
 
+    console.log($("#blah").attr("src"));
+
 
     $("#imgInp").change(function () {
         readURL(this);
@@ -229,30 +240,35 @@
     $("#submit").on("click", function (e) {
         e.preventDefault();
         let data = {
-            img: $("#blah").attr("src"),
+            username: "${user.getUsername()}",
+            avt: $("#blah").attr("src"),
             name: $("#name").val(),
             email: $("#email").val(),
             dob: $("#datepicker").val(),
             phone: $("#phone").val()
         }
-        alert(JSON.stringify(data));
         $.ajax({
             url: "/change_profile",
             type: "POST",
             dataType: 'JSON',
-            data:{
-                alo: 1,
-                test: JSON.stringify(data),
+            data: {
+                json: JSON.stringify(data),
             },
-            success: function (resutl) {
-                //
+            success: function (datareturn) {
+                if (datareturn.success) {
+                    $('#result1').html(datareturn.success);
+                } else
+                    $('#result1').html(datareturn.false);
+
             },
             error: function () {
                 alert("error in ajax submission");
             }
         });
         return false;
-    })
+    });
+    <%--$('#blah').attr('src', ${user.getAvt()}).width(200)--%>
+    <%--    .height(200);--%>
 </script>
 
 <script>
