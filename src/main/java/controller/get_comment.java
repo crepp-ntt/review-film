@@ -17,8 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet("/comment")
-public class comment extends HttpServlet {
+@WebServlet("/get_comment")
+public class get_comment extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, String> data = new HashMap<>();
         response.setContentType("application/json");

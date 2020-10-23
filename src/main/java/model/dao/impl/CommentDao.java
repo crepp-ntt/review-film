@@ -13,7 +13,10 @@ public class CommentDao implements iCommentDao {
     String INSERT="INSERT INTO comments(username, user_avt, post_id, content) VALUES(?,?,?,?)";
 
     private static final
-    String FIND_BY_POSTID="SELECT * FROM comments WHERE post_id=? ORDER BY id DESC";
+    String FIND_BY_POST_ID="SELECT * FROM comments WHERE post_id=? ORDER BY id DESC";
+
+    private static final
+    String FIND_BY_USERNAME="SELECT * FROM comments WHERE username=? ORDER BY id DESC";
 
 
     @Override
@@ -61,15 +64,36 @@ public class CommentDao implements iCommentDao {
     }
 
     @Override
-    public List<Comment> findByPostid(long postId) {
+    public List<Comment> findByPostId(long postId) {
         Connection conn = null;
         PreparedStatement stmt = null;
 
         try {
             List<Comment> comments = new ArrayList<>();
             conn = getConnection();
-            stmt = conn.prepareStatement(FIND_BY_POSTID);
+            stmt = conn.prepareStatement(FIND_BY_POST_ID);
             stmt.setLong(1, postId);
+
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next())
+                comments.add(create(rs));
+            return comments;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Comment> findByUsername(String username) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        try {
+            List<Comment> comments = new ArrayList<>();
+            conn = getConnection();
+            stmt = conn.prepareStatement(FIND_BY_USERNAME);
+            stmt.setString(1, username);
 
             ResultSet rs = stmt.executeQuery();
             while(rs.next())

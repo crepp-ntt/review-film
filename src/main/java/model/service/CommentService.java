@@ -16,9 +16,12 @@ public class CommentService {
     private iCommentDao dao = new CommentDao();
 
     public List<Comment> getPostComment(long postId){
-        return dao.findByPostid(postId);
+        return dao.findByPostId(postId);
     }
 
+    public List<Comment> getUserComment(String username){
+        return dao.findByUsername(username);
+    }
 //    public int saveComment(String username, String userAvt, long postId, String content){
 //        Comment comment = new Comment(username, userAvt, postId, content);
 //        return dao.insert(comment);

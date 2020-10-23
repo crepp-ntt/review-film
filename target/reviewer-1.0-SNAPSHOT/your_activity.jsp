@@ -14,8 +14,8 @@
 </head>
 
 <style>
-    .ck-editor__editable {
-        height: 200px !important;
+    .selected {
+        color: #0a6aa1;
     }
 </style>
 <body class="fixed-left">
@@ -59,10 +59,13 @@
                     <div class="col-sm-8">
                         <div class="card-box">
 
-                            <h4 class="m-t-0 header-title" style="text-align: center"><b>Post Management</b></h4>
+                            <button class="header-title selected" style="text-align: center" id="post"><b>Post</b>
+                            </button>
+                            <button class="header-title" style="text-align: center" id="activity"><b>Activity</b>
+                            </button>
 
 
-                            <div  style="padding: 20px 20px 20px">
+                            <div style="padding: 20px 20px 20px">
                                 <table class="table table-bordered m-0">
 
                                     <thead>
@@ -73,20 +76,26 @@
                                         <th style="width: 100px">Edit</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <c:forEach items = "${posts}" var="post">
-                                        <tr>
-                                            <th scope="row">${post.getId()}</th>
-                                            <td>${post.getTitle()}</td>
-                                            <td>${post.getStatus()}</td>
-                                            <td><a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
+                                    <tbody id="posts">
+<%--                                    <c:forEach items="${posts}" var="post">--%>
+<%--                                        <tr>--%>
+<%--                                            <th scope="row">${post.getId()}</th>--%>
+<%--                                            <td>${post.getTitle()}</td>--%>
+<%--                                            <td>${post.getStatus()}</td>--%>
+<%--                                            <td><a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>--%>
+<%--                                            </td>--%>
+<%--                                        </tr>--%>
+<%--                                    </c:forEach>--%>
 
                                     </tbody>
                                 </table>
+
                             </div>
+                            <nav aria-label="Page navigation example" style="text-align: center; margin-bottom: 0;">
+                                <ul class="pagination">
+
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </div>
@@ -160,12 +169,34 @@
 </script>
 
 <script>
+    $(function () {
+        $.get("get_activity", {type: "post", page: 1}, function (data, status) {
+            $('#posts').html(data.result);
 
+            $('.pagination').html(data.pagination);
+        })
+    })
 
-    // $(".reset").click(function() {
-    //     $(this).closest('form').find("input[type=text], textarea").val("");
-    //     $(this).closest('form').find("input[type=password], textarea").val("");
-    // });
+    function reload() {
+        $.get("get_activity", {type: "post", page: 1}, function (data, status) {
+            $('#posts').html(data.result);
+
+            $('.pagination').html(data.pagination);
+        })
+    }
+
+    $("#activity").on('click', function (e) {
+        e.preventDefault();
+        $(this).attr("class", "header-title selected");
+        document.getElementById("post").setAttribute("class", "header-title");
+        $.ajax({})
+    })
+
+    $("#post").on('click', function (e) {
+        e.preventDefault();
+        $(this).attr("class", "header-title selected");
+        document.getElementById("activity").setAttribute("class", "header-title");
+    })
 
 </script>
 <%--<script type="text/javascript">--%>

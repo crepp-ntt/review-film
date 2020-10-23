@@ -105,15 +105,18 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group">
-                                                <label class="col-md-2 control-label">Upvote</label>
-                                                <div class="col-md-2">
-                                                    <span class="form-control">10</span>
-                                                </div>
-                                                <label class="col-md-2 control-label">Downvote</label>
-                                                <div class="col-md-2">
-                                                    <span class="form-control">0</span>
-                                                </div>
+                                            <div class="form-group" id="votes">
+<%--                                                <div class="col-md-2">--%>
+<%--                                                    --%>
+<%--                                                </div>--%>
+<%--                                                <label class="col-md-2 control-label">Upvote</label>--%>
+<%--                                                <div class="col-md-2">--%>
+<%--                                                    <span class="form-control">10</span>--%>
+<%--                                                </div>--%>
+<%--                                                <label class="col-md-2 control-label">Downvote</label>--%>
+<%--                                                <div class="col-md-2">--%>
+<%--                                                    <span class="form-control">0</span>--%>
+<%--                                                </div>--%>
                                             </div>
 
 
@@ -298,15 +301,20 @@
 
 <script>
     $(document).ready(function () {
-        $.get("comment",{postId: ${post.getId()}}, function (data, status){
+        $.get("get_comment",{postId: ${post.getId()}}, function (data, status){
             $('#comments').html(data.result);
 
             $('.pagination').html(data.pagination);
         })
+
+        $.get("get_vote",{postId: ${post.getId()}}, function (data, status){
+            $('#votes').html(data.result);
+
+        })
     })
 
     function reload () {
-        $.get("comment?postId=${post.getId()}", function (data, status){
+        $.get("get_comment?postId=${post.getId()}", function (data, status){
             $('#comments').html(data.result);
 
             $('.pagination').html(data.pagination);
@@ -323,7 +331,7 @@
         }
 
         $.ajax({
-            url: "/comment",
+            url: "/get_comment",
             type: "POST",
             dataType: 'JSON',
             data: {

@@ -2,7 +2,9 @@ package controller;
 
 import com.google.gson.Gson;
 import model.dto.PostDTO;
+import model.entity.Vote;
 import model.service.PostService;
+import model.service.VoteService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @WebServlet("/get-posts")
-public class getIndexPost extends HttpServlet {
+public class get_index_post extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
@@ -47,6 +49,19 @@ public class getIndexPost extends HttpServlet {
         }
         String result = "";
         for (PostDTO item : posts) {
+            VoteService voteService = new VoteService();
+            List<Vote> votes = voteService.getVoteByPostId(item.getId());
+
+            int upVote = 0;
+            int downVote = 0;
+
+            //count upVote, downVote from votes
+            for (Vote vote : votes) {
+                if (vote.getVote().equals("UP"))
+                    upVote++;
+                else
+                    downVote++;
+            }
             result += "<c:url var=\"post_detail\" value=\"post_detail\">\n" +
                     "                                <c:param name=\"id\" value=\"" + item.getId() + "\"/>\n" +
                     "                            </c:url>\n" +
@@ -78,7 +93,7 @@ public class getIndexPost extends HttpServlet {
                     "                                        <div class=\"member-info\">\n" +
                     "                                            <h5 class=\"m-t-0\"><b>Upvote </b></h5>\n" +
                     "                                            <p class=\"text-dark m-b-5\" style=\"width: 100px\"><span\n" +
-                    "                                                    class=\"text-muted\">10</span></p>\n" +
+                    "                                                    class=\"text-muted\">"+ upVote+"</span></p>\n" +
                     "                                        </div>\n" +
                     "                                    </div>\n" +
                     "\n" +
@@ -86,7 +101,7 @@ public class getIndexPost extends HttpServlet {
                     "                                        <div class=\"member-info\">\n" +
                     "                                            <h5 class=\"m-t-0\"><b>Downvote </b></h5>\n" +
                     "                                            <p class=\"text-dark m-b-5\" style=\"width: 100px\"><span\n" +
-                    "                                                    class=\"text-muted\">10</span></p>\n" +
+                    "                                                    class=\"text-muted\">"+downVote+"</span></p>\n" +
                     "                                        </div>\n" +
                     "                                    </div>\n" +
                     "\n" +

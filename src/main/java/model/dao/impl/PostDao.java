@@ -2,6 +2,7 @@ package model.dao.impl;
 
 import constant.CONSTANT;
 import model.dao.iPostDao;
+import model.entity.Comment;
 import model.entity.Post;
 
 import java.awt.*;
@@ -18,6 +19,8 @@ public class PostDao implements iPostDao {
     String INSERT = "INSERT INTO posts(username, user_avt, title, rate, content, current_status, date, film_name) VALUES (?,?,?,?,?,?,?,?)";
     private static final
     String UPDATE = "UPDATE posts SET username=?, user_avt=?, title=?, rate=?, content=?, current_status=?, date=?,film_name=? WHERE id=?";
+    private static final
+    String FIND_BY_USERNAME="SELECT * FROM posts WHERE username=? ORDER BY id DESC";
 
     @Override
     public List<Post> findAll() {
@@ -39,6 +42,27 @@ public class PostDao implements iPostDao {
         } finally {
             close(stmt);
             close(conn);
+        }
+        return null;
+    }
+
+    @Override
+    public List<Post> findByUsername(String username) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        try {
+            List<Post> posts = new ArrayList<>();
+            conn = getConnection();
+            stmt = conn.prepareStatement(FIND_BY_USERNAME);
+            stmt.setString(1, username);
+
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next())
+                posts.add(create(rs));
+            return posts;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
         return null;
     }

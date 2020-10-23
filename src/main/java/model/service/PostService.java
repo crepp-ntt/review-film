@@ -27,6 +27,10 @@ public class PostService {
         return convertToDTO(post);
     }
 
+    public List<Post> getPostByUsername(String username){
+        return dao.findByUsername(username);
+    }
+
 
     public int savePost(HttpServletRequest request, PostDTO dto){
         Post post = convertToEntity(dto);

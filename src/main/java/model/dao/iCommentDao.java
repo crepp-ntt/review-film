@@ -6,10 +6,11 @@ import java.sql.ResultSet;
 import java.util.List;
 
 public interface iCommentDao extends iDAO<Comment>{
-    @Override
-    List<Comment> findAll();
 
-    List<Comment> findByPostid(long postId);
+
+    List<Comment> findByPostId(long postId);
+
+    List<Comment> findByUsername(String username);
 
     @Override
     Comment findOne(Object id);
