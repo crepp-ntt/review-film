@@ -3,8 +3,8 @@ package controller;
 import com.google.gson.Gson;
 import model.dto.PostDTO;
 import model.entity.Vote;
-import model.service.PostService;
-import model.service.VoteService;
+import service.PostService;
+import service.VoteService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,6 +31,7 @@ public class get_index_post extends HttpServlet {
         int currentPage = 1;
         if (request.getParameter("currentPage") != null)
             currentPage = Integer.parseInt(request.getParameter("currentPage"));
+
         PostService postService = new PostService();
         List<PostDTO> allPost = postService.getAllPosts();
 
@@ -47,6 +48,7 @@ public class get_index_post extends HttpServlet {
             posts.add(allPost.get(i));
             temp--;
         }
+
         String result = "";
         for (PostDTO item : posts) {
             VoteService voteService = new VoteService();
@@ -109,17 +111,18 @@ public class get_index_post extends HttpServlet {
                     "                                </div>\n" +
                     "                            </div>";
         }
+
         String pagination = "";
         if (currentPage != 1)
-            pagination += "<li class=\"page-item\" data-offset=\"" + (currentPage - 1) +"\"><a class=\"page-link\" href=\"javascript:void(0)\">Previous</a></li>\n";
+            pagination += "<li class=\"page-item\" data-page=\"" + (currentPage - 1) +"\" onclick=\"pagination(event, this.getAttribute('data-page'))\"><a class=\"page-link\" href=\"javascript:void(0)\">Previous</a></li>\n";
         if(currentPage > 1)
-            pagination +=   "<li class=\"page-item\" data-offset=\"" + (currentPage - 1) +"\"><a class=\"page-link\" href=\"javascript:void(0)\" >"+ (currentPage - 1) +"</a></li>\n";
+            pagination +=   "<li class=\"page-item\" data-page=\"" + (currentPage - 1) +"\" onclick=\"pagination(event, this.getAttribute('data-page'))\"><a class=\"page-link\" href=\"javascript:void(0)\" >"+ (currentPage - 1) +"</a></li>\n";
         pagination +=       "<li class=\"page-item active\"><a class=\"page-link\" href=\"javascript:void(0)\" tabindex=\"-1\">"+ currentPage +"</a></li>\n";
         if(currentPage < totalPage)
-            pagination +=   "<li class=\"page-item\" data-offset=\"" + (currentPage + 1) +"\"><a class=\"page-link\" href=\"javascript:void(0)\">"+ (currentPage + 1) +"</a></li>\n" ;
+            pagination +=   "<li class=\"page-item\" data-page=\"" + (currentPage + 1) +"\" onclick=\"pagination(event, this.getAttribute('data-page'))\"><a class=\"page-link\" href=\"javascript:void(0)\">"+ (currentPage + 1) +"</a></li>\n" ;
 
         if(currentPage < totalPage)
-            pagination +=   "<li class=\"page-item\" data-offset=\"" + (currentPage + 1) +"\"><a class=\"page-link\" href=\"javascript:void(0)\">Next</a></li>\n" ;
+            pagination +=   "<li class=\"page-item\" data-page=\"" + (currentPage + 1) +"\" onclick=\"pagination(event, this.getAttribute('data-page'))\"><a class=\"page-link\" href=\"javascript:void(0)\">Next</a></li>\n" ;
 
         data.put("result", result);
         data.put("pagination", pagination);

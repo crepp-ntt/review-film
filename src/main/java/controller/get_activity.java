@@ -1,10 +1,8 @@
 package controller;
 
 import com.google.gson.Gson;
-import model.entity.Comment;
 import model.entity.Post;
-import model.service.CommentService;
-import model.service.PostService;
+import service.PostService;
 import util.AppUtils;
 
 import javax.servlet.ServletException;
@@ -18,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet("/get_activity")
+@WebServlet("/get-activity")
 public class get_activity extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -61,15 +59,15 @@ public class get_activity extends HttpServlet {
         }
         String pagination = "";
         if (currentPage != 1)
-            pagination += "<li class=\"page-item\" data-offset=\"" + (currentPage - 1) + "\"><a class=\"page-link\" href=\"javascript:void(0)\">Previous</a></li>\n";
+            pagination += "<li class=\"page-item\" data-page=\"" + (currentPage - 1) + "\" onclick=\"pagination(event, this.getAttribute('data-page'))\"><a class=\"page-link\" href=\"javascript:void(0)\">Previous</a></li>\n";
         if (currentPage > 1)
-            pagination += "<li class=\"page-item\" data-offset=\"" + (currentPage - 1) + "\"><a class=\"page-link\" href=\"javascript:void(0)\" >" + (currentPage - 1) + "</a></li>\n";
+            pagination += "<li class=\"page-item\" data-page=\"" + (currentPage - 1) + "\" onclick=\"pagination(event, this.getAttribute('data-page'))\"><a class=\"page-link\" href=\"javascript:void(0)\" >" + (currentPage - 1) + "</a></li>\n";
         pagination += "<li class=\"page-item active\"><a class=\"page-link\" href=\"javascript:void(0)\" tabindex=\"-1\">" + currentPage + "</a></li>\n";
         if (currentPage < totalPage)
-            pagination += "<li class=\"page-item\" data-offset=\"" + (currentPage + 1) + "\"><a class=\"page-link\" href=\"javascript:void(0)\">" + (currentPage + 1) + "</a></li>\n";
+            pagination += "<li class=\"page-item\" data-page=\"" + (currentPage + 1) + "\" onclick=\"pagination(event, this.getAttribute('data-page'))\"><a class=\"page-link\" href=\"javascript:void(0)\">" + (currentPage + 1) + "</a></li>\n";
 
         if (currentPage < totalPage)
-            pagination += "<li class=\"page-item\" data-offset=\"" + (currentPage + 1) + "\"><a class=\"page-link\" href=\"javascript:void(0)\">Next</a></li>\n";
+            pagination += "<li class=\"page-item\" data-page=\"" + (currentPage + 1) + "\" onclick=\"pagination(event, this.getAttribute('data-page'))\"><a class=\"page-link\" href=\"javascript:void(0)\">Next</a></li>\n";
 
         data.put("result", result);
         data.put("pagination", pagination);

@@ -2,7 +2,7 @@ package controller;
 
 import com.google.gson.Gson;
 import model.dto.PostDTO;
-import model.service.PostService;
+import service.PostService;
 import util.AppUtils;
 
 

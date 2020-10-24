@@ -2,7 +2,7 @@ package controller;
 
 import com.google.gson.Gson;
 import model.entity.Vote;
-import model.service.VoteService;
+import service.VoteService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet("/get_vote")
+@WebServlet("/get-votes")
 public class get_vote extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

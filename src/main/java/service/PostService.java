@@ -1,4 +1,4 @@
-package model.service;
+package service;
 
 import model.dao.iPostDao;
 import model.dao.impl.PostDao;

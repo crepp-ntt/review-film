@@ -301,20 +301,20 @@
 
 <script>
     $(document).ready(function () {
-        $.get("get_comment",{postId: ${post.getId()}}, function (data, status){
+        $.get("get-comments",{postId: ${post.getId()}}, function (data, status){
             $('#comments').html(data.result);
 
             $('.pagination').html(data.pagination);
         })
 
-        $.get("get_vote",{postId: ${post.getId()}}, function (data, status){
+        $.get("get-votes",{postId: ${post.getId()}}, function (data, status){
             $('#votes').html(data.result);
 
         })
     })
 
     function reload () {
-        $.get("get_comment?postId=${post.getId()}", function (data, status){
+        $.get("get-comments?postId=${post.getId()}", function (data, status){
             $('#comments').html(data.result);
 
             $('.pagination').html(data.pagination);
@@ -331,7 +331,7 @@
         }
 
         $.ajax({
-            url: "/get_comment",
+            url: "/get-comments",
             type: "POST",
             dataType: 'JSON',
             data: {
@@ -347,6 +347,27 @@
             }
         })
     })
+
+    function pagination(e, page) {
+        e.preventDefault();
+        $.ajax({
+            url: "/get-comments",
+            type: "GET",
+            data: {
+                "currentPage": page,
+                "postId": ${post.getId()}
+            },
+            success: function (data) {
+                $('#comments').html(data.result);
+                $('.pagination').html(data.pagination);
+            },
+            error: function () {          //dump the info to the console (hit f12 to see that in a browser)
+                alert("aw damn, something bad happened");
+            }
+
+
+        })
+    }
 
 </script>
 

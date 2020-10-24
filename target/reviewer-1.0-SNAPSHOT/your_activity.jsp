@@ -170,7 +170,7 @@
 
 <script>
     $(function () {
-        $.get("get_activity", {type: "post", page: 1}, function (data, status) {
+        $.get("get-activity", {type: "post", page: 1}, function (data, status) {
             $('#posts').html(data.result);
 
             $('.pagination').html(data.pagination);
@@ -178,9 +178,8 @@
     })
 
     function reload() {
-        $.get("get_activity", {type: "post", page: 1}, function (data, status) {
+        $.get("get-activity", {type: "post", page: 1}, function (data, status) {
             $('#posts').html(data.result);
-
             $('.pagination').html(data.pagination);
         })
     }
@@ -189,7 +188,7 @@
         e.preventDefault();
         $(this).attr("class", "header-title selected");
         document.getElementById("post").setAttribute("class", "header-title");
-        $.ajax({})
+        // $.ajax({})
     })
 
     $("#post").on('click', function (e) {
@@ -197,6 +196,26 @@
         $(this).attr("class", "header-title selected");
         document.getElementById("activity").setAttribute("class", "header-title");
     })
+
+    function pagination(e, page){
+        e.preventDefault();
+        alert(page)
+        $.ajax({
+            url:"/get-activity",
+            type: "GET",
+            data: {
+                "page": page,
+                "type": "post"
+            },
+            success: function (data){
+                $('#posts').html(data.result);
+                $('.pagination').html(data.pagination);
+            },
+            error: function (){
+                alert("aw damn, something bad happened");
+            }
+        })
+    }
 
 </script>
 <%--<script type="text/javascript">--%>

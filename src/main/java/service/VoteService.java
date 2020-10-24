@@ -1,4 +1,4 @@
-package model.service;
+package service;
 
 import model.dao.iVoteDao;
 import model.dao.impl.VoteDao;

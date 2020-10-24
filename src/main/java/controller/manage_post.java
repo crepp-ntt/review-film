@@ -1,7 +1,7 @@
 package controller;
 
 import model.dto.PostDTO;
-import model.service.PostService;
+import service.PostService;
 import util.AppUtils;
 
 import javax.servlet.ServletException;

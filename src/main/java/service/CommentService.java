@@ -1,4 +1,4 @@
-package model.service;
+package service;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MappingIterator;
@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import model.dao.iCommentDao;
 import model.dao.impl.CommentDao;
-import model.dto.UserDTO;
 import model.entity.Comment;
 
 import java.io.IOException;

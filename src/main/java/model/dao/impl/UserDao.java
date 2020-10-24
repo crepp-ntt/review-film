@@ -9,6 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class UserDao implements iUserDao {
     private static final
     String FIND_ALL = "SELECT * FROM users";
@@ -166,7 +167,7 @@ public class UserDao implements iUserDao {
         }
     }
 
-    private Connection getConnection(){
+private Connection getConnection(){
         try {
             Class.forName(CONSTANT.DRIVE_NAME);
             return DriverManager.getConnection(CONSTANT.DB_URL, CONSTANT.ID, CONSTANT.PASS);

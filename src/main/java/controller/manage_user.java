@@ -1,7 +1,7 @@
 package controller;
 
 import model.dto.UserDTO;
-import model.service.UserService;
+import service.UserService;
 import util.AppUtils;
 
 import javax.servlet.ServletException;

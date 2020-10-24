@@ -1,4 +1,4 @@
-package model.service;
+package service;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MappingIterator;
