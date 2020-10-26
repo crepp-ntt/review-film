@@ -382,7 +382,7 @@
 
 
     $(function () {
-        $.get("get-posts", function (data, status) {
+        $.get("get-post", function (data, status) {
             $('#posts').html(data.result);
 
             $('.pagination').html(data.pagination);
@@ -392,7 +392,7 @@
     function pagination(e, page) {
         e.preventDefault();
         $.ajax({
-            url: "/get-posts",
+            url: "/get-post",
             type: "GET",
             data: {
                 "currentPage": page

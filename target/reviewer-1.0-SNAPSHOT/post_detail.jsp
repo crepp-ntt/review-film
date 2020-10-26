@@ -208,14 +208,13 @@
                                                 <% } else {%>
                                                 <div class="form-group card-box">
                                                     <div class="col-md-4">
-                                                        <button onclick="window.location.href='Login'" class="btn btn-red btn-block text-uppercase waves-effect waves-light" >Login
+                                                        <button onclick="window.location.href='login'" class="btn btn-red btn-block text-uppercase waves-effect waves-light" >Login
                                                         </button>
 
                                                     </div>
                                                     <div class="col-md-8" >
                                                         <div class="col-md-2"></div>
                                                         <div class="col-md-12" style="margin-top: 5px">
-<%--                                                            <label class="">to Comment</label>--%>
                                                             <span>to comment</span>
                                                         </div>
                                                     </div>
@@ -307,14 +306,14 @@
     })
 
     function reloadComment () {
-        $.get("get-comments?postId=${post.getId()}", function (data, status){
+        $.get("get-comment?postId=${post.getId()}", function (data, status){
             $('#comments').html(data.result);
             $('.pagination').html(data.pagination);
         })
     }
 
     function reloadVote () {
-        $.get("get-votes",{postId: ${post.getId()}}, function (data, status){
+        $.get("get-vote",{postId: ${post.getId()}}, function (data, status){
             $('#votes').html(data.result);
             $('#voteBtn').html(data.voteBtn);
         })
@@ -331,7 +330,7 @@
         }
 
         $.ajax({
-            url: "/get-comments",
+            url: "/get-comment",
             type: "POST",
             dataType: 'JSON',
             data: {
@@ -352,7 +351,7 @@
     function pagination(e, page) {
         e.preventDefault();
         $.ajax({
-            url: "/get-comments",
+            url: "/get-comment",
             type: "GET",
             data: {
                 "currentPage": page,
@@ -373,7 +372,7 @@
     function upVote(e){
         e.preventDefault();
         $.ajax({
-            url: "/get-votes",
+            url: "/get-vote",
             type: "POST",
             data: {
                 "type": "UP",
@@ -393,7 +392,7 @@
     function downVote(e){
         e.preventDefault();
         $.ajax({
-            url: "/get-votes",
+            url: "/get-vote",
             type: "POST",
             data: {
                 "type": "DOWN",

@@ -35,6 +35,6 @@ public class ChangeProfile extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("title", "Profile");
         request.setAttribute("user", AppUtils.getLoginedUser(request.getSession()));
-        request.getRequestDispatcher("ChangeProfile.jsp").forward(request,response);
+        request.getRequestDispatcher("change_profile.jsp").forward(request,response);
     }
 }

@@ -29,7 +29,7 @@ public class SecurityFilter implements Filter {
 
         if(SecurityUtils.isSecurityPage(request)){
             if(loginedUser == null){
-                response.sendRedirect("/Login");
+                response.sendRedirect("/login");
                 return;
             }
 

@@ -208,14 +208,13 @@
                                                 <% } else {%>
                                                 <div class="form-group card-box">
                                                     <div class="col-md-4">
-                                                        <button onclick="window.location.href='Login'" class="btn btn-red btn-block text-uppercase waves-effect waves-light" >Login
+                                                        <button onclick="window.location.href='login'" class="btn btn-red btn-block text-uppercase waves-effect waves-light" >Login
                                                         </button>
 
                                                     </div>
                                                     <div class="col-md-8" >
                                                         <div class="col-md-2"></div>
                                                         <div class="col-md-12" style="margin-top: 5px">
-<%--                                                            <label class="">to Comment</label>--%>
                                                             <span>to comment</span>
                                                         </div>
                                                     </div>

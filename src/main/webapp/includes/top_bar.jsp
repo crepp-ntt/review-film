@@ -15,7 +15,7 @@
             <div class="">
 
                 <ul class="nav navbar-nav hidden-xs">
-                    <li><a href="/" class="waves-effect waves-light">List review</a></li>
+                    <li><a href="/" class="waves-effect waves-light" style="font-size: 18px">List review</a></li>
                     <%--                    <li class="dropdown">--%>
                     <%--                        <a href="#" class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown"--%>
                     <%--                           role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span--%>
@@ -50,8 +50,8 @@
                            aria-expanded="true"><img src="${user.getAvt()}" alt="user-img"
                                                      class="img-circle"> </a>
                         <ul class="dropdown-menu">
-                            <li><a href="change_profile"><i class="ti-user m-r-10 text-custom"></i> Profile</a></li>
-                            <li><a href="change_pass"><i class="ti-settings m-r-10 text-custom"></i> Change Password</a></li>
+                            <li><a href="change-profile"><i class="ti-user m-r-10 text-custom"></i> Profile</a></li>
+                            <li><a href="change-password"><i class="ti-settings m-r-10 text-custom"></i> Change Password</a></li>
                             <li><a href="activity"><i class="ti-announcement m-r-10 text-custom"></i> Your activity</a></li>
                             <li class="divider"></li>
                             <li><a href="logout"><i class="ti-power-off m-r-10 text-danger"></i> Logout</a>

@@ -1,6 +1,6 @@
 package model.dao.impl;
 
-import constant.Constant;
+import util.ConnectionUtils;
 import model.dao.iPostDao;
 import model.entity.Post;
 
@@ -10,7 +10,9 @@ import java.util.List;
 
 public class PostDao implements iPostDao {
     private static final
-    String FIND_ALL = "SELECT * FROM posts";
+    String FIND_ALL = "SELECT * FROM postS";
+    private static final
+    String FIND_ALL_BY_STATUS = "SELECT * FROM posts WHERE current_status LIKE ?";
     private static final
     String FIND_ONE = "SELECT * FROM posts WHERE id=?";
     private static final
@@ -18,17 +20,16 @@ public class PostDao implements iPostDao {
     private static final
     String UPDATE = "UPDATE posts SET username=?, user_avt=?, title=?, rate=?, content=?, current_status=?, date=?,film_name=? WHERE id=?";
     private static final
-    String FIND_BY_USERNAME="SELECT * FROM posts WHERE username=? ORDER BY id DESC";
+    String FIND_BY_USERNAME = "SELECT * FROM posts WHERE username=? ORDER BY id DESC";
 
     @Override
-    public List<Post> findAll() {
-        Connection conn = null;
+    public List<Post> findAll(String status) {
         PreparedStatement stmt = null;
 
-        try {
+        try (Connection conn = ConnectionUtils.getConnection()) {
+            stmt = conn.prepareStatement(FIND_ALL_BY_STATUS);
+            stmt.setString(1, "%" + status + "%");
             List<Post> posts = new ArrayList<>();
-            conn = getConnection();
-            stmt = conn.prepareStatement(FIND_ALL);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -37,55 +38,62 @@ public class PostDao implements iPostDao {
             return posts;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } finally {
-            close(stmt);
-            close(conn);
+        }
+        return null;
+    }
+
+    @Override
+    public List<Post> findAll() {
+        PreparedStatement stmt = null;
+
+        try (Connection conn = ConnectionUtils.getConnection()) {
+            stmt = conn.prepareStatement(FIND_ALL);
+
+            List<Post> posts = new ArrayList<>();
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                posts.add(create(rs));
+            }
+            return posts;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
         return null;
     }
 
     @Override
     public List<Post> findByUsername(String username) {
-        Connection conn = null;
         PreparedStatement stmt = null;
 
-        try {
+        try (Connection conn = ConnectionUtils.getConnection()) {
             List<Post> posts = new ArrayList<>();
-            conn = getConnection();
             stmt = conn.prepareStatement(FIND_BY_USERNAME);
             stmt.setString(1, username);
 
             ResultSet rs = stmt.executeQuery();
-            while(rs.next())
+            while (rs.next())
                 posts.add(create(rs));
             return posts;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }finally {
-            close(stmt);
-            close(conn);
         }
         return null;
     }
 
     @Override
     public Post findOne(Object id) {
-        Connection conn = null;
         PreparedStatement stmt = null;
 
 
-        try {
-            conn = getConnection();
+        try (Connection conn = ConnectionUtils.getConnection()) {
             stmt = conn.prepareStatement(FIND_ONE);
             stmt.setLong(1, (long) id);
             ResultSet rs = stmt.executeQuery();
-            if(rs.next())
+            if (rs.next())
                 return create(rs);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }finally {
-            close(stmt);
-            close(conn);
         }
         return null;
     }
@@ -97,11 +105,9 @@ public class PostDao implements iPostDao {
 
     @Override
     public int insert(Post post) {
-        Connection conn = null;
         PreparedStatement stmt = null;
 
-        try {
-            conn = getConnection();
+        try (Connection conn = ConnectionUtils.getConnection()) {
             stmt = conn.prepareStatement(INSERT);
             stmt.setString(1, post.getUsername());
             stmt.setString(2, post.getUserAvt());
@@ -117,25 +123,18 @@ public class PostDao implements iPostDao {
             stmt.setString(8, post.getFilmName());
 
 
-
             return stmt.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }finally {
-            close(stmt);
-            close(conn);
         }
-
         return 0;
     }
 
     @Override
     public int update(Post post) {
-        Connection conn = null;
         PreparedStatement stmt = null;
 
-        try {
-            conn = getConnection();
+        try (Connection conn = ConnectionUtils.getConnection()) {
             stmt = conn.prepareStatement(UPDATE);
             stmt.setString(1, post.getUsername());
             stmt.setString(2, post.getUserAvt());
@@ -155,9 +154,6 @@ public class PostDao implements iPostDao {
             return stmt.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }finally {
-            close(stmt);
-            close(conn);
         }
         return 0;
     }
@@ -184,34 +180,34 @@ public class PostDao implements iPostDao {
         return null;
     }
 
-    private static void close(Connection conn) {
-        if (conn != null) {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                // e.printStackTrace();
-                throw new RuntimeException(e);
-            }
-        }
-    }
+//    private static void close(Connection conn) {
+//        if (conn != null) {
+//            try {
+//                conn.close();
+//            } catch (SQLException e) {
+//                // e.printStackTrace();
+//                throw new RuntimeException(e);
+//            }
+//        }
+//    }
+//
+//    private static void close(Statement stmt) {
+//        if (stmt != null) {
+//            try {
+//                stmt.close();
+//            } catch (SQLException e) {
+//                // e.printStackTrace();
+//                throw new RuntimeException(e);
+//            }
+//        }
+//    }
 
-    private static void close(Statement stmt) {
-        if (stmt != null) {
-            try {
-                stmt.close();
-            } catch (SQLException e) {
-                // e.printStackTrace();
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    private Connection getConnection() {
-        try {
-            Class.forName(Constant.DRIVE_NAME);
-            return DriverManager.getConnection(Constant.DB_URL, Constant.ID, Constant.PASS);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    private Connection getConnection() {
+//        try {
+//            Class.forName(Constant.DRIVE_NAME);
+//            return DriverManager.getConnection(Constant.DB_URL, Constant.ID, Constant.PASSWORD);
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 }

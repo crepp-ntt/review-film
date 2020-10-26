@@ -1,6 +1,6 @@
 package model.dao.impl;
 
-import constant.Constant;
+import util.ConnectionUtils;
 import model.dao.iVoteDao;
 import model.entity.Vote;
 
@@ -32,12 +32,10 @@ public class VoteDao implements iVoteDao {
 
     @Override
     public List<Vote> findByPostId(long postId) {
-        Connection conn = null;
         PreparedStatement stmt = null;
 
-        try {
+        try (Connection conn = ConnectionUtils.getConnection()){
             List<Vote> votes = new ArrayList<>();
-            conn = getConnection();
             stmt = conn.prepareStatement(FIND_BY_POST_ID);
             stmt.setLong(1, postId);
 
@@ -47,21 +45,16 @@ public class VoteDao implements iVoteDao {
             return votes;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }finally {
-            close(stmt);
-            close(conn);
         }
         return null;
     }
 
     @Override
     public List<Vote> findByUsername(String username) {
-        Connection conn = null;
         PreparedStatement stmt = null;
 
-        try {
+        try (Connection conn = ConnectionUtils.getConnection()){
             List<Vote> votes = new ArrayList<>();
-            conn = getConnection();
             stmt = conn.prepareStatement(FIND_BY_USERNAME);
             stmt.setString(1, username);
 
@@ -71,20 +64,15 @@ public class VoteDao implements iVoteDao {
             return votes;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }finally {
-            close(stmt);
-            close(conn);
         }
         return null;
     }
 
     @Override
     public Vote findCheckVote(long postId, String username) {
-        Connection conn = null;
         PreparedStatement stmt = null;
 
-        try {
-            conn = getConnection();
+        try(Connection conn = ConnectionUtils.getConnection()) {
             stmt = conn.prepareStatement(FIND_BY_POST_ID_USERNAME);
             stmt.setLong(1, postId);
             stmt.setString(2, username);
@@ -93,9 +81,6 @@ public class VoteDao implements iVoteDao {
                 return create(rs);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }finally {
-            close(stmt);
-            close(conn);
         }
         return null;
     }
@@ -112,11 +97,9 @@ public class VoteDao implements iVoteDao {
 
     @Override
     public int insert(Vote vote) {
-        Connection conn = null;
         PreparedStatement stmt = null;
 
-        try {
-            conn = getConnection();
+        try (Connection conn = ConnectionUtils.getConnection()){
             stmt = conn.prepareStatement(INSERT);
             stmt.setString(1, vote.getUsername());
             stmt.setLong(2, vote.getPostId());
@@ -126,34 +109,26 @@ public class VoteDao implements iVoteDao {
             return stmt.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }finally {
-            close(stmt);
-            close(conn);
         }
         return 0;
     }
 
     @Override
     public int update(Vote vote) {
-        Connection conn = null;
         PreparedStatement stmt = null;
 
-        try {
+        try(Connection conn = ConnectionUtils.getConnection()) {
             String type = "";
             if(vote.getVote().equals("UP"))
                 type += "DOWN";
             else
                 type += "UP";
-            conn = getConnection();
             stmt = conn.prepareStatement(UPDATE_VOTE);
             stmt.setString(1, type);
             stmt.setLong(2, vote.getId());
             return stmt.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }finally {
-            close(stmt);
-            close(conn);
         }
         return 0;
     }
@@ -177,34 +152,5 @@ public class VoteDao implements iVoteDao {
         return null;
     }
 
-    private static void close(Connection conn) {
-        if (conn != null) {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                // e.printStackTrace();
-                throw new RuntimeException(e);
-            }
-        }
-    }
 
-    private static void close(Statement stmt) {
-        if (stmt != null) {
-            try {
-                stmt.close();
-            } catch (SQLException e) {
-                // e.printStackTrace();
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    private Connection getConnection(){
-        try {
-            Class.forName(Constant.DRIVE_NAME);
-            return DriverManager.getConnection(Constant.DB_URL, Constant.ID, Constant.PASS);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

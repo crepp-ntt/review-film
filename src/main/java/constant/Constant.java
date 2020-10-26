@@ -6,7 +6,9 @@ public interface Constant {
     String DRIVE_NAME = "org.postgresql.Driver";
     String DB_URL = "jdbc:postgresql://localhost:5432/reviewer";
     String ID = "crepp";
-    String PASS = "password";
+    String PASSWORD = "password";
+    int DB_MIN_CONNECTIONS = 10;
+    int DB_MAX_CONNECTIONS = 2;
 
     String[] USER_URL= {"/create-post", "/change-password", "/change-profile", "/activity"};
     String[] ADMIN_URL = {"/manage-users", "/manage-posts"};
@@ -15,5 +17,7 @@ public interface Constant {
     String EMAIL_PATTERN = "^(.+)@(.+)$";
     String USERNAME_PATTERN = "[a-z0-9_]{6,12}";
     String PASSWORD_PATTERN = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!]).{6,20})";
+
+
 
 }

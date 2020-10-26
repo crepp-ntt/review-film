@@ -209,7 +209,7 @@
         e.preventDefault();
         let data = new FormData($(this)[0]);
         $.ajax({
-            url: "/create_post",
+            url: "/create-post",
             type: "POST",
             data: data,
             async: false,

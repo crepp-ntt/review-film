@@ -73,19 +73,24 @@
                                         <th style="width: 100px">Edit</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <c:forEach items = "${posts}" var="post">
-                                        <tr>
-                                            <th scope="row">${post.getId()}</th>
-                                            <td>${post.getTitle()}</td>
-                                            <td>${post.getStatus()}</td>
-                                            <td><a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
+                                    <tbody id="posts">
+<%--                                    <c:forEach items = "${posts}" var="post">--%>
+<%--                                        <tr>--%>
+<%--                                            <th scope="row">${post.getId()}</th>--%>
+<%--                                            <td>${post.getTitle()}</td>--%>
+<%--                                            <td>${post.getStatus()}</td>--%>
+<%--                                            <td><a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>--%>
+<%--                                            </td>--%>
+<%--                                        </tr>--%>
+<%--                                    </c:forEach>--%>
 
                                     </tbody>
                                 </table>
+                                <nav aria-label="Page navigation example" style="text-align: center; margin-bottom: 0;">
+                                    <ul class="pagination">
+
+                                    </ul>
+                                </nav>
                             </div>
                         </div>
                     </div>
@@ -139,27 +144,46 @@
 <script src="assets/plugins/counterup/jquery.counterup.min.js"></script>
 
 
-<%--<script src="assets/plugins/morris/morris.min.js"></script>--%>
+<script src="assets/plugins/morris/morris.min.js"></script>
 <script src="assets/plugins/raphael/raphael-min.js"></script>
 
 <script src="assets/plugins/jquery-knob/jquery.knob.js"></script>
 
-<%--<script src="assets/pages/jquery.dashboard.js"></script>--%>
+<script src="assets/pages/jquery.dashboard.js"></script>
 
 <script src="assets/js/jquery.core.js"></script>
 <script src="assets/js/jquery.app.js"></script>
 
-<%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>--%>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">--%>
-<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
-<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
-
 <script>
 
-</script>
+    $(function () {
+        $.get("get-manage-post", function (data, status) {
+            $('#posts').html(data.result);
 
-<script>
+            $('.pagination').html(data.pagination);
+        })
+    })
+
+    function pagination(e, page) {
+        e.preventDefault();
+        $.ajax({
+            url: "/get-manage-post",
+            type: "GET",
+            data: {
+                "currentPage": page
+            },
+            success: function (returndata) {               //success is deprecated, use done
+                $('#posts').html(returndata.result);
+                $('.pagination').html(returndata.pagination);
+            },
+            error: function (jqXHR) {          //dump the info to the console (hit f12 to see that in a browser)
+                console.log(jqXHR);
+                alert("aw damn, something bad happened");
+            }
+
+
+        })
+    }
 
 
     // $(".reset").click(function() {

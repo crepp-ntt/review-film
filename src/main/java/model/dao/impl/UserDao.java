@@ -1,5 +1,6 @@
 package model.dao.impl;
 
+import util.ConnectionUtils;
 import constant.Constant;
 import model.dao.iUserDao;
 import model.entity.User;
@@ -29,11 +30,11 @@ public class UserDao implements iUserDao {
 
     @Override
     public List<User> findAll() {
-        Connection conn = null;
+        
         PreparedStatement stmt = null;
         List<User> users = new ArrayList<User>();
-        try{
-            conn = getConnection();
+        try(Connection conn = ConnectionUtils.getConnection()){
+            
             stmt = conn.prepareStatement(FIND_ALL);
             ResultSet rs = stmt.executeQuery();
 
@@ -42,9 +43,6 @@ public class UserDao implements iUserDao {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally {
-            close(stmt);
-            close(conn);
         }
         return users;
     }
@@ -52,10 +50,10 @@ public class UserDao implements iUserDao {
 
     @Override
     public int changePassword(String username, String password) {
-        Connection conn = null;
+        
         PreparedStatement stmt = null;
-        try{
-            conn = getConnection();
+        try(Connection conn = ConnectionUtils.getConnection()){
+            
             stmt = conn.prepareStatement(CHANGE_PASS);
             stmt.setString(1, password);
             stmt.setString(2, username);
@@ -67,10 +65,10 @@ public class UserDao implements iUserDao {
 
     @Override
     public User findOne(Object username) {
-        Connection conn = null;
+        
         PreparedStatement stmt = null;
-        try{
-            conn = getConnection();
+        try(Connection conn = ConnectionUtils.getConnection()){
+            
             stmt = conn.prepareStatement(FIND_ONE);
             stmt.setString(1, (String)username);
 
@@ -92,11 +90,11 @@ public class UserDao implements iUserDao {
 
     @Override
     public int insert(User user) {
-        Connection conn = null;
+        
         PreparedStatement stmt = null;
 
-        try{
-            conn = getConnection();
+        try(Connection conn = ConnectionUtils.getConnection()){
+            
             stmt = conn.prepareStatement(INSERT);
             stmt.setString(1, user.getUsername());
             stmt.setString(2, user.getPassword());
@@ -111,19 +109,16 @@ public class UserDao implements iUserDao {
             return stmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } finally {
-            close(stmt);
-            close(conn);
         }
     }
 
     @Override
     public int update(User user) {
-        Connection conn = null;
+        
         PreparedStatement stmt = null;
 
-        try{
-            conn = getConnection();
+        try(Connection conn = ConnectionUtils.getConnection()){
+            
             stmt = conn.prepareStatement(UPDATE);
             stmt.setString(1, user.getName());
             stmt.setString(2, user.getEmail());
@@ -138,42 +133,10 @@ public class UserDao implements iUserDao {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally {
-            close(stmt);
-            close(conn);
         }
     }
 
-    private static void close(Connection conn) {
-        if (conn != null) {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                // e.printStackTrace();
-                throw new RuntimeException(e);
-            }
-        }
-    }
 
-    private static void close(Statement stmt) {
-        if (stmt != null) {
-            try {
-                stmt.close();
-            } catch (SQLException e) {
-                // e.printStackTrace();
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-private Connection getConnection(){
-        try {
-            Class.forName(Constant.DRIVE_NAME);
-            return DriverManager.getConnection(Constant.DB_URL, Constant.ID, Constant.PASS);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
 
     @Override

@@ -109,7 +109,7 @@
     $('#change').on('click', function (e){
         e.preventDefault();
         $.ajax({
-            url: "/change_pass",
+            url: "/change-password",
             type: "POST",
             data:{
                 oldPass: $('#pass').val(),

@@ -22,6 +22,14 @@ public class PostService {
         return postDTOs;
     }
 
+    public List<PostDTO> getAllPosts(String status){
+        List<PostDTO> postDTOs = new ArrayList<>();
+        for(Post post : dao.findAll(status)){
+            postDTOs.add(convertToDTO(post));
+        }
+        return postDTOs;
+    }
+
     public PostDTO getPost(long id){
         Post post = dao.findOne(id);
         return convertToDTO(post);
@@ -49,6 +57,7 @@ public class PostService {
     private Post convertToEntity(PostDTO dto) {
         Post post = new Post();
         post.setId(dto.getId());
+        post.setUserAvt(dto.getAvt());
         post.setTitle(dto.getTitle());
         post.setRate(dto.getRate());
         post.setFilmName(dto.getFilmName());

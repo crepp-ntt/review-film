@@ -1,6 +1,6 @@
 package model.dao.impl;
 
-import constant.Constant;
+import util.ConnectionUtils;
 import model.dao.iCommentDao;
 import model.entity.Comment;
 
@@ -65,12 +65,10 @@ public class CommentDao implements iCommentDao {
 
     @Override
     public List<Comment> findByPostId(long postId) {
-        Connection conn = null;
         PreparedStatement stmt = null;
 
-        try {
+        try(Connection conn = ConnectionUtils.getConnection()) {
             List<Comment> comments = new ArrayList<>();
-            conn = getConnection();
             stmt = conn.prepareStatement(FIND_BY_POST_ID);
             stmt.setLong(1, postId);
 
@@ -80,21 +78,16 @@ public class CommentDao implements iCommentDao {
             return comments;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }finally {
-            close(stmt);
-            close(conn);
         }
         return null;
     }
 
     @Override
     public List<Comment> findByUsername(String username) {
-        Connection conn = null;
         PreparedStatement stmt = null;
 
-        try {
+        try(Connection conn = ConnectionUtils.getConnection()) {
             List<Comment> comments = new ArrayList<>();
-            conn = getConnection();
             stmt = conn.prepareStatement(FIND_BY_USERNAME);
             stmt.setString(1, username);
 
@@ -104,20 +97,15 @@ public class CommentDao implements iCommentDao {
             return comments;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }finally {
-            close(stmt);
-            close(conn);
         }
         return null;
     }
 
     @Override
     public int insert(Comment comment) {
-        Connection conn = null;
         PreparedStatement stmt = null;
 
-        try {
-            conn = getConnection();
+        try (Connection conn = ConnectionUtils.getConnection()){
             stmt = conn.prepareStatement(INSERT);
             stmt.setString(1, comment.getUsername());
             stmt.setString(2, comment.getUserAvt());
@@ -126,9 +114,6 @@ public class CommentDao implements iCommentDao {
             return stmt.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }finally {
-            close(stmt);
-            close(conn);
         }
 
         return 0;
@@ -157,34 +142,5 @@ public class CommentDao implements iCommentDao {
         return null;
     }
 
-    private static void close(Connection conn) {
-        if (conn != null) {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                // e.printStackTrace();
-                throw new RuntimeException(e);
-            }
-        }
-    }
 
-    private static void close(Statement stmt) {
-        if (stmt != null) {
-            try {
-                stmt.close();
-            } catch (SQLException e) {
-                // e.printStackTrace();
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    private Connection getConnection(){
-        try {
-            Class.forName(Constant.DRIVE_NAME);
-            return DriverManager.getConnection(Constant.DB_URL, Constant.ID, Constant.PASS);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
