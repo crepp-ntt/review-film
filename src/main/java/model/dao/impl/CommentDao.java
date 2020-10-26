@@ -1,6 +1,6 @@
 package model.dao.impl;
 
-import constant.CONSTANT;
+import constant.Constant;
 import model.dao.iCommentDao;
 import model.entity.Comment;
 
@@ -80,6 +80,9 @@ public class CommentDao implements iCommentDao {
             return comments;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            close(stmt);
+            close(conn);
         }
         return null;
     }
@@ -101,6 +104,9 @@ public class CommentDao implements iCommentDao {
             return comments;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            close(stmt);
+            close(conn);
         }
         return null;
     }
@@ -120,6 +126,9 @@ public class CommentDao implements iCommentDao {
             return stmt.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            close(stmt);
+            close(conn);
         }
 
         return 0;
@@ -172,8 +181,8 @@ public class CommentDao implements iCommentDao {
 
     private Connection getConnection(){
         try {
-            Class.forName(CONSTANT.DRIVE_NAME);
-            return DriverManager.getConnection(CONSTANT.DB_URL, CONSTANT.ID, CONSTANT.PASS);
+            Class.forName(Constant.DRIVE_NAME);
+            return DriverManager.getConnection(Constant.DB_URL, Constant.ID, Constant.PASS);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

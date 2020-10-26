@@ -105,12 +105,12 @@
                         <div id="posts"></div>
                         <%--                        <c:forEach items="${posts}" var="item">--%>
 
-                        <%--                            <c:url var="post_detail" value="post_detail">--%>
+                        <%--                            <c:url var="PostDetail" value="PostDetail">--%>
                         <%--                                <c:param name="id" value="${item.getId()}"/>--%>
                         <%--                            </c:url>--%>
 
 
-                        <%--                            <div class="card-box m-b-8 post_detail" onclick="location.href='${post_detail}'">--%>
+                        <%--                            <div class="card-box m-b-8 PostDetail" onclick="location.href='${PostDetail}'">--%>
 
                         <%--                                <div class="table-box opport-box">--%>
                         <%--                                    <div class="table-detail" style="text-align: center">--%>
@@ -382,7 +382,7 @@
 
 
     $(function () {
-        $.get("get-posts", function (data, status) {
+        $.get("get-post", function (data, status) {
             $('#posts').html(data.result);
 
             $('.pagination').html(data.pagination);
@@ -392,7 +392,7 @@
     function pagination(e, page) {
         e.preventDefault();
         $.ajax({
-            url: "/get-posts",
+            url: "/get-post",
             type: "GET",
             data: {
                 "currentPage": page

@@ -1,11 +1,9 @@
 package model.dao.impl;
 
-import constant.CONSTANT;
+import constant.Constant;
 import model.dao.iPostDao;
-import model.entity.Comment;
 import model.entity.Post;
 
-import java.awt.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +61,9 @@ public class PostDao implements iPostDao {
             return posts;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            close(stmt);
+            close(conn);
         }
         return null;
     }
@@ -82,6 +83,9 @@ public class PostDao implements iPostDao {
                 return create(rs);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            close(stmt);
+            close(conn);
         }
         return null;
     }
@@ -117,6 +121,9 @@ public class PostDao implements iPostDao {
             return stmt.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            close(stmt);
+            close(conn);
         }
 
         return 0;
@@ -148,6 +155,9 @@ public class PostDao implements iPostDao {
             return stmt.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            close(stmt);
+            close(conn);
         }
         return 0;
     }
@@ -198,8 +208,8 @@ public class PostDao implements iPostDao {
 
     private Connection getConnection() {
         try {
-            Class.forName(CONSTANT.DRIVE_NAME);
-            return DriverManager.getConnection(CONSTANT.DB_URL, CONSTANT.ID, CONSTANT.PASS);
+            Class.forName(Constant.DRIVE_NAME);
+            return DriverManager.getConnection(Constant.DB_URL, Constant.ID, Constant.PASS);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

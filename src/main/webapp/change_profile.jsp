@@ -248,7 +248,7 @@
             phone: $("#phone").val()
         }
         $.ajax({
-            url: "/change_profile",
+            url: "/change-profile",
             type: "POST",
             dataType: 'JSON',
             data: {
@@ -275,7 +275,7 @@
 
 
     $(".reset").click(function () {
-        $(".change_profile").form().reset();
+        $(".ChangeProfile").form().reset();
     });
 
 </script>

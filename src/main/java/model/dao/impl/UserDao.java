@@ -1,10 +1,9 @@
 package model.dao.impl;
 
-import constant.CONSTANT;
+import constant.Constant;
 import model.dao.iUserDao;
 import model.entity.User;
 
-import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -104,7 +103,7 @@ public class UserDao implements iUserDao {
             stmt.setString(3, user.getName());
             stmt.setString(4, user.getEmail());
             stmt.setString(5, "Active");
-            stmt.setString(6, CONSTANT.DEFAULT_AVT);
+            stmt.setString(6, Constant.DEFAULT_AVT);
 
 
 
@@ -169,8 +168,8 @@ public class UserDao implements iUserDao {
 
 private Connection getConnection(){
         try {
-            Class.forName(CONSTANT.DRIVE_NAME);
-            return DriverManager.getConnection(CONSTANT.DB_URL, CONSTANT.ID, CONSTANT.PASS);
+            Class.forName(Constant.DRIVE_NAME);
+            return DriverManager.getConnection(Constant.DB_URL, Constant.ID, Constant.PASS);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

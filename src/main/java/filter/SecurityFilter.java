@@ -21,7 +21,7 @@ public class SecurityFilter implements Filter {
 
         String servletPath = request.getServletPath();
 
-        //get user info from session(after login)
+        //get user info from session(after Login)
         User loginedUser = AppUtils.getLoginedUser(request.getSession());
 
 
@@ -29,7 +29,7 @@ public class SecurityFilter implements Filter {
 
         if(SecurityUtils.isSecurityPage(request)){
             if(loginedUser == null){
-                response.sendRedirect("/login");
+                response.sendRedirect("/Login");
                 return;
             }
 

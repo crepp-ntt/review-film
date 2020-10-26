@@ -7,6 +7,17 @@ public class Vote {
   private String username;
   private long postId;
   private String vote;
+  private String postTitle;
+
+
+  public Vote(String username, String type, long postId, String title) {
+    this.vote = type;
+    this.username = username;
+    this.postId = postId;
+    this.postTitle = title;
+  }
+
+  public Vote(){};
 
 
   public long getId() {
@@ -42,6 +53,15 @@ public class Vote {
 
   public void setVote(String vote) {
     this.vote = vote;
+  }
+
+
+  public String getPostTitle() {
+    return postTitle;
+  }
+
+  public void setPostTitle(String postTitle) {
+    this.postTitle = postTitle;
   }
 
 }

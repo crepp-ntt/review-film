@@ -202,14 +202,14 @@
 <script>
 
     $(".reset").click(function () {
-        $('#create_post')[0].reset();
+        $('#CreatePost')[0].reset();
     });
 
-    $('#create_post').submit(function (e) {
+    $('#CreatePost').submit(function (e) {
         e.preventDefault();
         let data = new FormData($(this)[0]);
         $.ajax({
-            url: "/create_post",
+            url: "/create-post",
             type: "POST",
             data: data,
             async: false,
@@ -219,7 +219,7 @@
             success: function (datareturn) {
                 if(datareturn.success){
                     $('#result1').html(datareturn.success);
-                    $('#create_post')[0].reset();
+                    $('#CreatePost')[0].reset();
                 }
                 else
                     $('#result1').html(datareturn.false)

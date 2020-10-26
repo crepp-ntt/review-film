@@ -92,7 +92,7 @@
 <script src="assets/js/jquery.core.js"></script>
 <script src="assets/js/jquery.app.js"></script>
 <script>
-    $('#login').submit(function (e){
+    $('#Login').submit(function (e){
         e.preventDefault();
         let data = new FormData($(this)[0]);
         $.ajax({

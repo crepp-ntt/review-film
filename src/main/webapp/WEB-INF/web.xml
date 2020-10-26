@@ -13,11 +13,11 @@
 
 
 <!--    <servlet>-->
-<!--        <servlet-name>change_pass</servlet-name>-->
+<!--        <servlet-name>ChangePassword</servlet-name>-->
 <!--        <jsp-file>/user_management.jsp</jsp-file>-->
 <!--    </servlet>-->
 <!--    <servlet-mapping>-->
-<!--        <servlet-name>change_pass</servlet-name>-->
+<!--        <servlet-name>ChangePassword</servlet-name>-->
 <!--        <url-pattern>/user_management</url-pattern>-->
 <!--    </servlet-mapping>-->
 

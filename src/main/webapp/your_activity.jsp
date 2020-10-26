@@ -172,7 +172,6 @@
     $(function () {
         $.get("get-activity", {type: "post", page: 1}, function (data, status) {
             $('#posts').html(data.result);
-
             $('.pagination').html(data.pagination);
         })
     })
@@ -188,13 +187,20 @@
         e.preventDefault();
         $(this).attr("class", "header-title selected");
         document.getElementById("post").setAttribute("class", "header-title");
-        // $.ajax({})
+        $.get("get-activity", {type: "Activity", page: 1}, function (data, status) {
+            $('#posts').html(data.result);
+            $('.pagination').html(data.pagination);
+        })
     })
 
     $("#post").on('click', function (e) {
         e.preventDefault();
         $(this).attr("class", "header-title selected");
-        document.getElementById("activity").setAttribute("class", "header-title");
+        document.getElementById("Activity").setAttribute("class", "header-title");
+        $.get("get-activity", {type: "post", page: 1}, function (data, status) {
+            $('#posts').html(data.result);
+            $('.pagination').html(data.pagination);
+        })
     })
 
     function pagination(e, page){

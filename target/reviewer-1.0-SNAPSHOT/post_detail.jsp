@@ -12,11 +12,7 @@
     <%@include file="includes/header.jsp" %>
 </head>
 
-<style>
-    .ck-editor__editable {
-        height: 200px !important;
-    }
-</style>
+
 <body class="fixed-left">
 
 <!-- Begin page -->
@@ -119,20 +115,25 @@
 <%--                                                </div>--%>
                                             </div>
 
+                                            <% if(AppUtils.getLoginedUser(request.getSession()) != null){ %>
 
-                                            <div class="form-group text-center m-t-40">
-                                                <div class="col-xs-2">
-                                                </div>
-                                                <div class="col-xs-5">
-                                                    <a href=""
-                                                       class="btn btn-primary btn-block text-uppercase waves-effect waves-light reset">Up</a>
-                                                </div>
-                                                <div class="col-xs-5">
-                                                    <button class="btn btn-pink btn-block text-uppercase waves-effect waves-light">
-                                                        Down
-                                                    </button>
-                                                </div>
-                                            </div>
+                                            <div id="voteBtn"></div>
+                                            <% } %>
+
+
+<%--                                            <div class="form-group text-center m-t-40">--%>
+<%--                                                <div class="col-xs-2">--%>
+<%--                                                </div>--%>
+<%--                                                <div class="col-xs-5">--%>
+<%--                                                    <a href=""--%>
+<%--                                                       class="btn btn-primary btn-block text-uppercase waves-effect waves-light reset">Up</a>--%>
+<%--                                                </div>--%>
+<%--                                                <div class="col-xs-5">--%>
+<%--                                                    <button class="btn btn-pink btn-block text-uppercase waves-effect waves-light">--%>
+<%--                                                        Down--%>
+<%--                                                    </button>--%>
+<%--                                                </div>--%>
+<%--                                            </div>--%>
                                         </div>
                                         <div class="col-md-4 ">
                                             <div class="col-md-1"></div>
@@ -207,7 +208,7 @@
                                                 <% } else {%>
                                                 <div class="form-group card-box">
                                                     <div class="col-md-4">
-                                                        <button onclick="window.location.href='login'" class="btn btn-red btn-block text-uppercase waves-effect waves-light" >Login
+                                                        <button onclick="window.location.href='Login'" class="btn btn-red btn-block text-uppercase waves-effect waves-light" >Login
                                                         </button>
 
                                                     </div>
@@ -301,28 +302,27 @@
 
 <script>
     $(document).ready(function () {
-        $.get("get-comments",{postId: ${post.getId()}}, function (data, status){
-            $('#comments').html(data.result);
-
-            $('.pagination').html(data.pagination);
-        })
-
-        $.get("get-votes",{postId: ${post.getId()}}, function (data, status){
-            $('#votes').html(data.result);
-
-        })
+        reloadComment();
+        reloadVote();
     })
 
-    function reload () {
+    function reloadComment () {
         $.get("get-comments?postId=${post.getId()}", function (data, status){
             $('#comments').html(data.result);
-
             $('.pagination').html(data.pagination);
+        })
+    }
+
+    function reloadVote () {
+        $.get("get-votes",{postId: ${post.getId()}}, function (data, status){
+            $('#votes').html(data.result);
+            $('#voteBtn').html(data.voteBtn);
         })
     }
 
     $("#send").on('click', function (e){
         e.preventDefault();
+        if($('#content').val() !== ""){
         let data = {
             username: "${user.getUsername()}",
             userAvt: "${user.getAvt()}",
@@ -338,7 +338,7 @@
                 json: JSON.stringify(data),
             },
             success: function (response){
-                reload();
+                reloadComment();
                 $('#content').val("");
             }
             ,
@@ -346,6 +346,7 @@
                 alert("error in ajax submission");
             }
         })
+        }
     })
 
     function pagination(e, page) {
@@ -366,6 +367,46 @@
             }
 
 
+        })
+    }
+
+    function upVote(e){
+        e.preventDefault();
+        $.ajax({
+            url: "/get-votes",
+            type: "POST",
+            data: {
+                "type": "UP",
+                "postId": ${post.getId()},
+                "postTitle": "${post.getTitle()}"
+            },
+            success: function (response){
+                reloadVote();
+            }
+            ,
+            error: function () {
+                alert("error in ajax submission");
+            }
+        })
+    }
+
+    function downVote(e){
+        e.preventDefault();
+        $.ajax({
+            url: "/get-votes",
+            type: "POST",
+            data: {
+                "type": "DOWN",
+                "postId": ${post.getId()},
+                "postTitle": "${post.getTitle()}"
+            },
+            success: function (response){
+                reloadVote();
+            }
+            ,
+            error: function () {
+                alert("error in ajax submission");
+            }
         })
     }
 

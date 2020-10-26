@@ -275,7 +275,7 @@
 
 
     $(".reset").click(function () {
-        $(".change_profile").form().reset();
+        $(".ChangeProfile").form().reset();
     });
 
 </script>
