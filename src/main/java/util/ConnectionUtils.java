@@ -31,10 +31,5 @@ public class ConnectionUtils {
         return conn;
     }
 
-    public synchronized static void logPoolStatus(String task) throws SQLException {
-        System.out.println("Received connection for task " + task);
-        System.out.println("+ Num of Connections: " + cpds.getNumConnections());
-        System.out.println("+ Num of Idle Connections: " + cpds.getNumIdleConnections());
-        System.out.println("+ Num of Busy Connections: " + cpds.getNumBusyConnections());
-    }
+
 }

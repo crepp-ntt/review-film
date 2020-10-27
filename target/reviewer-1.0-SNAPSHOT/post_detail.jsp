@@ -144,6 +144,7 @@
                                                 </div>
 
                                                 <% if(AppUtils.getLoginedUser(request.getSession()) != null){ %>
+                                                <% if(!AppUtils.getLoginedUser(request.getSession()).getStatus().equals("Block")){ %>
                                                 <div class="form-group">
                                                     <div class="col-md-10">
                                                         <input class="form-control" id="content" placeholder="Insert your comment"/>
@@ -152,6 +153,7 @@
                                                         Send
                                                     </button>
                                                 </div>
+                                                <%}%>
 
                                                 <div id="comments"></div>
                                                 <nav aria-label="Page navigation example" style="text-align: center">

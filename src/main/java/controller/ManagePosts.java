@@ -19,11 +19,9 @@ public class ManagePosts extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PostService postService = new PostService();
-        List<PostDTO> posts = postService.getAllPosts();
+
 
         request.setAttribute("title", "Posts Management");
-        request.setAttribute("posts", posts);
         request.setAttribute("user", AppUtils.getLoginedUser(request.getSession()));
         request.getRequestDispatcher("manage_posts.jsp").forward(request, response);
     }

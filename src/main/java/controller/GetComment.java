@@ -3,6 +3,7 @@ package controller;
 import com.google.gson.Gson;
 import model.entity.Comment;
 import service.CommentService;
+import util.AppUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,11 +23,15 @@ public class GetComment extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         String json = request.getParameter("json");
-        if (json != null) {
+        if(AppUtils.getLoginedUser(request.getSession()).getStatus().equals("Block")){ //check user status
+            data.put("false", "Can not create comment!");
+        }
+        else if (json != null) {
             CommentService commentService = new CommentService();
             commentService.createComment(json);
+            data.put("success", "Comment");
         }
-        data.put("success", "Comment");
+
         String res = new Gson().toJson(data);
         response.getWriter().write(res);
     }

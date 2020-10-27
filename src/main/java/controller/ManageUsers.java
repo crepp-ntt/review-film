@@ -18,10 +18,7 @@ public class ManageUsers extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserService userService = new UserService();
-        List<UserDTO> users = userService.getAllUser();
         request.setAttribute("title", "Users Management");
-        request.setAttribute("users", users);
         request.setAttribute("user", AppUtils.getLoginedUser(request.getSession()));
         request.getRequestDispatcher("manage_users.jsp").forward(request,response);
     }

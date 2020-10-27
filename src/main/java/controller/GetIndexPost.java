@@ -28,12 +28,15 @@ public class GetIndexPost extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
+        String search ="";
         int currentPage = 1;
         if (request.getParameter("currentPage") != null)
             currentPage = Integer.parseInt(request.getParameter("currentPage"));
+        if (request.getParameter("search") != null)
+            search += request.getParameter("search");
 
         PostService postService = new PostService();
-        List<PostDTO> allPost = postService.getAllPosts("ACCEPTED");
+        List<PostDTO> allPost = postService.getAllPosts("ACCEPTED", search);
 
         float itemPerPage = 5;
         int temp = (int) itemPerPage;

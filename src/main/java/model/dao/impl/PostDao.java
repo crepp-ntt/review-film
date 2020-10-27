@@ -10,9 +10,9 @@ import java.util.List;
 
 public class PostDao implements iPostDao {
     private static final
-    String FIND_ALL = "SELECT * FROM postS";
+    String FIND_ALL = "SELECT * FROM posts";
     private static final
-    String FIND_ALL_BY_STATUS = "SELECT * FROM posts WHERE current_status LIKE ?";
+    String FIND_ALL_BY_STATUS_SEARCH = "SELECT * FROM posts WHERE current_status LIKE ? AND (title LIKE ? OR content LIKE ?)";
     private static final
     String FIND_ONE = "SELECT * FROM posts WHERE id=?";
     private static final
@@ -23,12 +23,14 @@ public class PostDao implements iPostDao {
     String FIND_BY_USERNAME = "SELECT * FROM posts WHERE username=? ORDER BY id DESC";
 
     @Override
-    public List<Post> findAll(String status) {
+    public List<Post> findAll(String status, String search) {
         PreparedStatement stmt = null;
 
         try (Connection conn = ConnectionUtils.getConnection()) {
-            stmt = conn.prepareStatement(FIND_ALL_BY_STATUS);
+            stmt = conn.prepareStatement(FIND_ALL_BY_STATUS_SEARCH);
             stmt.setString(1, "%" + status + "%");
+            stmt.setString(2, "%" + search + "%");
+            stmt.setString(3, "%" + search + "%");
             List<Post> posts = new ArrayList<>();
             ResultSet rs = stmt.executeQuery();
 

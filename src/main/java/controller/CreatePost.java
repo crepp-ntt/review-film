@@ -42,7 +42,11 @@ public class CreatePost extends HttpServlet {
         postDTO.setFilm(filmName);
 
 
-        if(postService.savePost(request, postDTO) == 1){
+
+        if(AppUtils.getLoginedUser(request.getSession()).getStatus().equals("Block")){ //check user status
+            data.put("false", "Can not create post!");
+        }
+        else if(postService.savePost(request, postDTO) == 1){
             data.put("success","Create post successful!");
         }
         else{
@@ -57,6 +61,6 @@ public class CreatePost extends HttpServlet {
         String title = "Create review";
         request.setAttribute("title", title);
         request.setAttribute("user", AppUtils.getLoginedUser(request.getSession()));
-        request.getRequestDispatcher("CreatePost.jsp").forward(request,response);
+        request.getRequestDispatcher("create_post.jsp").forward(request,response);
     }
 }

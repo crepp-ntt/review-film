@@ -152,6 +152,7 @@ public class UserDao implements iUserDao {
             user.setAvt(rs.getString("avt"));
             user.setPhone(rs.getString("phone"));
             user.setRole(rs.getLong("role"));
+            user.setStatus(rs.getString("status"));
 
             return user;
         } catch (SQLException throwables) {

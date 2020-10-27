@@ -73,20 +73,25 @@
                                         <th style="width: 100px">Edit</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <c:forEach items = "${users}" var="user">
-                                    <tr>
-                                        <th scope="row">${user.getUsername()}</th>
-                                        <td>${user.getName()}</td>
-                                        <td>${user.getStatus()}</td>
-                                        <td><a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-                                        </td>
-                                    </tr>
-                                    </c:forEach>
+                                    <tbody id="users">
+<%--                                    <c:forEach items = "${users}" var="user">--%>
+<%--                                    <tr>--%>
+<%--                                        <th scope="row">${user.getUsername()}</th>--%>
+<%--                                        <td>${user.getName()}</td>--%>
+<%--                                        <td>${user.getStatus()}</td>--%>
+<%--                                        <td><a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>--%>
+<%--                                        </td>--%>
+<%--                                    </tr>--%>
+<%--                                    </c:forEach>--%>
 
 
                                     </tbody>
                                 </table>
+                                <nav aria-label="Page navigation example" style="text-align: center; margin-bottom: 0;">
+                                    <ul class="pagination">
+
+                                    </ul>
+                                </nav>
                             </div>
                         </div>
                     </div>
@@ -158,6 +163,32 @@
 
 <script>
 
+    $(function () {
+        $.get("get-manage-user", function (data, status) {
+            $('#users').html(data.result);
+            $('.pagination').html(data.pagination);
+        })
+    })
+    function pagination(e, page) {
+        e.preventDefault();
+        $.ajax({
+            url: "/get-manage-user",
+            type: "GET",
+            data: {
+                "currentPage": page
+            },
+            success: function (returndata) {               //success is deprecated, use done
+                $('#users').html(returndata.result);
+                $('.pagination').html(returndata.pagination);
+            },
+            error: function (jqXHR) {          //dump the info to the console (hit f12 to see that in a browser)
+                console.log(jqXHR);
+                alert("aw damn, something bad happened");
+            }
+
+
+        })
+    }
 </script>
 
 <script>

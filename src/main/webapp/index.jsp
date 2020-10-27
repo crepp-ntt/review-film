@@ -51,9 +51,9 @@
                 </div>
 
                 <div class="row">
-                    <% if (AppUtils.getLoginedUser(request.getSession()) != null) {%>
+                    <% if (AppUtils.getLoginedUser(request.getSession()) != null && !AppUtils.getLoginedUser(request.getSession()).getStatus().equals("Block")) {%>
                     <div>
-                        <a href="create_post" class="btn btn-primary text-uppercase waves-effect waves-light"
+                        <a href="create-post" class="btn btn-primary text-uppercase waves-effect waves-light"
                            id="create_post">Create review
                         </a>
                     </div>
@@ -73,11 +73,10 @@
                                                 id="search"
                                                 class="form-control"
                                                 placeholder="Search"
-                                                name="TENSP"
+                                                onkeypress="return event.keyCode != 13;"
+
                                         />
-                                        <button type="submit" class="btn btn-white m-b-10 m-t-10">
-                                            <i class="fa fa-search"></i>
-                                        </button>
+
                                     </div>
                                     <!-- form-group -->
                                 </form>
@@ -91,7 +90,7 @@
                                                 id="sort"
                                                 class="form-control"
                                                 placeholder="sort"
-                                                name="TENSP"
+
                                         />
                                         <%--                                    <button type="submit" class="btn btn-white">--%>
                                         <%--                                        <i class="fa fa-search"></i>--%>
@@ -395,7 +394,8 @@
             url: "/get-post",
             type: "GET",
             data: {
-                "currentPage": page
+                "currentPage": page,
+                "search": $('#search').val()
             },
             success: function (returndata) {               //success is deprecated, use done
                 $('#posts').html(returndata.result);
@@ -408,6 +408,40 @@
 
 
         })
+    }
+
+
+    $('#search').keyup(delay(function (e){
+        e.preventDefault();
+        $.ajax({
+            url: "/get-post",
+            type: "GET",
+            data: {
+                "currentPage": 1,
+                "search": this.value
+            },
+            success: function (returndata) {               //success is deprecated, use done
+                $('#posts').html(returndata.result);
+                $('.pagination').html(returndata.pagination);
+            },
+            error: function (jqXHR) {          //dump the info to the console (hit f12 to see that in a browser)
+                console.log(jqXHR);
+                alert("aw damn, something bad happened");
+            }
+
+
+        })
+    }, 800))
+
+    function delay(callback, ms) {
+        let timer = 0;
+        return function() {
+            let context = this, args = arguments;
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                callback.apply(context, args);
+            }, ms || 0);
+        };
     }
 
     // $('.page-item').click( (e)=>{

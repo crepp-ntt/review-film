@@ -2,7 +2,9 @@ package controller;
 
 import com.google.gson.Gson;
 import model.dto.PostDTO;
+import model.dto.UserDTO;
 import service.PostService;
+import service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,8 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet("/get-manage-post")
-public class GetManagePost extends HttpServlet {
+@WebServlet("/get-manage-user")
+public class GetManageUsers extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
@@ -30,29 +32,29 @@ public class GetManagePost extends HttpServlet {
         if (request.getParameter("currentPage") != null)
             currentPage = Integer.parseInt(request.getParameter("currentPage"));
 
-        PostService postService = new PostService();
-        List<PostDTO> allPost = postService.getAllPosts();
+        UserService userService = new UserService();
+        List<UserDTO> allUser = userService.getAllUser();
 
         float itemPerPage = 10;
         int temp = (int)itemPerPage;
         int skipItems = (currentPage - 1) * (int)itemPerPage;
-        int totalPage = (int) Math.ceil(allPost.size() / itemPerPage);
-        List<PostDTO> posts = new ArrayList<>();
-        for (int i = 0; i < allPost.size(); i++) {
+        int totalPage = (int) Math.ceil(allUser.size() / itemPerPage);
+        List<UserDTO> users = new ArrayList<>();
+        for (int i = 0; i < allUser.size(); i++) {
             if (i < skipItems)
                 continue;
             if (temp == 0)
                 break;
-            posts.add(allPost.get(i));
+            users.add(allUser.get(i));
             temp--;
         }
         String result = "";
-        for(PostDTO post: posts){
+        for(UserDTO user: users){
             result += "<tr>\n" +
-                    "                                            <th scope=\"row\">"+ post.getId() +"</th>\n" +
-                    "                                            <td>"+post.getTitle()+"</td>\n" +
-                    "                                            <td>"+post.getStatus()+"</td>\n" +
-                    "                                            <td><a href=\"manage-post?postId="+post.getId() +"\" class=\"on-default edit-row\"><i class=\"fa fa-pencil\"></i></a>\n" +
+                    "                                            <th scope=\"row\">"+ user.getUsername() +"</th>\n" +
+                    "                                            <td>"+user.getName()+"</td>\n" +
+                    "                                            <td>"+user.getStatus()+"</td>\n" +
+                    "                                            <td><a href=\"manage-user?username="+user.getUsername() +"\" class=\"on-default edit-row\"><i class=\"fa fa-pencil\"></i></a>\n" +
                     "                                            </td>\n" +
                     "                                        </tr>";
         }
@@ -74,6 +76,5 @@ public class GetManagePost extends HttpServlet {
         data.put("pagination", pagination);
         String json = new Gson().toJson(data);
         response.getWriter().write(json);
-
     }
 }

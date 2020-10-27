@@ -13,7 +13,7 @@ public interface iPostDao extends iDAO<Post> {
      * @return List<Post>: all posts in database
      */
 
-    List<Post> findAll(String status);
+    List<Post> findAll(String status, String search);
 
     List<Post> findByUsername(String username);
 

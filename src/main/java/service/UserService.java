@@ -76,6 +76,7 @@ public class UserService {
     private User convertToEntity(UserDTO dto) {
         User user = new User();
         user.setUsername(dto.getUsername());
+        user.setStatus(dto.getStatus());
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());
         user.setAvt(dto.getAvt());

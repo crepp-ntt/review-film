@@ -25,7 +25,10 @@ public class Login extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         UserService userService = new UserService();
-        if (!userService.login(request, username, password)) {
+        if(userService.getUser(username).getStatus().equals("Ban")){
+            data.put("false", "Your account has been banned");
+        }
+        else if (!userService.login(request, username, password)) {
             data.put("false", "Invalid username or password");
         } else {
             data.put("success", "/");

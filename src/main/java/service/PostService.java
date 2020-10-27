@@ -22,9 +22,9 @@ public class PostService {
         return postDTOs;
     }
 
-    public List<PostDTO> getAllPosts(String status){
+    public List<PostDTO> getAllPosts(String status, String search){
         List<PostDTO> postDTOs = new ArrayList<>();
-        for(Post post : dao.findAll(status)){
+        for(Post post : dao.findAll(status, search)){
             postDTOs.add(convertToDTO(post));
         }
         return postDTOs;
@@ -57,6 +57,7 @@ public class PostService {
     private Post convertToEntity(PostDTO dto) {
         Post post = new Post();
         post.setId(dto.getId());
+        post.setUsername(dto.getUsername());
         post.setUserAvt(dto.getAvt());
         post.setTitle(dto.getTitle());
         post.setRate(dto.getRate());
