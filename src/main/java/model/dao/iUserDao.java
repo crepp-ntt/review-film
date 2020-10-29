@@ -14,6 +14,8 @@ public interface iUserDao extends iDAO<User> {
     @Override
     List<User> findAll();
 
+    List<User> findTopUser();
+
 
     /**
      * Find user by username

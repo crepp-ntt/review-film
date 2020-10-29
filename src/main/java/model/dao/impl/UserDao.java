@@ -26,19 +26,24 @@ public class UserDao implements iUserDao {
     private static final
     String CHANGE_PASS = "UPDATE users SET password=? WHERE username=?";
 
+    private static final
+    String FIND_TOP_USER = "SELECT u.*, COUNT(DISTINCT p.id) AS P" +
+            ", COUNT(CASE v.vote WHEN 'UP' THEN 1 ELSE NULL END) AS V " +
+            "FROM users u JOIN(posts p LEFT JOIN votes v ON p.id = v.post_id) " +
+            "ON u.username = p.username GROUP BY u.username ORDER BY V DESC LIMIT 3";
 
 
     @Override
     public List<User> findAll() {
-        
+
         PreparedStatement stmt = null;
         List<User> users = new ArrayList<User>();
-        try(Connection conn = ConnectionUtils.getConnection()){
-            
+        try (Connection conn = ConnectionUtils.getConnection()) {
+
             stmt = conn.prepareStatement(FIND_ALL);
             ResultSet rs = stmt.executeQuery();
 
-            while (rs.next()){
+            while (rs.next()) {
                 users.add(create(rs));
             }
         } catch (SQLException e) {
@@ -47,13 +52,33 @@ public class UserDao implements iUserDao {
         return users;
     }
 
+    @Override
+    public List<User> findTopUser() {
+        PreparedStatement stmt = null;
+        List<User> users = new ArrayList<User>();
+        try (Connection conn = ConnectionUtils.getConnection()) {
+
+            stmt = conn.prepareStatement(FIND_TOP_USER);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                User user = create(rs);
+                user.setPosts(rs.getInt("P"));
+                user.setUpVotes(rs.getInt("V"));
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return users;
+    }
 
     @Override
     public int changePassword(String username, String password) {
-        
+
         PreparedStatement stmt = null;
-        try(Connection conn = ConnectionUtils.getConnection()){
-            
+        try (Connection conn = ConnectionUtils.getConnection()) {
+
             stmt = conn.prepareStatement(CHANGE_PASS);
             stmt.setString(1, password);
             stmt.setString(2, username);
@@ -65,22 +90,21 @@ public class UserDao implements iUserDao {
 
     @Override
     public User findOne(Object username) {
-        
-        PreparedStatement stmt = null;
-        try(Connection conn = ConnectionUtils.getConnection()){
-            
-            stmt = conn.prepareStatement(FIND_ONE);
-            stmt.setString(1, (String)username);
 
-            ResultSet rs =  stmt.executeQuery();
-            if(rs.next())
+        PreparedStatement stmt = null;
+        try (Connection conn = ConnectionUtils.getConnection()) {
+
+            stmt = conn.prepareStatement(FIND_ONE);
+            stmt.setString(1, (String) username);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next())
                 return create(rs);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return null;
     }
-
 
 
     @Override
@@ -90,11 +114,11 @@ public class UserDao implements iUserDao {
 
     @Override
     public int insert(User user) {
-        
+
         PreparedStatement stmt = null;
 
-        try(Connection conn = ConnectionUtils.getConnection()){
-            
+        try (Connection conn = ConnectionUtils.getConnection()) {
+
             stmt = conn.prepareStatement(INSERT);
             stmt.setString(1, user.getUsername());
             stmt.setString(2, user.getPassword());
@@ -102,8 +126,6 @@ public class UserDao implements iUserDao {
             stmt.setString(4, user.getEmail());
             stmt.setString(5, "Active");
             stmt.setString(6, Constant.DEFAULT_AVT);
-
-
 
 
             return stmt.executeUpdate();
@@ -114,19 +136,19 @@ public class UserDao implements iUserDao {
 
     @Override
     public int update(User user) {
-        
+
         PreparedStatement stmt = null;
 
-        try(Connection conn = ConnectionUtils.getConnection()){
-            
+        try (Connection conn = ConnectionUtils.getConnection()) {
+
             stmt = conn.prepareStatement(UPDATE);
             stmt.setString(1, user.getName());
             stmt.setString(2, user.getEmail());
             stmt.setDate(3, user.getDob());
             stmt.setString(4, user.getPhone());
             stmt.setString(5, user.getAvt());
-            stmt.setString(6,user.getStatus());
-            stmt.setString(7,user.getUsername());
+            stmt.setString(6, user.getStatus());
+            stmt.setString(7, user.getUsername());
 
 
             return stmt.executeUpdate();
@@ -135,8 +157,6 @@ public class UserDao implements iUserDao {
             throw new RuntimeException(e);
         }
     }
-
-
 
 
     @Override

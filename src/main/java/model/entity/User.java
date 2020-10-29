@@ -12,6 +12,8 @@ public class User {
   private String phone;
   private long role;
   private String status;
+  private int posts;
+  private int upVotes;
 
 
   public String getUsername() {
@@ -94,4 +96,19 @@ public class User {
     this.status = status;
   }
 
+  public int getPosts() {
+    return posts;
+  }
+
+  public void setPosts(int posts) {
+    this.posts = posts;
+  }
+
+  public int getUpVotes() {
+    return upVotes;
+  }
+
+  public void setUpVotes(int upVotes) {
+    this.upVotes = upVotes;
+  }
 }

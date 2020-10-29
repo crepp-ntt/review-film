@@ -245,7 +245,8 @@
             name: $("#name").val(),
             email: $("#email").val(),
             dob: $("#datepicker").val(),
-            phone: $("#phone").val()
+            phone: $("#phone").val(),
+            status: "${user.getStatus()}"
         }
         $.ajax({
             url: "/change-profile",

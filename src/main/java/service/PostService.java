@@ -9,6 +9,7 @@ import util.AppUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class PostService {
@@ -28,6 +29,14 @@ public class PostService {
             postDTOs.add(convertToDTO(post));
         }
         return postDTOs;
+    }
+
+    public List<PostDTO> getTopPost(){
+        List<PostDTO> postDTOS = new ArrayList<>();
+        for(Post post: dao.findTopPost()){
+            postDTOS.add(convertToDTO(post));
+        }
+        return postDTOS;
     }
 
     public PostDTO getPost(long id){
@@ -77,6 +86,9 @@ public class PostService {
         dto.setFilm(post.getFilmName());
         dto.setRate(post.getRate());
         dto.setTitle(post.getTitle());
+        dto.setUpVotes(post.getUpVotes());
         return dto;
     }
+
+
 }

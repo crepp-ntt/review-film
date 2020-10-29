@@ -17,6 +17,10 @@ public interface iPostDao extends iDAO<Post> {
 
     List<Post> findByUsername(String username);
 
+    List<Post> findTopPost();
+
+
+
 
     @Override
     Post findOne(Object id);

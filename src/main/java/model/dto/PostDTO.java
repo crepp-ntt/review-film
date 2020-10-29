@@ -8,6 +8,7 @@ public class PostDTO {
     private String filmName;
     private String content;
     private String status;
+    private int upVotes;
     private long rate;
 
 
@@ -77,5 +78,13 @@ public class PostDTO {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public int getUpVotes() {
+        return upVotes;
+    }
+
+    public void setUpVotes(int upVotes) {
+        this.upVotes = upVotes;
     }
 }

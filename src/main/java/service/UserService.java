@@ -27,11 +27,20 @@ public class UserService {
         return dtos;
     }
 
+    public List<UserDTO> getTopUser(){
+        List<UserDTO> dtos = new ArrayList<>();
+        for(User user: dao.findTopUser()){
+            dtos.add(convertToDTO(user));
+        }
+        return dtos;
+    }
+
     public UserDTO getUser(String username) {
         User user = dao.findOne(username);
         return convertToDTO(user);
     }
 
+    //check login and store to session if success
     public boolean login(HttpServletRequest req, String username, String password) {
         User user = dao.findOne(username);
         if (user == null)
@@ -95,6 +104,8 @@ public class UserService {
         dto.setAvt(user.getAvt());
         dto.setPhone(user.getPhone());
         dto.setDob(user.getDob());
+        dto.setUpVotes(user.getUpVotes());
+        dto.setPosts(user.getPosts());
         return dto;
     }
 
@@ -111,4 +122,6 @@ public class UserService {
         }
         return null;
     }
+
+
 }

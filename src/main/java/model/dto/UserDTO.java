@@ -10,6 +10,8 @@ public class UserDTO {
     private String avt;
     private String status;
     private String phone;
+    private int posts;
+    private int upVotes;
 
     public String getUsername() {
         return username;
@@ -78,6 +80,19 @@ public class UserDTO {
         this.status = status;
     }
 
+    public int getPosts() {
+        return posts;
+    }
 
+    public void setPosts(int posts) {
+        this.posts = posts;
+    }
 
+    public int getUpVotes() {
+        return upVotes;
+    }
+
+    public void setUpVotes(int upVotes) {
+        this.upVotes = upVotes;
+    }
 }

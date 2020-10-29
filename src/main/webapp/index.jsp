@@ -7,6 +7,7 @@
 --%>
 
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
 <head>
@@ -52,6 +53,7 @@
 
                 <div class="row">
                     <% if (AppUtils.getLoginedUser(request.getSession()) != null && !AppUtils.getLoginedUser(request.getSession()).getStatus().equals("Block")) {%>
+
                     <div>
                         <a href="create-post" class="btn btn-primary text-uppercase waves-effect waves-light"
                            id="create_post">Create review
@@ -85,13 +87,12 @@
                                 <form role="form">
                                     <div class="contact-search m-b-10 m-t-10">
 
-                                        <input
-                                                type="text"
-                                                id="sort"
-                                                class="form-control"
-                                                placeholder="sort"
 
-                                        />
+                                        <select id="sort"  class="form-control">
+                                            <option value="dateIncrease">Date increase</option>
+                                            <option value="dateDecrease">Date decrease</option>
+
+                                        </select>
                                         <%--                                    <button type="submit" class="btn btn-white">--%>
                                         <%--                                        <i class="fa fa-search"></i>--%>
                                         <%--                                    </button>--%>
@@ -160,147 +161,109 @@
 
                     <div class="row">
 
-                        <div class="col-lg-5">
+                        <div class="col-lg-4">
                             <div class="card-box">
                                 <h4 class="text-dark header-title m-t-0 m-b-20">TOP REVIEWERS</h4>
-
-                                <div class="card-box m-b-5">
-                                    <div class="table-box opport-box">
-                                        <div class="table-detail">
-                                            <img src="assets/images/brand/envato.jpg" alt="img"
-                                                 class="img-circle thumb-lg m-r-10"/>
-                                        </div>
-
-                                        <div class="table-detail">
-                                            <div class="member-info">
-                                                <h4 class="m-t-0"><b>Envato Market Pty Ltd. </b></h4>
-                                                <p class="text-dark m-b-5"><b>Category: </b> <span class="text-muted">Branch manager</span>
-                                                </p>
+                                <c:forEach items = "${topUsers}" var="item">
+                                    <div class="card-box m-b-5">
+                                        <div class="table-box opport-box">
+                                            <div class="table-detail">
+                                                <img src="${item.getAvt()}" alt="img"
+                                                     class="img-circle thumb-lg m-r-10"/>
                                             </div>
-                                        </div>
 
-                                        <div class="table-detail lable-detail">
-                                            <span class="label label-info">Hot</span>
-                                        </div>
+                                            <div class="table-detail">
+                                                <div class="member-info">
+                                                    <h4 class="m-t-0"><b>${item.getUsername()} </b></h4>
 
-
-                                    </div>
-                                </div>
-                                <div class="card-box m-b-5">
-                                    <div class="table-box opport-box">
-                                        <div class="table-detail">
-                                            <img src="assets/images/brand/envato.jpg" alt="img"
-                                                 class="img-circle thumb-lg m-r-10"/>
-                                        </div>
-
-                                        <div class="table-detail">
-                                            <div class="member-info">
-                                                <h4 class="m-t-0"><b>Envato Market Pty Ltd. </b></h4>
-                                                <p class="text-dark m-b-5"><b>Category: </b> <span class="text-muted">Branch manager</span>
-                                                </p>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="table-detail lable-detail">
-                                            <span class="label label-info">Hot</span>
-                                        </div>
-
-
-                                    </div>
-                                </div>
-                                <div class="card-box m-b-5">
-                                    <div class="table-box opport-box">
-                                        <div class="table-detail">
-                                            <img src="assets/images/brand/envato.jpg" alt="img"
-                                                 class="img-circle thumb-lg m-r-10"/>
-                                        </div>
-
-                                        <div class="table-detail">
-                                            <div class="member-info">
-                                                <h4 class="m-t-0"><b>Envato Market Pty Ltd. </b></h4>
-                                                <p class="text-dark m-b-5"><b>Category: </b> <span class="text-muted">Branch manager</span>
-                                                </p>
+                                            <div class="table-detail">
+                                                <div class="member-info">
+                                                    <span class="label label-info">Posts: ${item.getPosts()}</span>
+                                                    <span class="label label-success">Votes: ${item.getUpVotes()}</span>
+                                                </div>
                                             </div>
+
+
+
+
                                         </div>
-
-                                        <div class="table-detail lable-detail">
-                                            <span class="label label-info">Hot</span>
-                                        </div>
-
-
                                     </div>
-                                </div>
-                            </div>
+                                </c:forEach>
+
+
+<%--                                <div class="card-box m-b-5">--%>
+<%--                                    <div class="table-box opport-box">--%>
+<%--                                        <div class="table-detail">--%>
+<%--                                            <img src="assets/images/brand/envato.jpg" alt="img"--%>
+<%--                                                 class="img-circle thumb-lg m-r-10"/>--%>
+<%--                                        </div>--%>
+
+<%--                                        <div class="table-detail">--%>
+<%--                                            <div class="member-info">--%>
+<%--                                                <h4 class="m-t-0"><b>Envato Market Pty Ltd. </b></h4>--%>
+<%--                                                <p class="text-dark m-b-5"><b>Category: </b> <span class="text-muted">Branch manager</span>--%>
+<%--                                                </p>--%>
+<%--                                            </div>--%>
+<%--                                        </div>--%>
+
+<%--                                        <div class="table-detail lable-detail">--%>
+<%--                                            <span class="label label-info">Hot</span>--%>
+<%--                                        </div>--%>
+
+
+<%--                                    </div>--%>
+<%--                                </div>--%>
+<%--                                <div class="card-box m-b-5">--%>
+<%--                                    <div class="table-box opport-box">--%>
+<%--                                        <div class="table-detail">--%>
+<%--                                            <img src="assets/images/brand/envato.jpg" alt="img"--%>
+<%--                                                 class="img-circle thumb-lg m-r-10"/>--%>
+<%--                                        </div>--%>
+
+<%--                                        <div class="table-detail">--%>
+<%--                                            <div class="member-info">--%>
+<%--                                                <h4 class="m-t-0"><b>Envato Market Pty Ltd. </b></h4>--%>
+<%--                                                <p class="text-dark m-b-5"><b>Category: </b> <span class="text-muted">Branch manager</span>--%>
+<%--                                                </p>--%>
+<%--                                            </div>--%>
+<%--                                        </div>--%>
+
+<%--                                        <div class="table-detail lable-detail">--%>
+<%--                                            <span class="label label-info">Hot</span>--%>
+<%--                                        </div>--%>
+
+
+<%--                                    </div>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
 
                             <div class="card-box">
                                 <h4 class="text-dark header-title m-t-0 m-b-30">TOP POSTS</h4>
-
-                                <div class="card-box m-b-5">
-                                    <div class="table-box opport-box">
-                                        <div class="table-detail">
-                                            <img src="assets/images/brand/envato.jpg" alt="img"
-                                                 class="img-circle thumb-lg m-r-10"/>
-                                        </div>
-
-                                        <div class="table-detail">
-                                            <div class="member-info">
-                                                <h4 class="m-t-0"><b>Envato Market Pty Ltd. </b></h4>
-                                                <p class="text-dark m-b-5"><b>Category: </b> <span class="text-muted">Branch manager</span>
-                                                </p>
+                                <c:forEach items = "${topPosts}" var="item">
+                                    <div class="card-box m-b-5">
+                                        <div class="">
+                                            <div class="table-detail">
+                                                #ID: ${item.getId()}
                                             </div>
-                                        </div>
 
-                                        <div class="table-detail lable-detail">
-                                            <span class="label label-info">Hot</span>
-                                        </div>
+                                            <div class="table-detail">
 
-
-                                    </div>
-                                </div>
-                                <div class="card-box m-b-5">
-                                    <div class="table-box opport-box">
-                                        <div class="table-detail">
-                                            <img src="assets/images/brand/envato.jpg" alt="img"
-                                                 class="img-circle thumb-lg m-r-10"/>
-                                        </div>
-
-                                        <div class="table-detail">
-                                            <div class="member-info">
-                                                <h4 class="m-t-0"><b>Envato Market Pty Ltd. </b></h4>
-                                                <p class="text-dark m-b-5"><b>Category: </b> <span class="text-muted">Branch manager</span>
-                                                </p>
+                                                <div class="member-info">Title: ${item.getTitle()}</div>
                                             </div>
-                                        </div>
 
-                                        <div class="table-detail lable-detail">
-                                            <span class="label label-info">Hot</span>
-                                        </div>
-
-
-                                    </div>
-                                </div>
-                                <div class="card-box m-b-5">
-                                    <div class="table-box opport-box">
-                                        <div class="table-detail">
-                                            <img src="assets/images/brand/envato.jpg" alt="img"
-                                                 class="img-circle thumb-lg m-r-10"/>
-                                        </div>
-
-                                        <div class="table-detail">
-                                            <div class="member-info">
-                                                <h4 class="m-t-0"><b>Envato Market Pty Ltd. </b></h4>
-                                                <p class="text-dark m-b-5"><b>Category: </b> <span class="text-muted">Branch manager</span>
-                                                </p>
+                                            <div class="table-detail" style="text-align: center">
+                                                <span class="label label-success">Upvote: ${item.getUpVotes()}</span>
                                             </div>
+
                                         </div>
-
-                                        <div class="table-detail lable-detail">
-                                            <span class="label label-info">Hot</span>
-                                        </div>
-
-
                                     </div>
-                                </div>
+                                </c:forEach>
+
+
+
                             </div>
 
                         </div>
@@ -381,10 +344,31 @@
 
 
     $(function () {
-        $.get("get-post", function (data, status) {
+        $.get("get-post",{"search": $('#search').val(),"sort": $('#sort').val()}, function (data, status) {
             $('#posts').html(data.result);
 
             $('.pagination').html(data.pagination);
+        })
+    })
+
+    $('#sort').change(function (e){
+        e.preventDefault();
+        $.ajax({
+            url: "/get-post",
+            type: "GET",
+            data: {
+                "currentPage": 1,
+                "search": $('#search').val(),
+                "sort": this.value,
+            },
+            success: function (returndata) {               //success is deprecated, use done
+                $('#posts').html(returndata.result);
+                $('.pagination').html(returndata.pagination);
+            },
+            error: function (jqXHR) {          //dump the info to the console (hit f12 to see that in a browser)
+                console.log(jqXHR);
+                alert("aw damn, something bad happened");
+            }
         })
     })
 
@@ -395,11 +379,12 @@
             type: "GET",
             data: {
                 "currentPage": page,
-                "search": $('#search').val()
+                "search": $('#search').val(),
+                "sort": $('#sort').val(),
             },
-            success: function (returndata) {               //success is deprecated, use done
-                $('#posts').html(returndata.result);
-                $('.pagination').html(returndata.pagination);
+            success: function (returnData) {               //success is deprecated, use done
+                $('#posts').html(returnData.result);
+                $('.pagination').html(returnData.pagination);
             },
             error: function (jqXHR) {          //dump the info to the console (hit f12 to see that in a browser)
                 console.log(jqXHR);
@@ -418,7 +403,8 @@
             type: "GET",
             data: {
                 "currentPage": 1,
-                "search": this.value
+                "search": this.value,
+                "sort": $('#sort').val(),
             },
             success: function (returndata) {               //success is deprecated, use done
                 $('#posts').html(returndata.result);

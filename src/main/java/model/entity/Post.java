@@ -12,6 +12,7 @@ public class Post {
   private String currentStatus;
   private java.sql.Date date;
   private String filmName;
+  private int upVotes;
 
 
   public long getId() {
@@ -94,4 +95,11 @@ public class Post {
     this.filmName = filmName;
   }
 
+  public int getUpVotes() {
+    return upVotes;
+  }
+
+  public void setUpVotes(int upVotes) {
+    this.upVotes = upVotes;
+  }
 }

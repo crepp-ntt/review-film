@@ -74,15 +74,7 @@
                                     </tr>
                                     </thead>
                                     <tbody id="users">
-<%--                                    <c:forEach items = "${users}" var="user">--%>
-<%--                                    <tr>--%>
-<%--                                        <th scope="row">${user.getUsername()}</th>--%>
-<%--                                        <td>${user.getName()}</td>--%>
-<%--                                        <td>${user.getStatus()}</td>--%>
-<%--                                        <td><a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>--%>
-<%--                                        </td>--%>
-<%--                                    </tr>--%>
-<%--                                    </c:forEach>--%>
+
 
 
                                     </tbody>

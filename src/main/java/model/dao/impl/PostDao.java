@@ -12,7 +12,7 @@ public class PostDao implements iPostDao {
     private static final
     String FIND_ALL = "SELECT * FROM posts";
     private static final
-    String FIND_ALL_BY_STATUS_SEARCH = "SELECT * FROM posts WHERE current_status LIKE ? AND (title LIKE ? OR content LIKE ?)";
+    String FIND_ALL_BY_STATUS_SEARCH = "SELECT * FROM posts WHERE current_status LIKE ? AND (UPPER(title) LIKE ? OR UPPER(content) LIKE ?)";
     private static final
     String FIND_ONE = "SELECT * FROM posts WHERE id=?";
     private static final
@@ -21,47 +21,70 @@ public class PostDao implements iPostDao {
     String UPDATE = "UPDATE posts SET username=?, user_avt=?, title=?, rate=?, content=?, current_status=?, date=?,film_name=? WHERE id=?";
     private static final
     String FIND_BY_USERNAME = "SELECT * FROM posts WHERE username=? ORDER BY id DESC";
+    private static final
+    String FIND_TOP_POST = "SELECT p.*, COUNT(v.id) AS V " +
+            "FROM posts p JOIN votes v on p.id = v.post_id " +
+            "WHERE v.vote='UP' GROUP BY p.id ORDER BY v DESC LIMIT 3";
 
     @Override
     public List<Post> findAll(String status, String search) {
         PreparedStatement stmt = null;
+        List<Post> posts = new ArrayList<>();
 
         try (Connection conn = ConnectionUtils.getConnection()) {
             stmt = conn.prepareStatement(FIND_ALL_BY_STATUS_SEARCH);
             stmt.setString(1, "%" + status + "%");
-            stmt.setString(2, "%" + search + "%");
-            stmt.setString(3, "%" + search + "%");
-            List<Post> posts = new ArrayList<>();
+            stmt.setString(2, "%" + search.toUpperCase() + "%");
+            stmt.setString(3, "%" + search.toUpperCase() + "%");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 posts.add(create(rs));
             }
-            return posts;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return null;
+        return posts;
+    }
+
+    @Override
+    public List<Post> findTopPost() {
+        PreparedStatement stmt = null;
+
+        List<Post> posts = new ArrayList<>();
+        try (Connection conn = ConnectionUtils.getConnection()) {
+            stmt = conn.prepareStatement(FIND_TOP_POST);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Post post = create(rs);
+                post.setUpVotes(rs.getInt("V"));
+                posts.add(post);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return posts;
     }
 
     @Override
     public List<Post> findAll() {
         PreparedStatement stmt = null;
+        List<Post> posts = new ArrayList<>();
 
         try (Connection conn = ConnectionUtils.getConnection()) {
             stmt = conn.prepareStatement(FIND_ALL);
 
-            List<Post> posts = new ArrayList<>();
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 posts.add(create(rs));
             }
-            return posts;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return null;
+        return posts;
     }
 
     @Override

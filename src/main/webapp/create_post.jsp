@@ -60,17 +60,20 @@
 
                             <div class="row">
                                 <div class="col-md-10">
-                                    <form class="form-horizontal" id="create_post" enctype="multipart/form-data" role="form">
+                                    <form class="form-horizontal" id="create_post" enctype="multipart/form-data"
+                                          role="form">
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Title</label>
                                             <div class="col-md-10">
-                                                <input type="text" class="form-control" required placeholder="Title" name="title">
+                                                <input type="text" class="form-control" required placeholder="Title"
+                                                       id="title">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Film</label>
                                             <div class="col-md-10">
-                                                <input type="text" class="form-control" required placeholder="Film" name="filmName">
+                                                <input type="text" class="form-control" required placeholder="Film"
+                                                       id="filmName">
                                             </div>
                                         </div>
 
@@ -78,7 +81,7 @@
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Rate</label>
                                             <div class="col-md-10">
-                                                <select name="rate"  class="form-control">
+                                                <select id="rate" class="form-control">
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -91,13 +94,12 @@
                                                     <option value="10">10</option>
                                                 </select>
 
-<%--                                                <input type="number" class="form-control" required placeholder="Rate" name="rate">--%>
+                                                <%--                                                <input type="number" class="form-control" required placeholder="Rate" name="rate">--%>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Review</label>
-                                            <div class="col-md-10">
-                                                <textarea class="ck-editor__editable" rows="10" id="editor" name="content"></textarea>
+                                            <div class="col-md-10" id="editor">
                                             </div>
                                         </div>
 
@@ -113,10 +115,11 @@
                                             </div>
                                             <div class="col-xs-5">
                                                 <button class="btn btn-pink btn-block text-uppercase waves-effect waves-light"
-                                                        type="submit">Post
+                                                        id="submit">Post
                                                 </button>
                                             </div>
                                         </div>
+
 
                                     </form>
                                 </div>
@@ -149,23 +152,22 @@
     var resizefunc = [];
 </script>
 
-<script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/inline/ckeditor.js"></script>
 <%--    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--%>
 <script>
-    // ClassicEditor
-    //     .create(document.querySelector('#editor'), {
-    //         cloudServices: {
-    //             tokenUrl: 'https://example.com/cs-token-endpoint',
-    //             uploadUrl: 'https://your-organization-id.cke-cs.com/easyimage/upload/'
-    //         }
-    //     })
-    //     .then(editor => {
-    //         console.log(editor);
-    //     })
-    //     .catch(error => {
-    //         console.error(error);
-    //     });
-
+    let myEditor;
+    InlineEditor
+        .create(document.querySelector('#editor'), {
+            cloudServices: {
+                tokenUrl: 'https://75837.cke-cs.com/token/dev/1ee855d12f913e03a459530be1bb6d041ec80c70911e30b6724f2eaa9952',
+                uploadUrl: 'https://75837.cke-cs.com/easyimage/upload/'
+            }
+        }).then(editor => {
+        // console.log( 'Editor was initialized', editor );
+        myEditor = editor;
+    }).catch(err => {
+        console.error(err.stack);
+    });
 
 </script>
 <!-- jQuery  -->
@@ -205,24 +207,23 @@
         $('#create_post')[0].reset();
     });
 
-    $('#create_post').submit(function (e) {
+    $('#submit').on('click', function (e) {
         e.preventDefault();
-        let data = new FormData($(this)[0]);
         $.ajax({
             url: "/create-post",
             type: "POST",
-            data: data,
-            async: false,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function (datareturn) {
-                if(datareturn.success){
-                    $('#result1').html(datareturn.success);
+            data: {
+                "title": $('#title').val(),
+                "filmName": $('#filmName').val(),
+                "rate": $('#rate').val(),
+                "content": myEditor.getData(),
+            },
+            success: function (response) {
+                if (response.success) {
+                    $('#result1').html(response.success);
                     $('#create_post')[0].reset();
-                }
-                else
-                    $('#result1').html(datareturn.false)
+                } else
+                    $('#result1').html(response.false)
             },
             error: function () {
                 alert("error in ajax form submission");
@@ -230,7 +231,33 @@
 
         })
         return false;
-    })
+    });
+    // $('#create_post').submit(function (e) {
+    //     e.preventDefault();
+    //     let data = new FormData($(this)[0]);
+    //     console.log(data);
+    //     $.ajax({
+    //         url: "/create-post",
+    //         type: "POST",
+    //         data: data,
+    //         async: false,
+    //         cache: false,
+    //         contentType: false,
+    //         processData: false,
+    //         success: function (response) {
+    //             if (response.success) {
+    //                 $('#result1').html(response.success);
+    //                 $('#create_post')[0].reset();
+    //             } else
+    //                 $('#result1').html(response.false)
+    //         },
+    //         error: function () {
+    //             alert("error in ajax form submission");
+    //         }
+    //
+    //     })
+    //     return false;
+    // })
 
 </script>
 <%--<script type="text/javascript">--%>

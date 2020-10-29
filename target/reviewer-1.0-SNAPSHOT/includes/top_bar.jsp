@@ -53,6 +53,10 @@
                             <li><a href="change-profile"><i class="ti-user m-r-10 text-custom"></i> Profile</a></li>
                             <li><a href="change-password"><i class="ti-settings m-r-10 text-custom"></i> Change Password</a></li>
                             <li><a href="activity"><i class="ti-announcement m-r-10 text-custom"></i> Your activity</a></li>
+                            <% if(AppUtils.getLoginedUser(request.getSession()).getRole() == 0){%>
+                            <li><a href="manage-posts"><i class="ti-folder m-r-10 text-custom"></i> Manage Posts</a></li>
+                            <li><a href="manage-users"><i class="ti-harddrives m-r-10 text-custom"></i> Manage Users</a></li>
+                            <% }%>
                             <li class="divider"></li>
                             <li><a href="logout"><i class="ti-power-off m-r-10 text-danger"></i> Logout</a>
                             </li>
