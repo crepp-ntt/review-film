@@ -25,6 +25,8 @@ public class VoteDao implements iVoteDao {
     private static final
     String INSERT = "INSERT INTO votes(username, post_id, vote, post_title) values (?,?,?,?)";
 
+    String DELETE_BY_ID_ARRAY = "DELETE FROM votes WHERE id = ANY (?)";
+
     @Override
     public List<Vote> findAll() {
         return null;
@@ -92,6 +94,23 @@ public class VoteDao implements iVoteDao {
 
     @Override
     public int delete(Vote T) {
+        return 0;
+    }
+
+    @Override
+    public int deleteByIdArray(List<Long> id) {
+        PreparedStatement stmt = null;
+        try (Connection conn = ConnectionUtils.getConnection()) {
+            stmt = conn.prepareStatement(DELETE_BY_ID_ARRAY);
+            Object[] idArray = id.toArray();
+            Array array = conn.createArrayOf("INT", idArray);
+            stmt.setArray(1, array);
+            return stmt.executeUpdate();
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         return 0;
     }
 

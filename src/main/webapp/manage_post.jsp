@@ -74,32 +74,45 @@
 
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <div class="col-md-6"></div>
-                                                <h4 class="m-t-0 header-title col-md-6"><b>${post.getTitle()}</b></h4>
+                                                <div class="col-md-1 "></div>
+                                                <div class="col-md-10" style="text-align: center"><h4 class="m-t-0 ">
+                                                    <b>${post.getTitle()}</b></h4></div>
                                             </div>
 
 
                                             <div class="form-group">
-                                                <label class="col-md-2 control-label">Film</label>
+                                                <div class="col-md-1"></div>
+                                                <label class="col-md-1 ">Film:</label>
                                                 <div class="col-md-10">
-                                                    <span type="text" class="form-control">${post.getFilmName()}</span>
+                                                    <span type="text"
+                                                          style="word-break: break-all">${post.getFilmName()}</span>
                                                 </div>
+
+
                                             </div>
+
                                             <div class="form-group">
-                                                <label class="col-md-2 control-label">Rate</label>
+                                                <hr/>
+                                                <div class="col-md-1"></div>
+                                                <label class="col-md-1">Rate:</label>
                                                 <div class="col-md-10">
-                                                    <span class="form-control">${post.getRate()}</span>
+
+                                                    <span class="">${post.getRate()}</span>
                                                 </div>
+
                                             </div>
 
 
                                             <div class="form-group">
-                                                <label class="col-md-2 control-label">Review</label>
+                                                <hr/>
+                                                <div class="col-md-1"></div>
+                                                <label class="col-md-1">Review:</label>
                                                 <div class="col-md-10">
-                                                    <span class="form-control"
-                                                          style="height: 250px">${post.getContent()}</span>
+                                                    <span style="word-break: break-all;">&nbsp; ${post.getContent()}</span>
                                                 </div>
+
                                             </div>
+                                            <hr/>
 
                                             <div class="form-group" id="votes">
                                                 <%--                                                <div class="col-md-2">--%>
@@ -153,16 +166,19 @@
 
                                                             <div class="form-group">
                                                                 <div class="col-md-3"></div>
-                                                                <h4 class="m-t-10 header-title col-md-6"><b>Action</b></h4>
+                                                                <h4 class="m-t-10 header-title col-md-6"><b>Action</b>
+                                                                </h4>
                                                             </div>
                                                             <div class="form-group">
-                                                                <button class="m-t-10 btn btn-primary btn-block text-uppercase waves-effect waves-light" id="accept">
+                                                                <button class="m-t-10 btn btn-primary btn-block text-uppercase waves-effect waves-light"
+                                                                        id="accept">
                                                                     Accept
                                                                 </button>
 
                                                             </div>
                                                             <div class="form-group">
-                                                                <button class="btn btn-pink btn-block text-uppercase waves-effect waves-light" id="decline">
+                                                                <button class="btn btn-pink btn-block text-uppercase waves-effect waves-light"
+                                                                        id="decline">
                                                                     Decline
                                                                 </button>
 
@@ -184,7 +200,6 @@
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </div>
-
 
 
                                             </div>
@@ -278,7 +293,7 @@
         })
     }
 
-    $('#accept').on('click', function (e){
+    $('#accept').on('click', function (e) {
         e.preventDefault();
         $.ajax({
             url: "/manage-post",
@@ -297,7 +312,7 @@
         })
     })
 
-    $('#decline').on('click', function (e){
+    $('#decline').on('click', function (e) {
         e.preventDefault();
         $.ajax({
             url: "/manage-post",
@@ -357,8 +372,6 @@
     }
 
 </script>
-
-
 
 
 </body>

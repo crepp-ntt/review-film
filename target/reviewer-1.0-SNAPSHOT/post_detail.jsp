@@ -74,66 +74,57 @@
 
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <div class="col-md-6"></div>
-                                                <h4 class="m-t-0 header-title col-md-6"><b>${post.getTitle()}</b></h4>
+                                                <div class="col-md-1 "></div>
+                                                <div class="col-md-10" style="text-align: center"><h4 class="m-t-0 ">
+                                                    <b>${post.getTitle()}</b></h4></div>
                                             </div>
 
 
                                             <div class="form-group">
-                                                <label class="col-md-2 control-label">Film</label>
+                                                <div class="col-md-1"></div>
+                                                <label class="col-md-1 ">Film:</label>
                                                 <div class="col-md-10">
-                                                    <span type="text" class="form-control">${post.getFilmName()}</span>
+                                                    <span type="text"
+                                                          style="word-break: break-all">${post.getFilmName()}</span>
                                                 </div>
+
+
                                             </div>
+
                                             <div class="form-group">
-                                                <label class="col-md-2 control-label">Rate</label>
+                                                <hr/>
+                                                <div class="col-md-1"></div>
+                                                <label class="col-md-1">Rate:</label>
                                                 <div class="col-md-10">
-                                                    <span class="form-control">${post.getRate()}</span>
+
+                                                    <span class="">${post.getRate()}</span>
                                                 </div>
+
                                             </div>
 
 
                                             <div class="form-group">
-                                                <label class="col-md-2 control-label">Review</label>
+                                                <hr/>
+                                                <div class="col-md-1"></div>
+                                                <label class="col-md-1">Review:</label>
                                                 <div class="col-md-10">
-                                                    <span class="form-control"
-                                                          style="height: 250px">${post.getContent()}</span>
+                                                    <span style="word-break: break-all;">&nbsp; ${post.getContent()}</span>
                                                 </div>
+
                                             </div>
+                                            <hr/>
 
                                             <div class="form-group" id="votes">
-<%--                                                <div class="col-md-2">--%>
-<%--                                                    --%>
-<%--                                                </div>--%>
-<%--                                                <label class="col-md-2 control-label">Upvote</label>--%>
-<%--                                                <div class="col-md-2">--%>
-<%--                                                    <span class="form-control">10</span>--%>
-<%--                                                </div>--%>
-<%--                                                <label class="col-md-2 control-label">Downvote</label>--%>
-<%--                                                <div class="col-md-2">--%>
-<%--                                                    <span class="form-control">0</span>--%>
-<%--                                                </div>--%>
+
                                             </div>
 
-                                            <% if(AppUtils.getLoginedUser(request.getSession()) != null){ %>
+                                            <% if (AppUtils.getLoginedUser(request.getSession()) != null) { %>
 
                                             <div id="voteBtn"></div>
                                             <% } %>
 
 
-<%--                                            <div class="form-group text-center m-t-40">--%>
-<%--                                                <div class="col-xs-2">--%>
-<%--                                                </div>--%>
-<%--                                                <div class="col-xs-5">--%>
-<%--                                                    <a href=""--%>
-<%--                                                       class="btn btn-primary btn-block text-uppercase waves-effect waves-light reset">Up</a>--%>
-<%--                                                </div>--%>
-<%--                                                <div class="col-xs-5">--%>
-<%--                                                    <button class="btn btn-pink btn-block text-uppercase waves-effect waves-light">--%>
-<%--                                                        Down--%>
-<%--                                                    </button>--%>
-<%--                                                </div>--%>
-<%--                                            </div>--%>
+
                                         </div>
                                         <div class="col-md-4 ">
                                             <div class="col-md-1"></div>
@@ -143,13 +134,15 @@
                                                     <h4 class="m-t-0 header-title col-md-6"><b>Comment</b></h4>
                                                 </div>
 
-                                                <% if(AppUtils.getLoginedUser(request.getSession()) != null){ %>
-                                                <% if(!AppUtils.getLoginedUser(request.getSession()).getStatus().equals("Block")){ %>
+                                                <% if (AppUtils.getLoginedUser(request.getSession()) != null) { %>
+                                                <% if (!AppUtils.getLoginedUser(request.getSession()).getStatus().equals("Block")) { %>
                                                 <div class="form-group">
                                                     <div class="col-md-10">
-                                                        <input class="form-control" id="content" placeholder="Insert your comment"/>
+                                                        <input class="form-control" id="content"
+                                                               placeholder="Insert your comment"/>
                                                     </div>
-                                                    <button class="col-md-2 btn btn-primary text-uppercase waves-effect waves-light" id="send">
+                                                    <button class="col-md-2 btn btn-primary text-uppercase waves-effect waves-light"
+                                                            id="send">
                                                         Send
                                                     </button>
                                                 </div>
@@ -163,58 +156,16 @@
                                                 </nav>
 
 
-<%--                                                <div class="form-group card-box">--%>
-<%--                                                    <div class="col-md-3">--%>
-<%--                                                        <img src="assets/images/users/avatar.jpg" alt="your image"--%>
-<%--                                                             style="width: 75px; height: 75px"/>--%>
-
-<%--                                                    </div>--%>
-<%--                                                    <div class="col-md-9">--%>
-<%--                                                        <div class="col-md-2"></div>--%>
-<%--                                                        <div class="col-md-12">--%>
-<%--                                                            <label class="">User:</label>--%>
-<%--                                                            <span>This movie iz gud phim hay thiet</span>--%>
-<%--                                                        </div>--%>
-<%--                                                    </div>--%>
-<%--                                                </div>--%>
-
-<%--                                                <div class="form-group card-box">--%>
-<%--                                                    <div class="col-md-3">--%>
-<%--                                                        <img src="assets/images/users/avatar.jpg" alt="your image"--%>
-<%--                                                             style="width: 75px; height: 75px"/>--%>
-
-<%--                                                    </div>--%>
-<%--                                                    <div class="col-md-9">--%>
-<%--                                                        <div class="col-md-2"></div>--%>
-<%--                                                        <div class="col-md-12">--%>
-<%--                                                            <label class="">User:</label>--%>
-<%--                                                            <span>Cong nhan</span>--%>
-<%--                                                        </div>--%>
-<%--                                                    </div>--%>
-<%--                                                </div>--%>
-
-<%--                                                <div class="form-group card-box">--%>
-<%--                                                    <div class="col-md-3">--%>
-<%--                                                        <img src="assets/images/users/avatar.jpg" alt="your image"--%>
-<%--                                                             style="width: 75px; height: 75px"/>--%>
-
-<%--                                                    </div>--%>
-<%--                                                    <div class="col-md-9">--%>
-<%--                                                        <div class="col-md-2"></div>--%>
-<%--                                                        <div class="col-md-12">--%>
-<%--                                                            <label class="">User:</label>--%>
-<%--                                                            <span>Cong nhan</span>--%>
-<%--                                                        </div>--%>
-<%--                                                    </div>--%>
-<%--                                                </div>--%>
                                                 <% } else {%>
                                                 <div class="form-group card-box">
                                                     <div class="col-md-4">
-                                                        <button onclick="window.location.href='login'" class="btn btn-red btn-block text-uppercase waves-effect waves-light" >Login
+                                                        <button onclick="window.location.href='login'"
+                                                                class="btn btn-red btn-block text-uppercase waves-effect waves-light">
+                                                            Login
                                                         </button>
 
                                                     </div>
-                                                    <div class="col-md-8" >
+                                                    <div class="col-md-8">
                                                         <div class="col-md-2"></div>
                                                         <div class="col-md-12" style="margin-top: 5px">
                                                             <span>to comment</span>
@@ -307,46 +258,46 @@
         reloadVote();
     })
 
-    function reloadComment () {
-        $.get("get-comment?postId=${post.getId()}", function (data, status){
+    function reloadComment() {
+        $.get("get-comment?postId=${post.getId()}", function (data, status) {
             $('#comments').html(data.result);
             $('.pagination').html(data.pagination);
         })
     }
 
-    function reloadVote () {
-        $.get("get-vote",{postId: ${post.getId()}}, function (data, status){
+    function reloadVote() {
+        $.get("get-vote", {postId: ${post.getId()}}, function (data, status) {
             $('#votes').html(data.result);
             $('#voteBtn').html(data.voteBtn);
         })
     }
 
-    $("#send").on('click', function (e){
+    $("#send").on('click', function (e) {
         e.preventDefault();
-        if($('#content').val() !== ""){
-        let data = {
-            username: "${user.getUsername()}",
-            userAvt: "${user.getAvt()}",
-            postId: "${post.getId()}",
-            content: $('#content').val(),
-        }
+        if ($('#content').val() !== "") {
+            let data = {
+                username: "${user.getUsername()}",
+                userAvt: "${user.getAvt()}",
+                postId: "${post.getId()}",
+                content: $('#content').val(),
+            }
 
-        $.ajax({
-            url: "/get-comment",
-            type: "POST",
-            dataType: 'JSON',
-            data: {
-                json: JSON.stringify(data),
-            },
-            success: function (response){
-                reloadComment();
-                $('#content').val("");
-            }
-            ,
-            error: function () {
-                alert("error in ajax submission");
-            }
-        })
+            $.ajax({
+                url: "/get-comment",
+                type: "POST",
+                dataType: 'JSON',
+                data: {
+                    json: JSON.stringify(data),
+                },
+                success: function (response) {
+                    reloadComment();
+                    $('#content').val("");
+                }
+                ,
+                error: function () {
+                    alert("error in ajax submission");
+                }
+            })
         }
     })
 
@@ -371,7 +322,7 @@
         })
     }
 
-    function upVote(e){
+    function upVote(e) {
         e.preventDefault();
         $.ajax({
             url: "/get-vote",
@@ -381,7 +332,7 @@
                 "postId": ${post.getId()},
                 "postTitle": "${post.getTitle()}"
             },
-            success: function (response){
+            success: function (response) {
                 reloadVote();
             }
             ,
@@ -391,7 +342,7 @@
         })
     }
 
-    function downVote(e){
+    function downVote(e) {
         e.preventDefault();
         $.ajax({
             url: "/get-vote",
@@ -401,7 +352,7 @@
                 "postId": ${post.getId()},
                 "postTitle": "${post.getTitle()}"
             },
-            success: function (response){
+            success: function (response) {
                 reloadVote();
             }
             ,

@@ -62,8 +62,9 @@ public class GetVote extends HttpServlet {
                 upVote++;
             else
                 downVote++;
-            if(vote.getUsername().equals(AppUtils.getLoginedUser(request.getSession()).getUsername()))
-                userVote = vote;
+            if(AppUtils.getLoginedUser(request.getSession()) != null)
+                if(vote.getUsername().equals(AppUtils.getLoginedUser(request.getSession()).getUsername()))
+                    userVote = vote;
         }
 
 

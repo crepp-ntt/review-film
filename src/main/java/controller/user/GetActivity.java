@@ -21,12 +21,27 @@ import java.util.Map;
 @WebServlet("/get-activity")
 public class GetActivity extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Map<String, String> data = new HashMap<>();
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        String type = request.getParameter("type");
+        String[] idArr = request.getParameterValues("data[]");
+        if(type.equals("post")) {
+            PostService postService = new PostService();
+            postService.deleteByIdArray(idArr);
+        }else if(type.equals("activity")){
+            VoteService voteService = new VoteService();
+            voteService.deleteByIdArray(idArr);
+        }
 
+        data.put("success", "gud");
+        String json = new Gson().toJson(data);
+        response.getWriter().write(json);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        Map<String, Object> data = new HashMap<>();
+        Map<String, String> data = new HashMap<>();
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         String type = request.getParameter("type");
@@ -40,7 +55,7 @@ public class GetActivity extends HttpServlet {
         String result = "";
         int totalPage;
 
-        if(type.equals("post")){
+        if (type.equals("post")) {
             PostService postService = new PostService();
             List<Post> allPosts = postService.getPostByUsername(AppUtils.getLoginedUser(request.getSession()).getUsername());
 
@@ -58,15 +73,16 @@ public class GetActivity extends HttpServlet {
             }
             for (Post item : posts) {
                 result += "<tr>\n" +
-                        "                                            <th scope=\"row\">"+item.getId()+"</th>\n" +
-                        "                                            <td>"+item.getTitle()+"</td>\n" +
-                        "                                            <td>"+item.getCurrentStatus()+"</td>\n" +
-                        "                                            <td><a href=\"/edit-post?postId="+item.getId()+"\" class=\"on-default edit-row\"><i class=\"fa fa-pencil\"></i></a>\n" +
+                        "                                            <td> <input name=\"select_all\" value=" + item.getId() + " type=\"checkbox\" onclick=\"check(event)\"></td>\n" +
+                        "                                            <td scope=\"row\">" + item.getId() + "</td>\n" +
+
+                        "                                            <td>" + item.getTitle() + "</td>\n" +
+                        "                                            <td>" + item.getCurrentStatus() + "</td>\n" +
+                        "                                            <td><a href=\"/edit-post?postId=" + item.getId() + "\" class=\"on-default edit-row\"><i class=\"fa fa-pencil\"></i></a>\n" +
                         "                                            </td>\n" +
                         "                                        </tr>";
             }
-        }
-        else {
+        } else {
             VoteService voteService = new VoteService();
             List<Vote> allVotes = voteService.getVoteByUsername(AppUtils.getLoginedUser(request.getSession()).getUsername());
 
@@ -84,10 +100,11 @@ public class GetActivity extends HttpServlet {
             }
             for (Vote item : votes) {
                 result += "<tr>\n" +
-                        "                                            <th scope=\"row\">"+item.getId()+"</th>\n" +
-                        "                                            <td>"+item.getPostTitle()+"</td>\n" +
-                        "                                            <td>"+item.getVote()+"</td>\n" +
-                        "                                            <td><a href=\"#\" class=\"on-default edit-row\"><i class=\"fa fa-pencil\"></i></a>\n" +
+                        "                                            <td> <input name=\"select_all\" value=" + item.getId() + " type=\"checkbox\" onclick=\"check(event)\"></td>\n" +
+                        "                                            <td scope=\"row\">" + item.getId() + "</td>\n" +
+                        "                                            <td>" + item.getPostTitle() + "</td>\n" +
+                        "                                            <td>" + item.getVote() + "</td>\n" +
+                        "                                            <td><a href=\"/post-detail?id=" + item.getPostId() + "\" class=\"on-default edit-row\"><i class=\"fa fa-pencil\"></i></a>\n" +
                         "                                            </td>\n" +
                         "                                        </tr>";
             }

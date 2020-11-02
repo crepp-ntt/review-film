@@ -21,6 +21,9 @@ public interface iVoteDao extends iDAO<Vote>{
 
     Vote findCheckVote(long postId, String username);
 
+    int deleteByIdArray(List<Long> id);
+
+
     @Override
     Vote findOne(Object input);
 

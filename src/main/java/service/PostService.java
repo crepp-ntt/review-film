@@ -9,7 +9,6 @@ import util.AppUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class PostService {
@@ -29,6 +28,14 @@ public class PostService {
             postDTOs.add(convertToDTO(post));
         }
         return postDTOs;
+    }
+
+    public int deleteByIdArray(String[] idArr){
+        List<Long> longArray = new ArrayList<>();
+        for(String item: idArr) {
+            longArray.add(Long.parseLong(item));
+        }
+        return dao.deleteByIdArray(longArray);
     }
 
     public List<PostDTO> getTopPost(){

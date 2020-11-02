@@ -1,30 +1,42 @@
 package model.dao.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import util.ConnectionUtils;
 import model.dao.iPostDao;
 import model.entity.Post;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PostDao implements iPostDao {
+
     private static final
     String FIND_ALL = "SELECT * FROM posts";
+
     private static final
     String FIND_ALL_BY_STATUS_SEARCH = "SELECT * FROM posts WHERE current_status LIKE ? AND (UPPER(title) LIKE ? OR UPPER(content) LIKE ?)";
+
     private static final
     String FIND_ONE = "SELECT * FROM posts WHERE id=?";
+
     private static final
     String INSERT = "INSERT INTO posts(username, user_avt, title, rate, content, current_status, date, film_name) VALUES (?,?,?,?,?,?,?,?)";
+
     private static final
     String UPDATE = "UPDATE posts SET username=?, user_avt=?, title=?, rate=?, content=?, current_status=?, date=?,film_name=? WHERE id=?";
+
     private static final
     String FIND_BY_USERNAME = "SELECT * FROM posts WHERE username=? ORDER BY id DESC";
+
     private static final
     String FIND_TOP_POST = "SELECT p.*, COUNT(v.id) AS V " +
             "FROM posts p JOIN votes v on p.id = v.post_id " +
             "WHERE v.vote='UP' GROUP BY p.id ORDER BY v DESC LIMIT 3";
+
+    private static final
+    String DELETE_BY_ID_ARRAY = "DELETE FROM posts WHERE id = ANY (?)";
 
     @Override
     public List<Post> findAll(String status, String search) {
@@ -45,6 +57,23 @@ public class PostDao implements iPostDao {
             throwables.printStackTrace();
         }
         return posts;
+    }
+
+    @Override
+    public int deleteByIdArray(List<Long> id) {
+        PreparedStatement stmt = null;
+        try (Connection conn = ConnectionUtils.getConnection()) {
+            stmt = conn.prepareStatement(DELETE_BY_ID_ARRAY);
+            Object[] idArray = id.toArray();
+            Array array = conn.createArrayOf("INT", idArray);
+            stmt.setArray(1, array);
+            return stmt.executeUpdate();
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return 0;
     }
 
     @Override

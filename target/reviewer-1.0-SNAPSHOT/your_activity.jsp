@@ -66,10 +66,14 @@
 
 
                             <div style="padding: 20px 20px 20px">
+                                <button class="header-title" style="text-align: center;" id="delete" disabled>
+                                    <b>Delete</b>
+                                </button>
                                 <table class="table table-bordered m-0">
 
                                     <thead>
                                     <tr>
+                                        <th><input id="select_all" value="1" type="checkbox"></th>
                                         <th>ID</th>
                                         <th style="width: 300px">Title</th>
                                         <th style="width: 100px">Status</th>
@@ -77,15 +81,15 @@
                                     </tr>
                                     </thead>
                                     <tbody id="posts">
-<%--                                    <c:forEach items="${posts}" var="post">--%>
-<%--                                        <tr>--%>
-<%--                                            <th scope="row">${post.getId()}</th>--%>
-<%--                                            <td>${post.getTitle()}</td>--%>
-<%--                                            <td>${post.getStatus()}</td>--%>
-<%--                                            <td><a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>--%>
-<%--                                            </td>--%>
-<%--                                        </tr>--%>
-<%--                                    </c:forEach>--%>
+                                    <%--                                    <c:forEach items="${posts}" var="post">--%>
+                                    <%--                                        <tr>--%>
+                                    <%--                                            <th scope="row">${post.getId()}</th>--%>
+                                    <%--                                            <td>${post.getTitle()}</td>--%>
+                                    <%--                                            <td>${post.getStatus()}</td>--%>
+                                    <%--                                            <td><a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>--%>
+                                    <%--                                            </td>--%>
+                                    <%--                                        </tr>--%>
+                                    <%--                                    </c:forEach>--%>
 
                                     </tbody>
                                 </table>
@@ -169,6 +173,7 @@
 </script>
 
 <script>
+    let type = "post";
     $(function () {
         $.get("get-activity", {type: "post", page: 1}, function (data, status) {
             $('#posts').html(data.result);
@@ -185,6 +190,7 @@
 
     $("#activity").on('click', function (e) {
         e.preventDefault();
+        type = "activity";
         $(this).attr("class", "header-title selected");
         document.getElementById("post").setAttribute("class", "header-title");
         $.get("get-activity", {type: "activity", page: 1}, function (data, status) {
@@ -195,6 +201,7 @@
 
     $("#post").on('click', function (e) {
         e.preventDefault();
+        type = "post";
         $(this).attr("class", "header-title selected");
         document.getElementById("activity").setAttribute("class", "header-title");
         $.get("get-activity", {type: "post", page: 1}, function (data, status) {
@@ -203,37 +210,91 @@
         })
     })
 
-    function pagination(e, page){
+    function pagination(e, page) {
         e.preventDefault();
         $.ajax({
-            url:"/get-activity",
+            url: "/get-activity",
             type: "GET",
             data: {
                 "page": page,
                 "type": "post"
             },
-            success: function (data){
+            success: function (data) {
+                document.getElementById('delete').disabled = true;
+                document.getElementById('select_all').checked = false;
                 $('#posts').html(data.result);
                 $('.pagination').html(data.pagination);
             },
-            error: function (){
+            error: function () {
                 alert("aw damn, something bad happened");
             }
         })
     }
 
+    $('#select_all').on('click', function () {
+        let baseCheck = document.getElementById('select_all').checked;
+        let items = document.getElementsByName('select_all');
+        items.forEach((item) => {
+            item.checked = baseCheck;
+        })
+        document.getElementById('delete').disabled = !baseCheck;
+
+    })
+
+    function check (e) {
+        let checkAll = 0;
+        let checkDelete = 0;
+        let items = document.getElementsByName('select_all');
+        items.forEach((item) => {
+            if (item.checked === false)
+                checkAll += 1;
+            else
+                checkDelete += 1;
+        })
+        if (checkAll !== 0)
+            document.getElementById('select_all').checked = false;
+        document.getElementById('delete').disabled = checkDelete === 0;
+    }
+
+    $('#delete').on('click', function (e){
+        e.preventDefault();
+
+        let data = [];
+        let items = document.getElementsByName('select_all');
+        items.forEach((item) => {
+            if(item.checked)
+                data.push(item.value);
+        })
+        $.ajax({
+            url:"/get-activity",
+            type: "POST",
+            dataType: 'JSON',
+            data:{
+                "data": data,
+                "type": type,
+            },
+            success: function (response){
+                document.getElementById('select_all').checked = false;
+                document.getElementById('delete').disabled = true;
+                if(type === "post")
+                    $.get("get-activity", {type: "post", page: 1}, function (data, status) {
+                        $('#posts').html(data.result);
+                        $('.pagination').html(data.pagination);
+                    })
+                else
+                    $.get("get-activity", {type: "activity", page: 1}, function (data, status) {
+                        $('#posts').html(data.result);
+                        $('.pagination').html(data.pagination);
+                    })
+
+            },
+            err: function (){
+                alert("aw damn, something bad happened");
+            }
+        })
+    })
+
 </script>
-<%--<script type="text/javascript">--%>
-<%--    jQuery(document).ready(function($) {--%>
-<%--        $('.counter').counterUp({--%>
-<%--            delay: 100,--%>
-<%--            time: 1200--%>
-<%--        });--%>
-
-<%--        $(".knob").knob();--%>
-
-<%--    });--%>
-<%--</script>--%>
 
 
 </body>

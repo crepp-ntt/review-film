@@ -4,10 +4,20 @@ import model.dao.iVoteDao;
 import model.dao.impl.VoteDao;
 import model.entity.Vote;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VoteService {
     iVoteDao dao = new VoteDao();
+
+    public int deleteByIdArray(String[] idArr){
+        List<Long> longArray = new ArrayList<>();
+        for(String item: idArr) {
+            longArray.add(Long.parseLong(item));
+        }
+        return dao.deleteByIdArray(longArray);
+    }
+
     public List<Vote> getVoteByPostId(long postId){
         return dao.findByPostId(postId);
     }

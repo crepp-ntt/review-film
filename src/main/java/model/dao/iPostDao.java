@@ -19,8 +19,7 @@ public interface iPostDao extends iDAO<Post> {
 
     List<Post> findTopPost();
 
-
-
+    int deleteByIdArray(List<Long> id);
 
     @Override
     Post findOne(Object id);

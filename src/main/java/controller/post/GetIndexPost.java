@@ -75,7 +75,7 @@ public class GetIndexPost extends HttpServlet {
                                 "                                <div class=\"table-box opport-box\">\n" +
                                 "                                    <div class=\"table-detail\" style=\"text-align: center\">\n" +
                                 "                                        <img src=\"" + item.getAvt() + "\" alt=\"img\"\n" +
-                                "                                             class=\"img-circle thumb-lg m-r-15\"/>\n" +
+                                "                                             class=\"img-circle thumb-lg \"/>\n" +
                                 "                                        <p class=\"text-dark m-t-10\"><b>" + item.getUsername() + " </b></p>\n" +
                                 "                                    </div>\n" +
                                 "\n" +
