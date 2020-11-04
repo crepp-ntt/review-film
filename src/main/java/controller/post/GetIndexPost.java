@@ -2,6 +2,7 @@ package controller.post;
 
 import com.google.gson.Gson;
 import model.dto.PostDTO;
+import model.entity.Post;
 import model.entity.Vote;
 import service.PostService;
 import service.VoteService;
@@ -33,9 +34,9 @@ public class GetIndexPost extends HttpServlet {
 
 
         PostService postService = new PostService();
-        List<PostDTO> allPost = postService.getAllPosts("ACCEPTED", search);
+        List<Post> allPost = postService.getAllPosts("ACCEPTED", search);
 
-        if(sort.equals("dateDecrease")){
+        if(sort.equals("dateIncrease")){
             Collections.reverse(allPost);
         }
 
@@ -43,7 +44,7 @@ public class GetIndexPost extends HttpServlet {
         int temp = (int) itemPerPage;
         int skipItems = (currentPage - 1) * (int) itemPerPage;
         int totalPage = (int) Math.ceil(allPost.size() / itemPerPage);
-        List<PostDTO> posts = new ArrayList<>();
+        List<Post> posts = new ArrayList<>();
         for (int i = 0; i < allPost.size(); i++) {
             if (i < skipItems)
                 continue;
@@ -55,8 +56,8 @@ public class GetIndexPost extends HttpServlet {
 
         String result = "";
         VoteService voteService = new VoteService();
-        for (PostDTO item : posts) {
-            if (item.getStatus().equals("ACCEPTED")) {
+        for (Post item : posts) {
+            if (item.getCurrentStatus().equals("ACCEPTED")) {
                 List<Vote> votes = voteService.getVoteByPostId(item.getId());
 
                 int upVote = 0;
@@ -74,7 +75,7 @@ public class GetIndexPost extends HttpServlet {
                                 "\n" +
                                 "                                <div class=\"table-box opport-box\">\n" +
                                 "                                    <div class=\"table-detail\" style=\"text-align: center\">\n" +
-                                "                                        <img src=\"" + item.getAvt() + "\" alt=\"img\"\n" +
+                                "                                        <img src=\"" + item.getUserAvt() + "\" alt=\"img\"\n" +
                                 "                                             class=\"img-circle thumb-lg \"/>\n" +
                                 "                                        <p class=\"text-dark m-t-10\"><b>" + item.getUsername() + " </b></p>\n" +
                                 "                                    </div>\n" +
@@ -86,7 +87,7 @@ public class GetIndexPost extends HttpServlet {
                                 "                                                    class=\"text-muted\">" + item.getId() + "</span>\n" +
                                 "                                            </p>\n" +
                                 "                                            <p class=\"text-dark m-b-5\"><b>#Date: </b> <span\n" +
-                                "                                                    class=\"text-muted\">20/20/2020</span></p>\n" +
+                                "                                                    class=\"text-muted\">"+ item.getDate() +"</span></p>\n" +
                                 "                                        </div>\n" +
                                 "                                    </div>\n" +
                                 "\n" +

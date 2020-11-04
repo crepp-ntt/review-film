@@ -117,20 +117,25 @@
                                 <h4 class="text-dark header-title m-t-0 m-b-20">TOP REVIEWERS</h4>
                                 <c:forEach items = "${topUsers}" var="item">
                                     <div class="card-box m-b-5">
-                                        <div class="table-box opport-box">
-                                            <div class="table-detail">
+                                        <div class="table-box opport-box" style="display: flex; justify-content: space-around; align-items: center">
+                                            <div class="table-detail" style="text-align: center">
                                                 <img src="${item.getAvt()}" alt="img"
                                                      class="img-circle thumb-lg m-r-10"/>
-
-
-                                            </div>
-
-                                            <div class="table-detail">
-                                                <div class="member-info" style="text-align: left">
+                                                <div class="member-info" >
                                                     <h5 class="m-t-0"><b>${item.getUsername()} </b></h5>
 
                                                 </div>
+
+
+
                                             </div>
+
+<%--                                            <div class="table-detail">--%>
+<%--                                                <div class="member-info" style="text-align: left">--%>
+<%--                                                    <h5 class="m-t-0"><b>${item.getUsername()} </b></h5>--%>
+
+<%--                                                </div>--%>
+<%--                                            </div>--%>
 
                                             <div class="table-detail">
                                                 <div class="member-info">

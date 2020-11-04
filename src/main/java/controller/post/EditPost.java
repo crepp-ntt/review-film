@@ -28,28 +28,29 @@ public class EditPost extends HttpServlet {
         String filmName = request.getParameter("filmName");
         long postId = Long.parseLong(request.getParameter("postId"));
 
-        //create service, dto object
-        PostService postService = new PostService();
-        PostDTO postDTO = postService.getPost(postId);
+        if (title.equals("") || content.equals("") || filmName.equals("")) {
+            data.put("false", "Please input all field!!");
+        } else {
 
-        postDTO.setTitle(title);
-        postDTO.setContent(content);
-        postDTO.setRate(rate);
-        postDTO.setFilmName(filmName);
+            //create service, dto object
+            PostService postService = new PostService();
+            PostDTO postDTO = postService.getPost(postId);
+
+            postDTO.setTitle(title);
+            postDTO.setContent(content);
+            postDTO.setRate(rate);
+            postDTO.setFilmName(filmName);
 
 
+            if (!AppUtils.getLoginedUser(request.getSession()).getUsername().equals(postDTO.getUsername())) {
+                data.put("false", "Can not edit post!");
+            } else if (postService.updatePost(postDTO) == 1) {
+                data.put("success", "Edit post successful!");
+            } else {
+                data.put("false", "Can not edit post!");
+            }
 
-
-        if(!AppUtils.getLoginedUser(request.getSession()).getUsername().equals(postDTO.getUsername())){ //check user status
-            data.put("false", "Can not edit post!");
         }
-        else if(postService.updatePost(postDTO) == 1){
-            data.put("success","Edit post successful!");
-        }
-        else{
-            data.put("false", "Can not edit post!");
-        }
-
         String json = new Gson().toJson(data);
         response.getWriter().write(json);
     }
@@ -61,6 +62,6 @@ public class EditPost extends HttpServlet {
         request.setAttribute("title", "Edit post: " + post.getId());
         request.setAttribute("post", post);
         request.setAttribute("user", AppUtils.getLoginedUser(request.getSession()));
-        request.getRequestDispatcher("edit_post.jsp").forward(request,response);
+        request.getRequestDispatcher("edit_post.jsp").forward(request, response);
     }
 }

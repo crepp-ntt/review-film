@@ -50,10 +50,17 @@ public class GetManageUsers extends HttpServlet {
         }
         String result = "";
         for(UserDTO user: users){
+            String status = "";
+            if (user.getStatus().equals("Block"))
+                status += "                                            <td style=\"color: yellow\">" + user.getStatus() + "</td>\n";
+            else if (user.getStatus().equals("Active"))
+                status += "                                            <td style=\"color: green\">" + user.getStatus() + "</td>\n";
+            else
+                status += "                                            <td style=\"color: red\">" + user.getStatus() + "</td>\n";
             result += "<tr>\n" +
                     "                                            <th scope=\"row\">"+ user.getUsername() +"</th>\n" +
                     "                                            <td>"+user.getName()+"</td>\n" +
-                    "                                            <td>"+user.getStatus()+"</td>\n" +
+                    status +
                     "                                            <td><a href=\"manage-user?username="+user.getUsername() +"\" class=\"on-default edit-row\"><i class=\"fa fa-pencil\"></i></a>\n" +
                     "                                            </td>\n" +
                     "                                        </tr>";

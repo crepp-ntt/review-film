@@ -120,10 +120,10 @@
             success: function (result) {
 
                 if(result.false){
-                    $('#result1').html(result.false);
+                    alert(result.false);
                 }
                 else{
-                    $('#result1').html(result.success);
+                    alert(result.success);
                     $('#sign_up')[0].reset();
                 }
             },

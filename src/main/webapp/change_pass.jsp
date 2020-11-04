@@ -108,28 +108,35 @@
 
     $('#change').on('click', function (e){
         e.preventDefault();
-        $.ajax({
-            url: "/change-password",
-            type: "POST",
-            data:{
-                oldPass: $('#pass').val(),
-                newPass: $('#pass1').val(),
-                confirm: $('#pass2').val()
-            },
-            success: function (returndata){
-                if(returndata.success){
-                    $('#result1').html(returndata.success);
-                }
-                else{
-                    document.getElementById("reset").click();
-                    $('#result1').html(returndata.false);
-                }
+        if(document.getElementById('pass').validity.valid && document.getElementById('pass1').validity.valid && document.getElementById('pass2').validity.valid ) {
 
-            },
-            err: function (){
-                alert("False");
-            }
-        })
+            $.ajax({
+                url: "/change-password",
+                type: "POST",
+                data: {
+                    oldPass: $('#pass').val(),
+                    newPass: $('#pass1').val(),
+                    confirm: $('#pass2').val()
+                },
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.success);
+                        document.getElementById("reset").click();
+                    } else {
+                        alert(response.false);
+                        document.getElementById("reset").click();
+
+                    }
+
+                },
+                err: function () {
+                    alert("False");
+                }
+            })
+        }
+        else {
+            alert("Please input all field.")
+        }
     });
 
     $('#back').on('click', function (e){

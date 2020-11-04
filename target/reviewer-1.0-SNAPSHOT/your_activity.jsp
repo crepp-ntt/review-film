@@ -217,7 +217,7 @@
             type: "GET",
             data: {
                 "page": page,
-                "type": "post"
+                "type": type
             },
             success: function (data) {
                 document.getElementById('delete').disabled = true;

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
+import constant.Constant;
 import model.dao.iUserDao;
 import model.dao.impl.UserDao;
 import model.dto.UserDTO;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class UserService {
     private iUserDao dao = new UserDao();
@@ -37,34 +39,41 @@ public class UserService {
 
     public UserDTO getUser(String username) {
         User user = dao.findOne(username);
+        if(user == null)
+            return null;
         return convertToDTO(user);
     }
 
     //check login and store to session if success
     public boolean login(HttpServletRequest req, String username, String password) {
         User user = dao.findOne(username);
-        if (user == null)
-            return false;
-        else if (BCrypt.checkpw(password, user.getPassword())) {
+        if (BCrypt.checkpw(password, user.getPassword())) {
             AppUtils.storeLoginedUser(req.getSession(), user);
             return true;
         }
         return false;
     }
 
+
+
     public boolean checkPass(String pass, String password){
         return BCrypt.checkpw(password, pass);
     }
 
-    public int changePass(String username, String password){
-
-        return dao.changePassword(username, BCrypt.hashpw(password,BCrypt.gensalt(12)));
+    public int changePass(String username, String password, HttpServletRequest req){
+        dao.changePassword(username, BCrypt.hashpw(password,BCrypt.gensalt(12)));
+        User user = dao.findOne(username);
+        AppUtils.storeLoginedUser(req.getSession(), user);
+        return 1;
     }
 
     public boolean changeProfile(HttpServletRequest req, String json){
         UserDTO dto = jsonToDTO(json);
+
         if(updateUser(dto) == 1){
-            AppUtils.storeLoginedUser(req.getSession(), convertToEntity(dto));
+            User user = convertToEntity(dto);
+            user.setRole(AppUtils.getLoginedUser(req.getSession()).getRole());
+            AppUtils.storeLoginedUser(req.getSession(), user);
             return true;
         }
         return false;

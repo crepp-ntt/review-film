@@ -36,7 +36,8 @@ public class ChangePassword extends HttpServlet {
         } else if (!Pattern.matches(Constant.PASSWORD_PATTERN, newPass)) {
             data.put("false", "Password wrong format");
         } else {
-            userService.changePass(AppUtils.getLoginedUser(request.getSession()).getUsername(), newPass);
+            userService.changePass(AppUtils.getLoginedUser(request.getSession()).getUsername(), newPass, request);
+
             data.put("success", "Change password successful");
         }
         String json = new Gson().toJson(data);

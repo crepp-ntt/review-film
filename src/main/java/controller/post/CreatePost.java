@@ -30,27 +30,29 @@ public class CreatePost extends HttpServlet {
         String content = request.getParameter("content");
         String filmName = request.getParameter("filmName");
 
-        //create service, dto object
-        PostService postService = new PostService();
-        PostDTO postDTO = new PostDTO();
-
-
-
-        postDTO.setTitle(title);
-        postDTO.setRate(Long.parseLong(rate));
-        postDTO.setContent(content);
-        postDTO.setFilm(filmName);
-
-
-
-        if(AppUtils.getLoginedUser(request.getSession()).getStatus().equals("Block")){ //check user status
-            data.put("false", "Can not create post!");
+        if(title.equals("") || content.equals("") || filmName.equals("")){
+            data.put("false", "Please input all field!!");
         }
-        else if(postService.savePost(request, postDTO) == 1){
-            data.put("success","Create post successful!");
-        }
-        else{
-            data.put("false", "Can not create post!");
+        else {
+
+            //create service, dto object
+            PostService postService = new PostService();
+            PostDTO postDTO = new PostDTO();
+
+
+            postDTO.setTitle(title);
+            postDTO.setRate(Long.parseLong(rate));
+            postDTO.setContent(content);
+            postDTO.setFilm(filmName);
+
+
+            if (AppUtils.getLoginedUser(request.getSession()).getStatus().equals("Block")) { //check user status
+                data.put("false", "Can not create post!");
+            } else if (postService.savePost(request, postDTO) == 1) {
+                data.put("success", "Create post successful!");
+            } else {
+                data.put("false", "Can not create post!");
+            }
         }
 
         String json = new Gson().toJson(data);

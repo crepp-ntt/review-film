@@ -22,12 +22,8 @@ public class PostService {
         return postDTOs;
     }
 
-    public List<PostDTO> getAllPosts(String status, String search){
-        List<PostDTO> postDTOs = new ArrayList<>();
-        for(Post post : dao.findAll(status, search)){
-            postDTOs.add(convertToDTO(post));
-        }
-        return postDTOs;
+    public List<Post> getAllPosts(String status, String search){
+        return dao.findAll(status, search);
     }
 
     public int deleteByIdArray(String[] idArr){

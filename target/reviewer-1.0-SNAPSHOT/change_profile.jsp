@@ -15,16 +15,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<script>
 
-    $(function () {
-        $("#datepicker").datepicker({
-            uiLibrary: 'bootstrap4',
-            format: 'yyyy-mm-dd'
-        });
-    });
-
-</script>
 <body class="fixed-left">
 
 <!-- Begin page -->
@@ -112,7 +103,7 @@
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label">DoB</label>
                                                 <div class="col-md-10">
-                                                    <input placeholder="mm/dd/yyyy" class="form-control" id="datepicker"
+                                                    <input placeholder="mm/dd/yyyy" type="date" class="form-control" id="datepicker"
                                                            required name="dob" value="${user.getDob()}"/>
                                                 </div>
                                             </div>
@@ -239,34 +230,43 @@
     });
     $("#submit").on("click", function (e) {
         e.preventDefault();
-        let data = {
-            username: "${user.getUsername()}",
-            avt: $("#blah").attr("src"),
-            name: $("#name").val(),
-            email: $("#email").val(),
-            dob: $("#datepicker").val(),
-            phone: $("#phone").val(),
-            status: "${user.getStatus()}"
-        }
-        $.ajax({
-            url: "/change-profile",
-            type: "POST",
-            dataType: 'JSON',
-            data: {
-                json: JSON.stringify(data),
-            },
-            success: function (datareturn) {
-                if (datareturn.success) {
-                    $('#result1').html(datareturn.success);
-                } else
-                    $('#result1').html(datareturn.false);
-
-            },
-            error: function () {
-                alert("error in ajax submission");
+        if(document.getElementById('name').validity.valid && document.getElementById('email').validity.valid && document.getElementById('phone').validity.valid ){
+            let data = {
+                username: "${user.getUsername()}",
+                avt: $("#blah").attr("src"),
+                name: $("#name").val(),
+                email: $("#email").val(),
+                dob: $("#datepicker").val(),
+                phone: $("#phone").val(),
+                status: "${user.getStatus()}"
             }
-        });
-        return false;
+            $.ajax({
+                url: "/change-profile",
+                type: "POST",
+                dataType: 'JSON',
+                data: {
+                    json: JSON.stringify(data),
+                },
+                success: function (datareturn) {
+                    if (datareturn.success) {
+                        alert(datareturn.success);
+                        window.location.href = "/change-profile";
+
+                    } else
+                        alert(datareturn.false);
+
+                },
+                error: function () {
+                    alert("error in ajax submission");
+                }
+            });
+            return false;
+        }
+        else
+            alert("Please input all fields.")
+
+
+
     });
     <%--$('#blah').attr('src', ${user.getAvt()}).width(200)--%>
     <%--    .height(200);--%>

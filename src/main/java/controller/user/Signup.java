@@ -34,7 +34,7 @@ public class Signup extends HttpServlet {
         //get parameters from form
         String username = request.getParameter("username");
         String pass1 = request.getParameter("password");
-        String pass2 = request.getParameter("password");
+        String pass2 = request.getParameter("password2");
         String name = request.getParameter("name");
         String email = request.getParameter("email");
 

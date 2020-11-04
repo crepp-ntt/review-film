@@ -204,73 +204,45 @@
 <script>
 
     $(".reset").click(function () {
+        myEditor.setData("");
         $('#create_post')[0].reset();
     });
 
     $('#submit').on('click', function (e) {
         e.preventDefault();
-        $.ajax({
-            url: "/create-post",
-            type: "POST",
-            data: {
-                "title": $('#title').val(),
-                "filmName": $('#filmName').val(),
-                "rate": $('#rate').val(),
-                "content": myEditor.getData(),
-            },
-            success: function (response) {
-                if (response.success) {
-                    $('#result1').html(response.success);
-                    $('#create_post')[0].reset();
-                } else
-                    $('#result1').html(response.false)
-            },
-            error: function () {
-                alert("error in ajax form submission");
-            }
+        if(document.getElementById('title').validity.valid && document.getElementById('filmName').validity.valid && myEditor.getData()!== "" ) {
 
-        })
-        return false;
+            $.ajax({
+                url: "/create-post",
+                type: "POST",
+                data: {
+                    "title": $('#title').val(),
+                    "filmName": $('#filmName').val(),
+                    "rate": $('#rate').val(),
+                    "content": myEditor.getData(),
+                },
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.success);
+                        window.location.href = "/create-post"
+
+                    } else
+                       alert(response.false)
+                },
+                error: function () {
+                    alert("error in ajax form submission");
+                }
+
+            })
+            return false;
+        }
+        else
+            alert("Please input all field")
     });
-    // $('#create_post').submit(function (e) {
-    //     e.preventDefault();
-    //     let data = new FormData($(this)[0]);
-    //     console.log(data);
-    //     $.ajax({
-    //         url: "/create-post",
-    //         type: "POST",
-    //         data: data,
-    //         async: false,
-    //         cache: false,
-    //         contentType: false,
-    //         processData: false,
-    //         success: function (response) {
-    //             if (response.success) {
-    //                 $('#result1').html(response.success);
-    //                 $('#create_post')[0].reset();
-    //             } else
-    //                 $('#result1').html(response.false)
-    //         },
-    //         error: function () {
-    //             alert("error in ajax form submission");
-    //         }
-    //
-    //     })
-    //     return false;
-    // })
+
 
 </script>
-<%--<script type="text/javascript">--%>
-<%--    jQuery(document).ready(function($) {--%>
-<%--        $('.counter').counterUp({--%>
-<%--            delay: 100,--%>
-<%--            time: 1200--%>
-<%--        });--%>
 
-<%--        $(".knob").knob();--%>
-
-<%--    });--%>
-<%--</script>--%>
 
 
 </body>

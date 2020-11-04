@@ -72,12 +72,22 @@ public class GetActivity extends HttpServlet {
                 temp--;
             }
             for (Post item : posts) {
+                String status ="";
+                if(item.getCurrentStatus().equals("PENDING"))
+                    status +="                                            <td style=\"color: yellow\">" + item.getCurrentStatus() + "</td>\n";
+                else if(item.getCurrentStatus().equals("ACCEPTED"))
+                    status +="                                            <td style=\"color: green\">" + item.getCurrentStatus() + "</td>\n";
+                else
+                    status +="                                            <td style=\"color: red\">" + item.getCurrentStatus() + "</td>\n";
+
+
+
                 result += "<tr>\n" +
                         "                                            <td> <input name=\"select_all\" value=" + item.getId() + " type=\"checkbox\" onclick=\"check(event)\"></td>\n" +
                         "                                            <td scope=\"row\">" + item.getId() + "</td>\n" +
 
                         "                                            <td>" + item.getTitle() + "</td>\n" +
-                        "                                            <td>" + item.getCurrentStatus() + "</td>\n" +
+                        status +
                         "                                            <td><a href=\"/edit-post?postId=" + item.getId() + "\" class=\"on-default edit-row\"><i class=\"fa fa-pencil\"></i></a>\n" +
                         "                                            </td>\n" +
                         "                                        </tr>";
@@ -99,6 +109,7 @@ public class GetActivity extends HttpServlet {
                 temp--;
             }
             for (Vote item : votes) {
+
                 result += "<tr>\n" +
                         "                                            <td> <input name=\"select_all\" value=" + item.getId() + " type=\"checkbox\" onclick=\"check(event)\"></td>\n" +
                         "                                            <td scope=\"row\">" + item.getId() + "</td>\n" +

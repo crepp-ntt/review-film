@@ -216,7 +216,9 @@
 
     $('#submit').on('click', function (e) {
         e.preventDefault();
-        $.ajax({
+        if(document.getElementById('title').validity.valid && document.getElementById('filmName').validity.valid && myEditor.getData()!== "" ) {
+
+            $.ajax({
             url: "/edit-post",
             type: "POST",
             data: {
@@ -228,9 +230,9 @@
             },
             success: function (response) {
                 if (response.success) {
-                    $('#result1').html(response.success);
+                    alert(response.success);
                 } else
-                    $('#result1').html(response.false)
+                    alert(response.false)
             },
             error: function () {
                 alert("error in ajax form submission");
@@ -238,6 +240,9 @@
 
         })
         return false;
+        }
+        else
+            alert("Please input all field")
     });
 
 </script>
